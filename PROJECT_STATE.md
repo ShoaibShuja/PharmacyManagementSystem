@@ -2,23 +2,29 @@
 
 ## Current Phase
 
-Phase 2 — Authentication and role-based access.
+Phase 3: Medicine Catalog and Inventory MVP.
 
-Last updated: June 18, 2026.
+Last updated: June 19, 2026.
 
 ## Completed Features
 
 - Next.js 16 App Router, strict TypeScript, Tailwind CSS 4, and shadcn/ui foundation
 - Typed Supabase browser, server, and session proxy clients
 - TanStack Query provider and responsive application shell
-- Initial normalized database migration, seed data, Auth profile trigger, and RLS policies
-- Supabase email/password login and logout
-- Server-protected dashboard layout with active profile loading
-- Server-side role guards for restricted pages
-- Role-aware desktop and mobile navigation
-- Access-denied page for inactive, missing-profile, and unauthorized users
-- Admin settings page with profile and basic pharmacy settings
-- Auth loading, pending, and beginner-friendly error states
+- Normalized database migration, seed data, Auth profile trigger, and RLS policies
+- Email/password login, logout, protected routes, and role-aware navigation
+- Medicine catalog with responsive desktop table and mobile cards
+- Add and edit medicine forms using React Hook Form and Zod
+- Medicine deactivation and restoration with confirmation
+- Medicine category creation, display, search, and filtering
+- Stock quantity, reorder threshold, default price, and nearest expiry display
+- Low-stock, expiring-soon, and expired-stock indicators
+- Search by brand, generic name, category, and batch number
+- Filters for low stock, expiry alerts, category, and status
+- Medicine detail dialog with read-only batch inventory
+- TanStack Query fetching, cache invalidation, mutations, loading, error, and empty states
+- Toast feedback for medicine and category mutations
+- Cashier read-only medicine lookup; Admin and Pharmacist management controls
 
 ## Current Database Tables
 
@@ -34,14 +40,14 @@ Last updated: June 18, 2026.
 - `inventory_adjustments`
 - `app_settings`
 
-The `medicine_inventory_summary` view provides total stock, saleable stock, and nearest valid expiry per medicine.
+The `medicine_inventory_summary` view remains available. The catalog currently calculates batch-aware warning state in the client from RLS-protected medicine, category, batch, and settings queries.
 
 ## Current Routes and Pages
 
 - `/` redirects to `/dashboard`
 - `/login`
 - `/dashboard`
-- `/medicines`
+- `/medicines` provides the completed catalog and inventory lookup MVP
 - `/sales`
 - `/suppliers`
 - `/purchases`
@@ -54,15 +60,16 @@ The `medicine_inventory_summary` view provides total stock, saleable stock, and 
 - Role-aware sidebar, mobile navigation, and authenticated header
 - Login form and logout action
 - Auth server helpers and role guards
-- Query provider
-- Button, card, skeleton, and confirm dialog primitives
-- Page header, statistic card, empty state, loading state, error state, and placeholder page
+- Query provider and global toast provider
+- Medicine catalog, medicine form dialog, category dialog, and medicine detail dialog
+- shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
+- Shared page header, stat card, empty state, loading state, and error state
 
 ## Current Environment Variables
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY` — reserved for future server-only administration
+- `SUPABASE_SERVICE_ROLE_KEY` reserved for future server-only administration
 
 See `.env.example`. Never expose the service-role key in browser code.
 
@@ -70,42 +77,41 @@ See `.env.example`. Never expose the service-role key in browser code.
 
 - The initial migration is in `supabase/migrations/202606180001_initial_schema.sql`.
 - Local seed data is in `supabase/seed.sql`.
-- New Auth users receive an active Cashier profile by default.
-- Login and logout use Supabase Auth.
-- Every dashboard route requires a valid session and active profile.
-- Restricted pages validate roles on the server.
-- Navigation filtering is only a UI convenience; RLS remains the database enforcement layer.
-- User invitation and role-management UI are intentionally deferred.
+- Existing RLS already supports this phase:
+  - All active authenticated roles can read medicines, categories, batches, and settings.
+  - Only Admin and Pharmacist can create or update medicines and categories.
+  - Cashier mutation attempts remain blocked by RLS even if UI controls are bypassed.
+- No new SQL or RLS migration was required for Phase 3.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
 
-- `npm run lint` — passed on June 18, 2026
-- `npm run typecheck` — passed on June 18, 2026
-- `npm run build` — passed on June 18, 2026
-- Protected application routes are dynamically server-rendered as expected.
-- Live role testing still requires the migration and test users in a connected Supabase project.
+- `npm run lint`: passed June 19, 2026
+- `npm run typecheck`: passed June 19, 2026
+- `npm run build`: passed June 19, 2026
+- Live role and mutation testing still requires an applied migration and Admin, Pharmacist, and Cashier test users.
 
 ## Current Known Issues
 
-- Authentication requires valid Supabase credentials and the applied database migration.
-- Password recovery and Admin user invitation/role-management UI are not implemented.
-- Dashboard values and feature pages still use placeholder data.
-- Transactional sales, FEFO stock deduction, purchase receiving, and stock adjustment functions are deferred.
+- Supabase migration and role behavior are not confirmed against a live linked project.
+- New medicines have zero stock until batch receiving or stock adjustment workflows are implemented.
+- Inventory batches are read-only in the medicine catalog during this phase.
+- Password recovery and Admin user management are not implemented.
+- Sales, supplier, purchase, and report workflows remain placeholders.
+- Transactional FEFO sales, purchase receiving, and stock adjustments are deferred.
 - Database types must be regenerated after future schema changes.
-- `npm install` reports two moderate transitive dependency audit findings; do not apply a forced breaking downgrade.
+- Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
 
 ## Important Decisions
 
-- Authenticate and load profiles on the server before rendering protected pages.
-- Apply route-level server guards in addition to hiding navigation links.
-- Admin sees all navigation items.
-- Pharmacist sees Dashboard, Medicines, Sales, Suppliers, Purchases, and Reports.
-- Cashier sees Dashboard, Sales, and read-only-oriented Medicine lookup.
-- Settings is Admin-only.
-- RLS is the real authorization boundary.
-- Staff creation and role changes remain outside this phase until a safe Admin workflow is built.
+- Preserve batch-normalized inventory. Do not store editable stock directly on medicines.
+- Deactivate medicines instead of hard deleting them so historical references remain valid.
+- Use the application expiry alert setting for warning calculations.
+- Treat expired batch quantities as total stock but exclude them from saleable stock.
+- Keep batch inventory read-only until receiving and adjustment operations are transactional and auditable.
+- Use server route authentication, role-aware UI, and RLS as the authorization boundary.
+- Keep Cashier access read-only for medicine lookup.
 
 ## Next Recommended Prompt
 
-Apply and verify the Supabase migration with all three roles, then implement the medicine catalog with Cashier read-only lookup and Admin/Pharmacist management.
+Apply and verify the Supabase migration with Admin, Pharmacist, and Cashier users. Then build supplier CRUD and purchase-order receiving with transactional inventory batch creation and inventory adjustment records.
