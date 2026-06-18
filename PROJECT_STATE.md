@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 0 — Project foundation.
+Phase 1 — Supabase database foundation.
 
 Last updated: June 18, 2026.
 
@@ -17,10 +17,27 @@ Last updated: June 18, 2026.
 - Placeholder pages for authentication and core product areas
 - Shared page header, statistic card, empty, loading, error, and confirmation components
 - Environment variable example
+- Initial Supabase SQL migration with normalized pharmacy tables
+- Role helper functions and Auth profile trigger
+- Row Level Security policies for Admin, Pharmacist, and Cashier
+- Local development category seed data
+- Typed Supabase clients using checked-in database types
 
 ## Current Database Tables
 
-None. Database migrations begin in the authentication and authorization phase.
+- `profiles`
+- `medicine_categories`
+- `suppliers`
+- `medicines`
+- `inventory_batches`
+- `sales`
+- `sale_items`
+- `purchase_orders`
+- `purchase_order_items`
+- `inventory_adjustments`
+- `app_settings`
+
+The `medicine_inventory_summary` view provides total stock, saleable stock, and the nearest valid expiry date per medicine.
 
 ## Current Routes and Pages
 
@@ -56,17 +73,22 @@ See `.env.example`. Never expose the service-role key in browser code.
 
 ## Current Supabase Setup State
 
-- Client code structure is ready.
-- Session refresh proxy is ready.
-- No Supabase project, database schema, Auth configuration, migrations, or RLS policies have been connected yet.
-- Authentication and route protection are placeholders only.
+- Browser, server, and session proxy clients are typed with the database schema.
+- The initial migration is stored in `supabase/migrations/202606180001_initial_schema.sql`.
+- Local non-user seed data is stored in `supabase/seed.sql`.
+- New Auth users automatically receive a profile with the Cashier role.
+- RLS is enabled on every application table.
+- No public/anonymous table policies are present.
+- The migration has not yet been applied to a linked Supabase project.
+- Authentication UI and route protection remain placeholders.
 
 ## Latest Test and Build Status
 
 - `npm run lint` — passed on June 18, 2026
 - `npm run typecheck` — passed on June 18, 2026
 - `npm run build` — passed on June 18, 2026
-- All current routes were generated successfully by Next.js.
+- Static migration structure check — passed: 11 tables, 11 RLS-enabled tables, and 40 policies
+- Live SQL execution was not available because PostgreSQL, Docker, and the Supabase CLI are not installed locally.
 
 ## Current Known Issues
 
@@ -74,6 +96,9 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Protected routes do not yet require a session.
 - Navigation is not yet filtered by role.
 - Dashboard values and all feature pages use placeholder data.
+- The SQL migration still needs to be applied to a Supabase project.
+- Transactional sale completion, FEFO stock deduction, purchase receiving, and stock adjustment functions are deferred to their feature phases.
+- Checked-in database types must be regenerated after applying future schema changes.
 - `npm install` reports two moderate dependency audit findings; review without applying forced breaking upgrades.
 
 ## Important Decisions
@@ -82,8 +107,14 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Use Next.js `proxy.ts` for Supabase session refresh.
 - Use server and browser Supabase clients in separate modules.
 - Keep the initial shell simple and light with an emerald primary color.
-- Do not create database tables until the authentication/schema phase.
+- Store stock, batch number, purchase cost, selling price, and expiry per inventory batch.
+- Keep medicine-level prices as defaults for creating future batches.
+- Use a security-invoker inventory summary view instead of duplicating stock totals on medicines.
+- Default every newly created Auth user to Cashier; Admin promotion is an explicit setup action.
+- Cashiers can read medicine and batch availability and create their own draft sales, but cannot edit medicine master data.
+- Suppliers, purchases, stock corrections, and full sales access are restricted to Admin and Pharmacist.
+- Only Admin can manage profiles, roles, and application settings.
 
 ## Next Recommended Prompt
 
-Implement Phase 1: Supabase project schema for profiles and roles, email/password authentication, login/logout/password reset, protected routes, role-aware navigation, and initial RLS policies.
+Apply the migration to Supabase, then implement email/password authentication, protected routes, password recovery, Admin-controlled user management, and role-aware navigation.
