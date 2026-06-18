@@ -8,6 +8,7 @@ Use one of these supported methods:
 2. Open the Supabase SQL Editor and run migrations in filename order:
    - `migrations/202606180001_initial_schema.sql`
    - `migrations/202606190001_complete_sale_rpc.sql`
+   - `migrations/202606190002_purchase_order_workflow.sql`
 
 For local development seed data, run `seed.sql` after the migration.
 
@@ -41,3 +42,7 @@ Review the generated diff, then run `npm run typecheck`.
 - Complete sales only through `public.complete_sale`. It validates active staff,
   locks saleable batches, allocates stock by earliest expiry, writes sale records,
   decreases stock, and records inventory adjustments in one transaction.
+- Create, order, cancel, and receive purchase orders through the purchase workflow
+  functions. Delivery locks the order, rejects duplicate receiving, creates
+  inventory batches, updates received quantities and medicine defaults, and
+  records inventory adjustments in one transaction.

@@ -4,23 +4,25 @@
 
 This single-location pharmacy system manages medicines, stock, sales, suppliers, purchase orders, expiry warnings, low-stock warnings, and basic reports.
 
-Staff can now sign in, use the Medicine Catalog, monitor daily activity, process sales, and issue receipts. Other business workflows will be added in later phases.
+Staff can now sign in, manage medicines and suppliers, order and receive stock, monitor daily activity, process sales, and issue receipts.
 
 ## User Roles
 
 ### Admin
 
-Admin users can access all current pages and can add, edit, deactivate, and restore medicines and categories.
+Admin users can access all current pages and can manage medicines, categories, suppliers, purchase orders, and sales.
 
 ### Pharmacist
 
-Pharmacists can manage medicines and categories. They cannot access sensitive Admin settings or manage staff roles.
+Pharmacists can manage medicines, categories, suppliers, purchase orders, and sales. They cannot access sensitive Admin settings or manage staff roles.
 
 ### Cashier
 
 Cashiers can search medicines and view availability, prices, batches, and expiry dates. They cannot change medicine or category records.
 
 Cashiers can create sales and view their own completed sale history.
+
+Cashiers cannot open Supplier or Purchase Order management.
 
 ## Signing In and Out
 
@@ -98,7 +100,7 @@ Admin and Pharmacist users can:
 6. Enter the reorder threshold.
 7. Select **Add medicine**.
 
-A new medicine starts with zero stock. Stock is stored in delivery batches and will be added through purchase receiving or inventory adjustment workflows in a later phase.
+A new medicine starts with zero stock. Stock is added when a purchase order is confirmed as delivered.
 
 ## Editing a Medicine
 
@@ -227,16 +229,95 @@ Stock is stored in separate batches because each delivery can have a different b
 - **Expiring soon** uses the number of warning days saved in application settings.
 - **Expired stock** should not be sold.
 
-Batch editing and stock correction are not available yet. Do not change batch quantities directly in the database unless a qualified developer is correcting a confirmed setup problem.
+Batch editing and stock correction are not available yet. Purchase delivery is the supported way to add ordered stock. Do not change batch quantities directly in the database unless a qualified developer is correcting a confirmed setup problem.
 
-## Suppliers, Purchases, and Reports
+## Supplier Management
 
-These workflows remain planned:
+Admin and Pharmacist users can manage suppliers.
 
-- Supplier management
-- Purchase orders and receiving stock
-- Inventory corrections
-- Reports and exports
+### Adding a Supplier
+
+1. Open **Suppliers**.
+2. Select **Add supplier**.
+3. Enter the supplier name.
+4. Add the contact person, phone, email, address, and notes when available.
+5. Select **Add supplier**.
+
+### Editing or Deactivating a Supplier
+
+1. Find the supplier.
+2. Select the edit button.
+3. Change the details or set the status to **Inactive**.
+4. Select **Save changes**.
+
+Inactive suppliers stay in old purchase records but cannot be selected for new orders.
+
+### Supplier Search and History
+
+Use the search box to find a supplier by name, contact person, phone, or email.
+
+Select a supplier to see:
+
+- Contact details
+- Notes
+- Number of purchase orders
+- Delivered purchase value
+- Purchase-order history
+
+## Purchase Orders
+
+Admin and Pharmacist users can use purchase orders to restock inventory.
+
+### Creating a Purchase Order
+
+1. Open **Purchases**.
+2. Select **Create order**.
+3. Select an active supplier.
+4. Add an optional expected delivery date.
+5. Add one or more medicines.
+6. Enter the quantity, cost price, and intended selling price for each medicine.
+7. Add optional notes.
+8. Select **Create draft**.
+
+Each medicine can appear only once on the same order.
+
+### Sending an Order
+
+1. Open a Draft purchase order.
+2. Check the supplier, medicines, quantities, and prices.
+3. Select **Mark ordered**.
+4. Confirm the action.
+
+An Ordered purchase cannot be edited. It can be delivered or cancelled.
+
+### Confirming Delivery and Adding Stock
+
+1. Open an Ordered purchase.
+2. Select **Confirm delivery**.
+3. Enter the physical batch number printed on every medicine.
+4. Enter the expiry date for every batch.
+5. Check all details carefully.
+6. Select **Add stock and deliver**.
+
+The system then:
+
+- Creates a separate inventory batch for every order item
+- Adds the full ordered quantity to available stock
+- Saves the supplier, cost price, selling price, batch number, and expiry date
+- Updates the received quantity and delivery time
+- Updates the medicine default supplier and latest default prices
+- Creates an inventory adjustment record
+- Marks the order as **Delivered**
+
+The database performs all delivery steps together. If one item fails, no stock is added. A Delivered order cannot be delivered again.
+
+### Cancelling an Order
+
+Draft and Ordered purchases can be cancelled. Delivered purchases cannot be cancelled.
+
+## Reports
+
+Reports and exports remain planned for a later phase.
 
 ## Connecting Supabase
 
@@ -244,6 +325,7 @@ These workflows remain planned:
 2. Run the following migrations in filename order:
    - `supabase/migrations/202606180001_initial_schema.sql`
    - `supabase/migrations/202606190001_complete_sale_rpc.sql`
+   - `supabase/migrations/202606190002_purchase_order_workflow.sql`
 3. Optionally run `supabase/seed.sql`.
 4. Copy `.env.example` to `.env.local`.
 5. Add the Supabase project URL and anonymous key.
@@ -287,7 +369,15 @@ Cashiers have read-only access. Sign in as an Admin or Pharmacist.
 
 ### A new medicine shows zero stock
 
-This is expected. Medicine details and inventory batches are separate. Purchase receiving and stock adjustment tools are planned for a later phase.
+This is expected. Create a purchase order, mark it Ordered, and confirm delivery with batch and expiry details.
+
+### A purchase order cannot be delivered
+
+Confirm the order is currently **Ordered**, not Draft, Cancelled, or already Delivered. Confirm every item has a unique batch number and an expiry date that is not in the past.
+
+### A supplier is missing from a new purchase order
+
+Open Suppliers and confirm the supplier status is **Active**.
 
 ### A medicine is missing
 
@@ -350,3 +440,12 @@ Cashiers see only sales completed by their own account.
 - Added completed sale history and sale detail views.
 - Added printable and PDF receipts.
 - Added Admin, Pharmacist, and Cashier sale support.
+
+### Phase 6: Supplier Management and Purchase Orders
+
+- Added supplier creation, editing, search, contact details, notes, status, and purchase history.
+- Added purchase-order drafts with multiple medicine items, quantities, and prices.
+- Added Draft, Ordered, Delivered, and Cancelled workflow states.
+- Added protected delivery confirmation with batch number and expiry entry.
+- Added atomic inventory batch creation, stock increases, price updates, and adjustment records.
+- Kept Cashiers excluded from supplier and purchase management.

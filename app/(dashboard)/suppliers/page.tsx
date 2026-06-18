@@ -1,8 +1,8 @@
-import { PlaceholderPage } from "@/components/shared/placeholder-page";
+import { SupplierManagement } from "@/components/suppliers/supplier-management";
 import { requireRole } from "@/lib/auth/server";
 
 export default async function SuppliersPage() {
   await requireRole(["admin", "pharmacist"]);
 
-  return <PlaceholderPage title="Suppliers" description="Manage medicine supplier information." />;
+  return <SupplierManagement />;
 }
