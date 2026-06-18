@@ -1,13 +1,20 @@
 import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/app-header";
 import { Sidebar } from "@/components/layout/sidebar";
+import { requireAuth } from "@/lib/auth/server";
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const { profile, email } = await requireAuth();
+
   return (
     <div className="min-h-screen">
-      <Sidebar />
+      <Sidebar role={profile.role} />
       <div className="lg:pl-64">
-        <AppHeader />
+        <AppHeader profile={profile} email={email} />
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>

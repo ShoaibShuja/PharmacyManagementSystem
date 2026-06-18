@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Pill } from "lucide-react";
-import { navigationItems } from "@/components/layout/navigation";
+import { getNavigationItems } from "@/components/layout/navigation";
+import type { AppRole } from "@/lib/auth/types";
 import { cn } from "@/lib/utils";
 
-export function Sidebar() {
+export function Sidebar({ role }: { role: AppRole }) {
   const pathname = usePathname();
+  const navigationItems = getNavigationItems(role);
 
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-64 border-r bg-card lg:block">

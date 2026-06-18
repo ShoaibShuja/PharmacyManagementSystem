@@ -4,13 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Pill, X } from "lucide-react";
 import { useState } from "react";
-import { navigationItems } from "@/components/layout/navigation";
+import { getNavigationItems } from "@/components/layout/navigation";
 import { Button } from "@/components/ui/button";
+import type { AppRole } from "@/lib/auth/types";
 import { cn } from "@/lib/utils";
 
-export function MobileNavigation() {
+export function MobileNavigation({ role }: { role: AppRole }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const navigationItems = getNavigationItems(role);
 
   return (
     <>

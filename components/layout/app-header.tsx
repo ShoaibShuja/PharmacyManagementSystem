@@ -1,20 +1,50 @@
-import { CircleUserRound } from "lucide-react";
+import { CircleUserRound, LogOut } from "lucide-react";
+import { logoutAction } from "@/app/(auth)/actions";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
 import { Button } from "@/components/ui/button";
+import type { UserProfile } from "@/lib/auth/types";
 
-export function AppHeader() {
+function formatRole(role: UserProfile["role"]) {
+  return role.charAt(0).toUpperCase() + role.slice(1);
+}
+
+export function AppHeader({
+  profile,
+  email,
+}: {
+  profile: UserProfile;
+  email: string;
+}) {
+  const displayName = profile.full_name.trim() || email;
+
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6">
       <div className="flex items-center gap-2">
-        <MobileNavigation />
+        <MobileNavigation role={profile.role} />
         <p className="text-sm text-muted-foreground">
           Single-branch pharmacy workspace
         </p>
       </div>
-      <Button variant="ghost" className="gap-2" aria-label="Open user menu">
-        <CircleUserRound className="size-5" />
-        <span className="hidden sm:inline">Admin</span>
-      </Button>
+      <div className="flex items-center gap-2">
+        <div className="hidden text-right sm:block">
+          <p className="max-w-48 truncate text-sm font-medium">{displayName}</p>
+          <p className="text-xs text-muted-foreground">
+            {formatRole(profile.role)}
+          </p>
+        </div>
+        <CircleUserRound className="size-6 text-muted-foreground" />
+        <form action={logoutAction}>
+          <Button
+            type="submit"
+            size="icon"
+            variant="ghost"
+            aria-label="Sign out"
+            title="Sign out"
+          >
+            <LogOut className="size-4" />
+          </Button>
+        </form>
+      </div>
     </header>
   );
 }
