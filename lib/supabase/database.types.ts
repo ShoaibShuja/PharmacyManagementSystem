@@ -469,6 +469,29 @@ export type Database = {
         };
         Returns: Json;
       };
+      create_purchase_order: {
+        Args: {
+          requested_supplier_id: string;
+          requested_expected_date: string | null;
+          requested_notes: string;
+          requested_items: Json;
+        };
+        Returns: string;
+      };
+      set_purchase_order_status: {
+        Args: {
+          requested_order_id: string;
+          requested_status: Database["public"]["Enums"]["purchase_order_status"];
+        };
+        Returns: undefined;
+      };
+      receive_purchase_order: {
+        Args: {
+          requested_order_id: string;
+          requested_deliveries: Json;
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
       app_role: "admin" | "pharmacist" | "cashier";
