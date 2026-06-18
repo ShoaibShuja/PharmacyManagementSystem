@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 4: MVP Dashboard and Alert System.
+Phase 5: Sales and POS MVP.
 
 Last updated: June 19, 2026.
 
@@ -34,6 +34,16 @@ Last updated: June 19, 2026.
 - Low-stock table derived from saleable non-expired batch quantities
 - Batch-level expiry warning table with 30, 60, and 90-day windows
 - Dashboard loading, error, and new-pharmacy empty states
+- Fast medicine search by brand, generic name, barcode, and SKU in the POS
+- Sale cart with add, remove, increment, decrement, and direct quantity entry
+- Client stock limits and database-authoritative stock validation
+- FEFO batch allocation using earliest non-expired inventory first
+- Atomic PostgreSQL sale completion, sale item creation, stock deduction, and inventory adjustment logging
+- Subtotal, sale-level discount, total, and Cash/Card/Other payment methods
+- Completed sale receipt view with batch-level line items
+- Printable receipt and downloadable PDF receipt using jsPDF
+- RLS-aware sales history and sale detail receipt view
+- Admin, Pharmacist, and Cashier sale creation support
 
 ## Current Database Tables
 
@@ -57,7 +67,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - `/login`
 - `/dashboard` provides the completed MVP operations dashboard
 - `/medicines` provides the completed catalog and inventory lookup MVP
-- `/sales`
+- `/sales` provides the completed POS, checkout, receipt, and sales history MVP
 - `/suppliers`
 - `/purchases`
 - `/reports`
@@ -72,6 +82,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Query provider and global toast provider
 - Medicine catalog, medicine form dialog, category dialog, and medicine detail dialog
 - Dashboard view, sales trend chart, metric cards, alert area, recent sales, low-stock list, and expiry warning list
+- POS medicine grid, cart, checkout summary, sales history, receipt dialog, print view, and PDF receipt
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -86,14 +97,20 @@ See `.env.example`. Never expose the service-role key in browser code.
 ## Current Supabase Setup State
 
 - The initial migration is in `supabase/migrations/202606180001_initial_schema.sql`.
+- The transactional sale migration is in `supabase/migrations/202606190001_complete_sale_rpc.sql`.
 - Local seed data is in `supabase/seed.sql`.
-- Existing RLS already supports this phase:
+- RLS and the transactional function support this phase:
   - All active authenticated roles can read medicines, categories, batches, and settings.
   - Only Admin and Pharmacist can create or update medicines and categories.
   - Cashier mutation attempts remain blocked by RLS even if UI controls are bypassed.
   - Admin and Pharmacist dashboard sales queries can read all sales.
   - Cashier dashboard sales queries return only that Cashier's sales.
-- No new SQL or RLS migration was required for Phase 4.
+  - Admin and Pharmacist can read all sales history.
+  - Cashiers can read only their own sales and sale items.
+  - `public.complete_sale` accepts active Admin, Pharmacist, and Cashier users.
+  - Direct browser batch updates remain blocked for Cashiers.
+  - The security-definer function performs validated sale writes and stock changes atomically.
+- Apply both migrations in filename order.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
@@ -109,10 +126,11 @@ See `.env.example`. Never expose the service-role key in browser code.
 - New medicines have zero stock until batch receiving or stock adjustment workflows are implemented.
 - Inventory batches are read-only in the medicine catalog during this phase.
 - Password recovery and Admin user management are not implemented.
-- Sales, supplier, purchase, and report workflows remain placeholders.
-- Dashboard sales data remains empty until the sales workflow creates completed sales.
+- Supplier, purchase, and report workflows remain placeholders.
 - Dashboard expiry windows are view filters and do not change the persistent application setting.
-- Transactional FEFO sales, purchase receiving, and stock adjustments are deferred.
+- Transactional purchase receiving and manual stock adjustments are deferred.
+- Live stock-decrease verification requires the migration, valid Supabase credentials, test users, and stocked non-expired batches.
+- Receipt PDFs use a compact fixed receipt page and may continue onto the printable receipt more cleanly for unusually large carts.
 - Database types must be regenerated after future schema changes.
 - Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
 
@@ -130,7 +148,13 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Use completed sales only for dashboard totals, trends, and recent sales.
 - Keep the chart to a simple seven-day trend and avoid advanced forecasting.
 - Keep Cashier dashboard sales-focused and hide management alert tables.
+- Complete sales only through the transactional `complete_sale` database function.
+- Lock batches during checkout and allocate sale quantities by expiry date, received date, and batch ID.
+- Store one sale item per allocated inventory batch so cost, price, and traceability remain accurate.
+- Recalculate subtotal and validate discount inside PostgreSQL instead of trusting client totals.
+- Record every stock deduction in `inventory_adjustments`.
+- Keep receipts anonymous and do not create patient or customer records.
 
 ## Next Recommended Prompt
 
-Apply and verify the Supabase migration and dashboard with Admin, Pharmacist, and Cashier users. Then build supplier CRUD and purchase-order receiving with transactional inventory batch creation and inventory adjustment records.
+Apply both migrations and verify POS stock deduction with Admin, Pharmacist, and Cashier users. Then build supplier CRUD and purchase-order receiving with transactional inventory batch creation and inventory adjustment records.
