@@ -4,7 +4,7 @@
 
 This single-location pharmacy system manages medicines, stock, sales, suppliers, purchase orders, expiry warnings, low-stock warnings, and basic reports.
 
-Staff can now sign in and use the Medicine Catalog. Other business workflows will be added in later phases.
+Staff can now sign in, use the Medicine Catalog, and monitor daily activity from the Dashboard. Other business workflows will be added in later phases.
 
 ## User Roles
 
@@ -28,6 +28,43 @@ Cashiers can search medicines and view availability, prices, batches, and expiry
 4. To sign out, use the sign-out button in the top-right corner.
 
 Always sign out on a shared pharmacy computer.
+
+## Dashboard
+
+The Dashboard is the first page after signing in.
+
+Admin and Pharmacist users can see:
+
+- Today's completed sales total
+- Today's completed transaction count
+- Number of active medicines
+- Number of low-stock medicines
+- Number of batches with expiry warnings
+- Seven-day sales trend
+- Recent completed sales
+- Low-stock medicine list
+- Batch expiry warning list
+- A notification area summarizing current inventory alerts
+
+Cashiers see a simpler dashboard focused on their own sales, recent transactions, the active medicine count, and a shortcut to medicine lookup.
+
+### Changing the Expiry Warning Window
+
+On the expiry warning card, select:
+
+- **30 days**
+- **60 days**
+- **90 days**
+
+This changes the current dashboard view only. It does not change the permanent expiry setting.
+
+### Understanding Dashboard Alerts
+
+- **Low stock:** Saleable stock is at or below the medicine reorder threshold.
+- **Expiry warning:** A stocked batch is already expired or expires inside the selected window.
+- **Today's sales:** Includes completed sales only. Draft or voided sales are not counted.
+
+If the pharmacy has no medicines, batches, or completed sales, the Dashboard shows clear empty messages instead of sample data.
 
 ## Medicine Catalog
 
@@ -221,3 +258,13 @@ Confirm the staff profile has the correct active role. Do not disable Row Level 
 - Added low-stock and expiry warnings.
 - Added search, filters, responsive layouts, details, validation, confirmations, and feedback.
 - Added read-only medicine lookup for Cashiers.
+
+### Phase 4: MVP Dashboard and Alert System
+
+- Added daily sales, medicine, low-stock, and expiry summary cards.
+- Added a seven-day sales trend and recent sales list.
+- Added low-stock and batch expiry warning tables.
+- Added 30, 60, and 90-day expiry views.
+- Added in-app inventory alert summaries.
+- Added a simplified sales-focused Cashier dashboard.
+- Added clear empty, loading, and error states.

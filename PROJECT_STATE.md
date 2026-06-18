@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 3: Medicine Catalog and Inventory MVP.
+Phase 4: MVP Dashboard and Alert System.
 
 Last updated: June 19, 2026.
 
@@ -25,6 +25,15 @@ Last updated: June 19, 2026.
 - TanStack Query fetching, cache invalidation, mutations, loading, error, and empty states
 - Toast feedback for medicine and category mutations
 - Cashier read-only medicine lookup; Admin and Pharmacist management controls
+- Role-aware dashboard for Admin, Pharmacist, and Cashier
+- Daily completed-sales total and transaction count
+- Active medicine, low-stock, and expiry-warning summary cards
+- Seven-day completed-sales trend chart using Recharts
+- Recent completed sales list with RLS-aware visibility
+- In-app inventory notification area for low-stock and expiry warnings
+- Low-stock table derived from saleable non-expired batch quantities
+- Batch-level expiry warning table with 30, 60, and 90-day windows
+- Dashboard loading, error, and new-pharmacy empty states
 
 ## Current Database Tables
 
@@ -46,7 +55,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 
 - `/` redirects to `/dashboard`
 - `/login`
-- `/dashboard`
+- `/dashboard` provides the completed MVP operations dashboard
 - `/medicines` provides the completed catalog and inventory lookup MVP
 - `/sales`
 - `/suppliers`
@@ -62,6 +71,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Auth server helpers and role guards
 - Query provider and global toast provider
 - Medicine catalog, medicine form dialog, category dialog, and medicine detail dialog
+- Dashboard view, sales trend chart, metric cards, alert area, recent sales, low-stock list, and expiry warning list
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -81,7 +91,9 @@ See `.env.example`. Never expose the service-role key in browser code.
   - All active authenticated roles can read medicines, categories, batches, and settings.
   - Only Admin and Pharmacist can create or update medicines and categories.
   - Cashier mutation attempts remain blocked by RLS even if UI controls are bypassed.
-- No new SQL or RLS migration was required for Phase 3.
+  - Admin and Pharmacist dashboard sales queries can read all sales.
+  - Cashier dashboard sales queries return only that Cashier's sales.
+- No new SQL or RLS migration was required for Phase 4.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
@@ -98,6 +110,8 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Inventory batches are read-only in the medicine catalog during this phase.
 - Password recovery and Admin user management are not implemented.
 - Sales, supplier, purchase, and report workflows remain placeholders.
+- Dashboard sales data remains empty until the sales workflow creates completed sales.
+- Dashboard expiry windows are view filters and do not change the persistent application setting.
 - Transactional FEFO sales, purchase receiving, and stock adjustments are deferred.
 - Database types must be regenerated after future schema changes.
 - Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
@@ -111,7 +125,12 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Keep batch inventory read-only until receiving and adjustment operations are transactional and auditable.
 - Use server route authentication, role-aware UI, and RLS as the authorization boundary.
 - Keep Cashier access read-only for medicine lookup.
+- Derive dashboard inventory warnings from active medicines and current batch quantities.
+- Exclude expired batch quantities from saleable stock.
+- Use completed sales only for dashboard totals, trends, and recent sales.
+- Keep the chart to a simple seven-day trend and avoid advanced forecasting.
+- Keep Cashier dashboard sales-focused and hide management alert tables.
 
 ## Next Recommended Prompt
 
-Apply and verify the Supabase migration with Admin, Pharmacist, and Cashier users. Then build supplier CRUD and purchase-order receiving with transactional inventory batch creation and inventory adjustment records.
+Apply and verify the Supabase migration and dashboard with Admin, Pharmacist, and Cashier users. Then build supplier CRUD and purchase-order receiving with transactional inventory batch creation and inventory adjustment records.
