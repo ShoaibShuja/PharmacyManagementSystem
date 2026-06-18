@@ -460,7 +460,16 @@ export type Database = {
         Relationships: [];
       };
     };
-    Functions: Record<string, never>;
+    Functions: {
+      complete_sale: {
+        Args: {
+          requested_items: Json;
+          requested_discount?: number;
+          requested_payment_method?: Database["public"]["Enums"]["payment_method"];
+        };
+        Returns: Json;
+      };
+    };
     Enums: {
       app_role: "admin" | "pharmacist" | "cashier";
       record_status: "active" | "inactive";

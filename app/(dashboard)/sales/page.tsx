@@ -1,5 +1,13 @@
-import { PlaceholderPage } from "@/components/shared/placeholder-page";
+import type { Metadata } from "next";
+import { PosPage } from "@/components/sales/pos-page";
+import { requireRole } from "@/lib/auth/server";
 
-export default function SalesPage() {
-  return <PlaceholderPage title="Sales" description="Process and review pharmacy sales." />;
+export const metadata: Metadata = {
+  title: "Sales & POS",
+};
+
+export default async function SalesPage() {
+  await requireRole(["admin", "pharmacist", "cashier"]);
+
+  return <PosPage />;
 }

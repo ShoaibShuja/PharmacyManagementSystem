@@ -4,7 +4,7 @@
 
 This single-location pharmacy system manages medicines, stock, sales, suppliers, purchase orders, expiry warnings, low-stock warnings, and basic reports.
 
-Staff can now sign in, use the Medicine Catalog, and monitor daily activity from the Dashboard. Other business workflows will be added in later phases.
+Staff can now sign in, use the Medicine Catalog, monitor daily activity, process sales, and issue receipts. Other business workflows will be added in later phases.
 
 ## User Roles
 
@@ -19,6 +19,8 @@ Pharmacists can manage medicines and categories. They cannot access sensitive Ad
 ### Cashier
 
 Cashiers can search medicines and view availability, prices, batches, and expiry dates. They cannot change medicine or category records.
+
+Cashiers can create sales and view their own completed sale history.
 
 ## Signing In and Out
 
@@ -157,6 +159,64 @@ The detail window shows:
 
 Cashiers can use this view for read-only availability checks.
 
+## Processing a Sale
+
+Admin, Pharmacist, and Cashier users can process sales.
+
+1. Open **Sales**.
+2. Select **New sale**.
+3. Search by medicine name, generic name, barcode, or SKU.
+4. Select a medicine to add one unit to the cart.
+5. Use the plus and minus buttons or quantity field to adjust the quantity.
+6. Enter an optional discount.
+7. Select **Cash**, **Card**, or **Other**.
+8. Review the subtotal and total.
+9. Select **Complete sale**.
+
+The system prevents a cart quantity above the currently available, non-expired stock. The database checks stock again when the sale is completed.
+
+### How Stock Is Deducted
+
+The system uses the batch with the earliest expiry date first. If one batch does not have enough stock, the remaining quantity is taken from the next valid batch.
+
+Sale completion is one protected database transaction. It:
+
+- Checks the signed-in staff account
+- Locks the required batches
+- Checks stock again
+- Creates the completed sale
+- Creates batch-level sale items
+- Decreases batch quantities
+- Records inventory adjustment entries
+
+If any step fails, none of the sale or stock changes are saved.
+
+### Discounts
+
+The discount is a simple amount applied to the whole sale. It cannot be negative or greater than the subtotal.
+
+### Receipts
+
+After completing a sale, the receipt opens automatically.
+
+You can:
+
+- Select **Print** for a browser print view
+- Select **Download PDF** for a digital receipt
+- Close the receipt and continue with another sale
+
+The receipt contains the pharmacy details, receipt number, date, payment method, medicine lines, allocated batch numbers, subtotal, discount, and total.
+
+## Sales History
+
+1. Open **Sales**.
+2. Select **History**.
+3. Select **View** beside a sale.
+
+Admin and Pharmacist users can see all permitted completed sales. Cashiers see only their own completed sales.
+
+The history currently shows the latest 50 completed sales.
+
 ## How Stock and Expiry Work
 
 Stock is stored in separate batches because each delivery can have a different batch number, cost, selling price, and expiry date.
@@ -169,20 +229,21 @@ Stock is stored in separate batches because each delivery can have a different b
 
 Batch editing and stock correction are not available yet. Do not change batch quantities directly in the database unless a qualified developer is correcting a confirmed setup problem.
 
-## Suppliers, Purchases, Sales, and Reports
+## Suppliers, Purchases, and Reports
 
 These workflows remain planned:
 
 - Supplier management
 - Purchase orders and receiving stock
 - Inventory corrections
-- Sales and receipt processing
 - Reports and exports
 
 ## Connecting Supabase
 
 1. Create a Supabase project.
-2. Run `supabase/migrations/202606180001_initial_schema.sql` in the SQL Editor.
+2. Run the following migrations in filename order:
+   - `supabase/migrations/202606180001_initial_schema.sql`
+   - `supabase/migrations/202606190001_complete_sale_rpc.sql`
 3. Optionally run `supabase/seed.sql`.
 4. Copy `.env.example` to `.env.local`.
 5. Add the Supabase project URL and anonymous key.
@@ -236,6 +297,18 @@ Clear the search and filters. Check the **Inactive** status filter if the medici
 
 Confirm the staff profile has the correct active role. Do not disable Row Level Security.
 
+### Sale says there is insufficient stock
+
+Another sale may have used the stock after it was added to the cart. Reload the POS and use the current available quantity.
+
+### Print receipt does not open
+
+Allow pop-ups for the pharmacy website, then select **Print** again.
+
+### Sale history is empty for a Cashier
+
+Cashiers see only sales completed by their own account.
+
 ## Change History
 
 ### Phase 0: Foundation
@@ -268,3 +341,12 @@ Confirm the staff profile has the correct active role. Do not disable Row Level 
 - Added in-app inventory alert summaries.
 - Added a simplified sales-focused Cashier dashboard.
 - Added clear empty, loading, and error states.
+
+### Phase 5: Sales and POS MVP
+
+- Added medicine search and a fast sale cart.
+- Added stock-aware quantity controls, discounts, totals, and payment methods.
+- Added atomic FEFO stock deduction and inventory adjustment records.
+- Added completed sale history and sale detail views.
+- Added printable and PDF receipts.
+- Added Admin, Pharmacist, and Cashier sale support.

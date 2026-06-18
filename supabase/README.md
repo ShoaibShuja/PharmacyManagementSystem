@@ -5,7 +5,9 @@
 Use one of these supported methods:
 
 1. Install the Supabase CLI, link the project, and run `supabase db push`.
-2. Open the Supabase SQL Editor and run the migration in `migrations/202606180001_initial_schema.sql`.
+2. Open the Supabase SQL Editor and run migrations in filename order:
+   - `migrations/202606180001_initial_schema.sql`
+   - `migrations/202606190001_complete_sale_rpc.sql`
 
 For local development seed data, run `seed.sql` after the migration.
 
@@ -36,4 +38,6 @@ Review the generated diff, then run `npm run typecheck`.
 - Do not put the service-role key in browser code.
 - Do not enable public table policies.
 - Use the authenticated user session and RLS for application access.
-- Sales completion and stock deduction will be moved into a transactional database function during the POS phase.
+- Complete sales only through `public.complete_sale`. It validates active staff,
+  locks saleable batches, allocates stock by earliest expiry, writes sale records,
+  decreases stock, and records inventory adjustments in one transaction.
