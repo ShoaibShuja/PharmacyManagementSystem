@@ -2,136 +2,127 @@
 
 ## Project Overview
 
-This system is being built for one pharmacy location. It will help pharmacy staff manage medicines, stock, sales, suppliers, purchase orders, expiry dates, low-stock warnings, and basic reports.
+This single-location pharmacy system will manage medicines, stock, sales, suppliers, purchase orders, expiry warnings, low-stock warnings, and basic reports.
 
-The project now has its database design and security rules. The database must still be connected to a Supabase project before the screens can use real pharmacy data.
-
-## What Is Available Now
-
-- A clean dashboard layout
-- A desktop sidebar and mobile menu
-- Pages for medicines, sales, suppliers, purchases, reports, and settings
-- A login screen design
-- Empty, loading, and error messages that will help users understand what is happening
-- Database tables for medicines, stock batches, sales, suppliers, purchases, settings, and staff roles
-- Security rules that limit what each staff role can read or change
-
-These pages are placeholders. They do not save real data yet.
-
-## How Stock Is Stored
-
-Each medicine has a main catalog record. Actual stock is stored in batches because different deliveries can have different batch numbers, costs, selling prices, and expiry dates.
-
-The system can calculate:
-
-- Total stock for a medicine
-- Stock that is not expired and can be sold
-- The nearest expiry date
-
-This avoids mixing new stock with old or expired stock.
+The database, staff roles, sign-in, sign-out, and page access rules are prepared. Pharmacy feature pages remain placeholders until later phases.
 
 ## User Roles
 
 ### Admin
 
-The Admin has full database access through the application. They can manage staff roles, medicines, stock, suppliers, purchases, sales, reports, and settings.
+Admin users can access Dashboard, Medicines, Sales, Suppliers, Purchases, Reports, and Settings.
 
 ### Pharmacist
 
-The Pharmacist can manage medicines, stock, sales, suppliers, and purchase orders. They cannot change staff roles or sensitive application settings.
+Pharmacists can access Dashboard, Medicines, Sales, Suppliers, Purchases, and Reports. They cannot access sensitive Settings or manage staff roles.
 
 ### Cashier
 
-The Cashier can check medicine and batch availability and create their own draft sales. They cannot change medicines, stock, suppliers, purchases, users, or settings.
+Cashiers can access Dashboard, Sales, and Medicine lookup. They cannot edit medicine records, stock, suppliers, purchases, users, or settings.
 
-## Connecting the Database
+## Signing In
+
+1. Open the application.
+2. Enter the email address created for your staff account.
+3. Enter your password.
+4. Select **Sign in**.
+
+The application checks the account and staff profile before opening the dashboard. Incorrect details show a simple error message.
+
+## Signing Out
+
+Select the sign-out icon in the top-right corner. The application closes the session and returns to the login page.
+
+Always sign out on a shared pharmacy computer.
+
+## Access Messages
+
+- **Inactive account:** Ask the pharmacy Admin to restore access.
+- **Missing profile:** Confirm the database migration was applied and the user has a `profiles` record.
+- **Role restriction:** Return to the dashboard and use the menu pages available for that role.
+
+Do not disable Row Level Security to bypass access errors.
+
+## How Stock Is Stored
+
+The medicine catalog stores the medicine identity and default prices. Actual stock is stored in separate batches because deliveries can have different batch numbers, costs, selling prices, and expiry dates.
+
+The system can calculate total stock, saleable non-expired stock, and the nearest valid expiry date.
+
+## Connecting Supabase
 
 1. Create a Supabase project.
-2. Open the Supabase SQL Editor.
-3. Open `supabase/migrations/202606180001_initial_schema.sql` from this project.
-4. Copy the full SQL file into the SQL Editor and run it once.
-5. Optionally run `supabase/seed.sql` to add example medicine categories.
-6. Add the Supabase project URL and anonymous key to `.env.local`.
-7. Create the pharmacy owner in Supabase Authentication.
-8. Run the Admin update shown in `supabase/README.md`.
+2. Run `supabase/migrations/202606180001_initial_schema.sql` in the Supabase SQL Editor.
+3. Optionally run `supabase/seed.sql`.
+4. Copy `.env.example` to `.env.local`.
+5. Add the Supabase project URL and anonymous key.
+6. Create the pharmacy owner in Supabase Authentication.
+7. Promote the owner to Admin using the SQL in `supabase/README.md`.
+8. Keep public sign-up disabled in Supabase Authentication settings.
 
-Do not place the service-role key in any browser file.
+Never place the service-role key in browser code.
 
 ## Planned User Manual
 
-The following instructions will be added as each feature is completed:
+Instructions will be added as features are completed:
 
-- How to sign in safely
-- How to add and edit medicines
-- How to receive and adjust stock
-- How to process a sale and print a receipt
-- How to manage suppliers
-- How to create and receive purchase orders
-- How to check low-stock warnings
-- How to check expiry warnings
-- How to export reports
-- How to change simple pharmacy settings
+- Adding and editing medicines
+- Receiving and correcting stock
+- Processing sales and printing receipts
+- Managing suppliers
+- Creating and receiving purchase orders
+- Checking low-stock and expiry warnings
+- Exporting reports
+- Changing pharmacy settings
 
 ## Running the Project
 
 1. Install Node.js 20 or newer.
-2. Open a terminal in the project folder.
-3. Run `npm install`.
-4. Copy `.env.example` to `.env.local`.
-5. Add the Supabase project URL and public anonymous key when a Supabase project is created.
-6. Run `npm run dev`.
-7. Open `http://localhost:3000`.
+2. Run `npm install`.
+3. Configure `.env.local`.
+4. Run `npm run dev`.
+5. Open `http://localhost:3000`.
 
-## Deployment
-
-Deployment is planned for Vercel. Before deployment, the Supabase project must be connected and the same environment variables must be added in Vercel.
-
-Detailed deployment and redeployment instructions will be added before the production release.
-
-## Project Maintenance
+## Maintenance
 
 - Keep `.env.local` private.
-- Never place the Supabase service-role key in browser code.
 - Run `npm run lint`, `npm run typecheck`, and `npm run build` after changes.
-- Back up the Supabase database before major production changes.
+- Back up Supabase before major production changes.
+- Regenerate database types after schema changes.
 
 ## Common Problems
 
-### The application says Supabase variables are missing
+### Login returns to the login page
 
-Copy `.env.example` to `.env.local` and enter the correct Supabase project URL and anonymous key.
+Confirm the Supabase URL and anonymous key are correct. Confirm the user exists in Supabase Authentication and has an active `profiles` row.
+
+### Permission denied
+
+Confirm the signed-in user has the correct active role. Do not create public policies.
 
 ### A feature page is empty
 
-This is expected during the foundation stage. Business features will be added one phase at a time.
+The business feature is still planned. Authentication and access control are complete, but medicine, stock, sales, and purchase workflows are not.
 
-### A new staff user is shown as Cashier
+## Deployment
 
-This is expected. New users receive the safest role automatically. An Admin must promote a user to Pharmacist or Admin.
-
-### The database says permission denied
-
-Check that the user is signed in, has an active profile, and has the correct role. Do not disable Row Level Security to bypass the problem.
-
-### The application does not start
-
-Run `npm install`, then run `npm run dev` again. Check that a supported Node.js version is installed.
+Deployment is planned for Vercel. Add the same Supabase public environment variables in Vercel before deploying. Detailed deployment instructions will be added during production hardening.
 
 ## Change History
 
 ### Phase 0 — Foundation
 
-- Created the application layout and mobile navigation.
-- Added all main placeholder pages.
-- Prepared Supabase connection files.
-- Added shared loading, error, empty, confirmation, page heading, and statistic components.
-- Prepared the project for future authentication and pharmacy features.
+- Created the application shell, responsive navigation, placeholder pages, and reusable UI states.
 
 ### Phase 1 — Database Foundation
 
-- Added staff profiles and Admin, Pharmacist, and Cashier roles.
-- Added medicine categories, medicines, suppliers, stock batches, sales, purchase orders, stock adjustments, and pharmacy settings.
-- Added database checks to prevent invalid quantities and negative money values.
-- Added security rules for each staff role.
-- Added automatic Cashier profiles for new Supabase Auth users.
-- Added safe example medicine categories for local development.
+- Added pharmacy tables, staff roles, constraints, indexes, profile automation, and role-based RLS.
+
+### Phase 2 — Authentication and Access
+
+- Connected email/password login and secure sign-out.
+- Protected application pages from signed-out users.
+- Loaded the current staff profile and role on the server.
+- Added role-specific menus and server route guards.
+- Added Admin profile and pharmacy settings display.
+- Added clear loading, sign-in error, inactive-account, and access-denied messages.

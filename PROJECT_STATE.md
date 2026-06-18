@@ -2,26 +2,23 @@
 
 ## Current Phase
 
-Phase 1 — Supabase database foundation.
+Phase 2 — Authentication and role-based access.
 
 Last updated: June 18, 2026.
 
 ## Completed Features
 
-- Next.js 16 App Router project with strict TypeScript
-- Tailwind CSS 4 theme and responsive base styles
-- shadcn/ui-compatible configuration and starter UI primitives
-- Supabase browser, server, and session proxy structure
-- TanStack Query application provider
-- Responsive application shell with sidebar, header, and mobile navigation
-- Placeholder pages for authentication and core product areas
-- Shared page header, statistic card, empty, loading, error, and confirmation components
-- Environment variable example
-- Initial Supabase SQL migration with normalized pharmacy tables
-- Role helper functions and Auth profile trigger
-- Row Level Security policies for Admin, Pharmacist, and Cashier
-- Local development category seed data
-- Typed Supabase clients using checked-in database types
+- Next.js 16 App Router, strict TypeScript, Tailwind CSS 4, and shadcn/ui foundation
+- Typed Supabase browser, server, and session proxy clients
+- TanStack Query provider and responsive application shell
+- Initial normalized database migration, seed data, Auth profile trigger, and RLS policies
+- Supabase email/password login and logout
+- Server-protected dashboard layout with active profile loading
+- Server-side role guards for restricted pages
+- Role-aware desktop and mobile navigation
+- Access-denied page for inactive, missing-profile, and unauthorized users
+- Admin settings page with profile and basic pharmacy settings
+- Auth loading, pending, and beginner-friendly error states
 
 ## Current Database Tables
 
@@ -37,7 +34,7 @@ Last updated: June 18, 2026.
 - `inventory_adjustments`
 - `app_settings`
 
-The `medicine_inventory_summary` view provides total stock, saleable stock, and the nearest valid expiry date per medicine.
+The `medicine_inventory_summary` view provides total stock, saleable stock, and nearest valid expiry per medicine.
 
 ## Current Routes and Pages
 
@@ -50,71 +47,65 @@ The `medicine_inventory_summary` view provides total stock, saleable stock, and 
 - `/purchases`
 - `/reports`
 - `/settings`
+- `/unauthorized`
 
 ## Current Components
 
-- Application sidebar, header, and mobile navigation
+- Role-aware sidebar, mobile navigation, and authenticated header
+- Login form and logout action
+- Auth server helpers and role guards
 - Query provider
 - Button, card, skeleton, and confirm dialog primitives
-- Page header
-- Statistic card
-- Empty state
-- Loading state
-- Error state
-- Placeholder page
+- Page header, statistic card, empty state, loading state, error state, and placeholder page
 
 ## Current Environment Variables
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY` — reserved for server-only administrative operations
+- `SUPABASE_SERVICE_ROLE_KEY` — reserved for future server-only administration
 
 See `.env.example`. Never expose the service-role key in browser code.
 
 ## Current Supabase Setup State
 
-- Browser, server, and session proxy clients are typed with the database schema.
-- The initial migration is stored in `supabase/migrations/202606180001_initial_schema.sql`.
-- Local non-user seed data is stored in `supabase/seed.sql`.
-- New Auth users automatically receive a profile with the Cashier role.
-- RLS is enabled on every application table.
-- No public/anonymous table policies are present.
-- The migration has not yet been applied to a linked Supabase project.
-- Authentication UI and route protection remain placeholders.
+- The initial migration is in `supabase/migrations/202606180001_initial_schema.sql`.
+- Local seed data is in `supabase/seed.sql`.
+- New Auth users receive an active Cashier profile by default.
+- Login and logout use Supabase Auth.
+- Every dashboard route requires a valid session and active profile.
+- Restricted pages validate roles on the server.
+- Navigation filtering is only a UI convenience; RLS remains the database enforcement layer.
+- User invitation and role-management UI are intentionally deferred.
+- The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
 
 - `npm run lint` — passed on June 18, 2026
 - `npm run typecheck` — passed on June 18, 2026
 - `npm run build` — passed on June 18, 2026
-- Static migration structure check — passed: 11 tables, 11 RLS-enabled tables, and 40 policies
-- Live SQL execution was not available because PostgreSQL, Docker, and the Supabase CLI are not installed locally.
+- Protected application routes are dynamically server-rendered as expected.
+- Live role testing still requires the migration and test users in a connected Supabase project.
 
 ## Current Known Issues
 
-- Login form is not connected to Supabase Auth.
-- Protected routes do not yet require a session.
-- Navigation is not yet filtered by role.
-- Dashboard values and all feature pages use placeholder data.
-- The SQL migration still needs to be applied to a Supabase project.
-- Transactional sale completion, FEFO stock deduction, purchase receiving, and stock adjustment functions are deferred to their feature phases.
-- Checked-in database types must be regenerated after applying future schema changes.
-- `npm install` reports two moderate dependency audit findings; review without applying forced breaking upgrades.
+- Authentication requires valid Supabase credentials and the applied database migration.
+- Password recovery and Admin user invitation/role-management UI are not implemented.
+- Dashboard values and feature pages still use placeholder data.
+- Transactional sales, FEFO stock deduction, purchase receiving, and stock adjustment functions are deferred.
+- Database types must be regenerated after future schema changes.
+- `npm install` reports two moderate transitive dependency audit findings; do not apply a forced breaking downgrade.
 
 ## Important Decisions
 
-- Keep the installed Next.js 16 version because it satisfies the Next.js 14+ requirement.
-- Use Next.js `proxy.ts` for Supabase session refresh.
-- Use server and browser Supabase clients in separate modules.
-- Keep the initial shell simple and light with an emerald primary color.
-- Store stock, batch number, purchase cost, selling price, and expiry per inventory batch.
-- Keep medicine-level prices as defaults for creating future batches.
-- Use a security-invoker inventory summary view instead of duplicating stock totals on medicines.
-- Default every newly created Auth user to Cashier; Admin promotion is an explicit setup action.
-- Cashiers can read medicine and batch availability and create their own draft sales, but cannot edit medicine master data.
-- Suppliers, purchases, stock corrections, and full sales access are restricted to Admin and Pharmacist.
-- Only Admin can manage profiles, roles, and application settings.
+- Authenticate and load profiles on the server before rendering protected pages.
+- Apply route-level server guards in addition to hiding navigation links.
+- Admin sees all navigation items.
+- Pharmacist sees Dashboard, Medicines, Sales, Suppliers, Purchases, and Reports.
+- Cashier sees Dashboard, Sales, and read-only-oriented Medicine lookup.
+- Settings is Admin-only.
+- RLS is the real authorization boundary.
+- Staff creation and role changes remain outside this phase until a safe Admin workflow is built.
 
 ## Next Recommended Prompt
 
-Apply the migration to Supabase, then implement email/password authentication, protected routes, password recovery, Admin-controlled user management, and role-aware navigation.
+Apply and verify the Supabase migration with all three roles, then implement the medicine catalog with Cashier read-only lookup and Admin/Pharmacist management.
