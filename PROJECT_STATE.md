@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 12: Final Release Candidate Review.
+Phase 13: Staging Acceptance and Release-Blocker Fixes.
 
 Last updated: June 19, 2026.
 
@@ -121,6 +121,11 @@ Last updated: June 19, 2026.
 - Form fields, report filters, POS quantity controls, and icon-only management
   actions now expose explicit accessible names
 - Stale Settings description removed after the deferred setup panel was removed
+- Protected sale, purchase, receiving, and role-change RPCs now use an
+  unambiguous application-role variable
+- Historical receipts retain batch numbers after a batch reaches zero stock
+- Fresh staging acceptance completed with role, RLS, transaction, receipt,
+  export, and responsive evidence
 
 ## Current Database Tables
 
@@ -205,24 +210,22 @@ See `.env.example`.
   - Direct profile updates are no longer available through RLS.
   - Admin users can still read all profiles; non-Admin users can read only their own profile.
 - Apply all five migrations in filename order.
-- The migration has not yet been confirmed as applied to a linked Supabase project.
+- All five migrations were applied successfully to staging on June 19, 2026.
+- The fresh staging database was reset and reapplied after fixing the protected
+  workflow role-variable collision.
 
 ## Production Readiness Status
 
-**Release Candidate 1 is code-complete and ready for staging acceptance.
-Production approval remains conditional.**
+**Release Candidate 1 passed release-critical staging acceptance after two
+verified blockers were fixed. Production approval remains conditional on
+production backup ownership and the production smoke test.**
 
-The application is suitable for production only after all five migrations are
-applied to staging and `docs/MANUAL_QA_CHECKLIST.md` passes with separate Admin,
-Pharmacist, and Cashier accounts.
+All five migrations and the release-critical sections of
+`docs/MANUAL_QA_CHECKLIST.md` passed with separate Admin, Pharmacist, and
+Cashier staging accounts.
 
 Critical release gates:
 
-- verify RLS and route access for all roles;
-- verify concurrent sale locking, FEFO allocation, and rollback;
-- verify purchase receiving rollback and duplicate-delivery protection;
-- verify role changes and Admin self-role blocking;
-- verify real CSV, PDF, receipt, and mobile behavior;
 - establish Supabase backup and recovery ownership;
 - deploy the reviewed commit with production Supabase variables.
 
@@ -266,9 +269,9 @@ low-stock and expiry alerts, sale completion, FEFO stock reduction, receipt
 generation, supplier create/edit, purchase creation and receiving, stock
 increase, reports and exports, and settings updates.
 
-Unauthenticated route redirects and invalid-login behavior were browser-tested.
-Authenticated mutation workflows still require staging test users and applied
-migrations before production approval.
+Unauthenticated route redirects, invalid-login behavior, and authenticated
+Admin, Pharmacist, and Cashier workflows were browser-tested. Transactional
+RLS, FEFO, concurrency, and rollback paths were verified against staging.
 
 ## Deployment Steps
 
@@ -288,9 +291,9 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 
 ## Latest Test and Build Status
 
-- `npm run lint`: passed June 19, 2026 for Release Candidate 1
-- `npm run typecheck`: passed June 19, 2026 for Release Candidate 1
-- `npm run build`: passed June 19, 2026 for Release Candidate 1
+- `npm run lint`: passed June 19, 2026 after staging fixes
+- `npm run typecheck`: passed June 19, 2026 after staging fixes
+- `npm run build`: passed June 19, 2026 after staging fixes
 - Tracked-file secret scan and UTF-8 documentation scan: passed for RC1
 - `.env.local` remains ignored and untracked
 - Browser check: sign-in metadata, protected Settings redirect, and 375 px
@@ -304,16 +307,18 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 - UTF-8 source audit found no malformed source or documentation text
 - CSV generation test: passed June 19, 2026 with UTF-8 BOM, expected headers, and expected row count
 - PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
-- Public Supabase environment values are configured locally, but outbound
-  Supabase requests are blocked by the managed review environment.
-- Authenticated mutation testing still requires an applied staging schema and
-  separate Admin, Pharmacist, and Cashier test credentials.
+- Fresh staging migration application: passed June 19, 2026
+- Authenticated role, RLS, FEFO, concurrency, rollback, receiving, duplicate
+  delivery, role-change, receipt, report, and export checks: passed June 19,
+  2026
+- Responsive checks at 375, 768, 1024, and 1440 px: passed June 19, 2026
+- Staging Vercel deployment and Supabase Auth URL configuration: passed
+- Detailed evidence: `docs/STAGING_QA_RESULTS.md`
 - The npm advisory endpoint was unavailable during the final RC review. The two
   previously recorded moderate transitive findings remain the latest known result.
 
 ## Current Known Issues
 
-- Supabase migration and role behavior are not confirmed against a live linked project.
 - New medicines have zero stock until a purchase order is delivered or a future manual stock adjustment is added.
 - Inventory batches remain read-only outside the protected purchase receiving workflow.
 - Password recovery and Auth account creation are not implemented.
@@ -322,22 +327,19 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 - Global search intentionally caps each record type for small-to-medium pharmacy data and does not use an external search service.
 - Dashboard expiry windows are view filters and do not change the persistent application setting.
 - Manual stock adjustments are deferred.
-- Live stock-decrease verification requires the migration, valid Supabase credentials, test users, and stocked non-expired batches.
+- Live stock decrease, FEFO allocation, concurrent sale locking, and rollback
+  are verified in staging.
 - Receipt PDFs use a compact fixed receipt page and may continue onto the printable receipt more cleanly for unusually large carts.
 - Database types must be regenerated after future schema changes.
 - Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
-- Phase 10 database hardening is not verified against a live staging Supabase project.
-- The final Vercel URL, custom domain, Supabase Auth Site URL, and backup policy
-  are deployment-time values and are not configured in this repository.
-- Authenticated end-to-end workflows were not executed during the final RC
-  review because no Admin, Pharmacist, or Cashier test credentials are stored
-  in the workspace.
-- Live Supabase connectivity could not be re-verified from the managed review
-  environment because outbound network requests were denied.
+- Phase 10 database hardening is verified against the live staging project.
+- The final production URL, production Auth URL, and production backup policy
+  remain deployment-time responsibilities.
 
 ## Final Manual Testing Checklist
 
-The full checklist is maintained in `docs/MANUAL_QA_CHECKLIST.md`.
+The full checklist is maintained in `docs/MANUAL_QA_CHECKLIST.md`. The June 19,
+2026 staging evidence is recorded in `docs/STAGING_QA_RESULTS.md`.
 
 Release-blocking checks:
 
@@ -401,6 +403,6 @@ Release-blocking checks:
 
 ## Next Recommended Prompt
 
-Deploy RC1 to staging, apply all five migrations, create Admin, Pharmacist, and
-Cashier test accounts, and execute `docs/MANUAL_QA_CHECKLIST.md`. Record every
-result and do not approve production use until all release-blocking checks pass.
+Review and commit the staging fixes, configure production backup ownership,
+apply the five migrations to production, deploy the reviewed commit, and repeat
+the production smoke-test subset of `docs/MANUAL_QA_CHECKLIST.md`.

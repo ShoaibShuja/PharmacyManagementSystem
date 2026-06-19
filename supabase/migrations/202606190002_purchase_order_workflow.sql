@@ -13,7 +13,7 @@ set search_path = ''
 as $$
 declare
   current_user_id uuid := auth.uid();
-  current_role public.app_role;
+  current_app_role public.app_role;
   new_order_id uuid := gen_random_uuid();
   new_order_number text :=
     'PO-' || to_char(clock_timestamp(), 'YYYYMMDD-HH24MISS') || '-' ||
@@ -21,13 +21,13 @@ declare
   calculated_subtotal numeric(12, 2);
 begin
   select role
-  into current_role
+  into current_app_role
   from public.profiles
   where id = current_user_id
     and is_active = true;
 
   if current_user_id is null
-    or current_role not in ('admin', 'pharmacist') then
+    or current_app_role not in ('admin', 'pharmacist') then
     raise exception 'Only active Admin and Pharmacist users can create purchase orders.';
   end if;
 
@@ -154,17 +154,17 @@ set search_path = ''
 as $$
 declare
   current_user_id uuid := auth.uid();
-  current_role public.app_role;
+  current_app_role public.app_role;
   current_status public.purchase_order_status;
 begin
   select role
-  into current_role
+  into current_app_role
   from public.profiles
   where id = current_user_id
     and is_active = true;
 
   if current_user_id is null
-    or current_role not in ('admin', 'pharmacist') then
+    or current_app_role not in ('admin', 'pharmacist') then
     raise exception 'Only active Admin and Pharmacist users can manage purchase orders.';
   end if;
 
@@ -208,20 +208,20 @@ set search_path = ''
 as $$
 declare
   current_user_id uuid := auth.uid();
-  current_role public.app_role;
+  current_app_role public.app_role;
   order_record record;
   delivery_record record;
   new_batch_id uuid;
   received_time timestamptz := now();
 begin
   select role
-  into current_role
+  into current_app_role
   from public.profiles
   where id = current_user_id
     and is_active = true;
 
   if current_user_id is null
-    or current_role not in ('admin', 'pharmacist') then
+    or current_app_role not in ('admin', 'pharmacist') then
     raise exception 'Only active Admin and Pharmacist users can receive purchase orders.';
   end if;
 

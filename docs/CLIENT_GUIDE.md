@@ -652,6 +652,36 @@ pharmacy use:
 The full technical checklist is in `docs/MANUAL_QA_CHECKLIST.md`. Do not enter
 real stock until every release-blocking item passes.
 
+## Staging Verification
+
+The release-critical staging checks passed on June 19, 2026 with separate
+Admin, Pharmacist, and Cashier test accounts.
+
+Verified items include:
+
+- correct page access for each role;
+- inactive and incomplete staff-account denial;
+- secure database permissions;
+- earliest-expiry-first stock use;
+- protection against two sales overselling the same stock;
+- complete rollback when a sale or delivery fails;
+- protection against receiving the same order twice;
+- Admin role changes and self-role protection;
+- receipts with the correct batch numbers and totals;
+- sales, inventory, expiry, and purchase reports;
+- CSV, report PDF, and receipt PDF downloads;
+- mobile, tablet, laptop, and desktop layouts.
+
+Two staging problems were fixed before approval:
+
+1. Database workflow functions incorrectly rejected valid staff roles.
+2. A fully sold batch appeared as `Batch Unknown` on an old receipt.
+
+The detailed technical evidence is in `docs/STAGING_QA_RESULTS.md`.
+
+The staging website and accounts are for testing only. Do not enter real
+pharmacy stock or customer information there.
+
 ## Common Problems
 
 ### Medicines do not load
@@ -834,3 +864,13 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
   and icon-only actions.
 - Kept production approval dependent on the staging checklist with Admin,
   Pharmacist, and Cashier test accounts.
+
+### Phase 13: Staging Acceptance
+
+- Applied all five migrations to a fresh staging Supabase database.
+- Created and tested separate Admin, Pharmacist, and Cashier accounts.
+- Verified permissions, sales, purchases, stock locking, rollback, receipts,
+  reports, exports, settings, and responsive layouts.
+- Fixed protected workflow role checks.
+- Fixed historical receipt batch display for fully consumed stock.
+- Recorded the detailed results in `docs/STAGING_QA_RESULTS.md`.

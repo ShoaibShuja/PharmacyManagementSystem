@@ -12,7 +12,7 @@ set search_path = ''
 as $$
 declare
   current_user_id uuid := auth.uid();
-  current_role public.app_role;
+  current_app_role public.app_role;
   new_sale_id uuid := gen_random_uuid();
   new_sale_number text :=
     'S-' || to_char(clock_timestamp(), 'YYYYMMDD-HH24MISS') || '-' ||
@@ -27,16 +27,16 @@ declare
   result_items jsonb;
 begin
   select role
-  into current_role
+  into current_app_role
   from public.profiles
   where id = current_user_id
     and is_active = true;
 
-  if current_user_id is null or current_role is null then
+  if current_user_id is null or current_app_role is null then
     raise exception 'An active staff account is required.';
   end if;
 
-  if current_role not in ('admin', 'pharmacist', 'cashier') then
+  if current_app_role not in ('admin', 'pharmacist', 'cashier') then
     raise exception 'This account cannot create sales.';
   end if;
 
