@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 10: Production Hardening, QA, Security, and UX Polish.
+Phase 11: Deployment Readiness and Client Handoff.
 
 Last updated: June 19, 2026.
 
@@ -104,6 +104,14 @@ Last updated: June 19, 2026.
   settings, and access-denied pages
 - Deferred document-storage guidance removed from the user-facing Settings page
 - Complete staging manual QA checklist added in `docs/MANUAL_QA_CHECKLIST.md`
+- Final Supabase and Vercel deployment guide added in `docs/DEPLOYMENT.md`
+- Root README replaced with project-specific setup, environment, deployment,
+  security, and documentation guidance
+- Client guide finalized with first-use steps, common mistakes, daily and
+  technical maintenance, and a structured future-change request process
+- Runtime environment contract reduced to the Supabase URL and one public key
+- Deployment ownership, backup, post-deploy testing, update, and rollback
+  procedures documented
 
 ## Current Database Tables
 
@@ -147,7 +155,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Purchase-order management, creation form, order detail, status actions, and delivery form
 - Reporting workspace, report filter controls, responsive report tables, summary metrics, and export utilities
 - Shared list search, pagination, and list-loading components
-- Pharmacy settings form, user-role management, and Storage foundation guidance
+- Pharmacy settings form and user-role management
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -156,9 +164,10 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` supported as a legacy fallback
-- `SUPABASE_SERVICE_ROLE_KEY` reserved for future server-only administration
 
-See `.env.example`. Never expose the service-role key in browser code.
+Configure either the publishable key or the legacy anon key, not both. The
+current application does not require an application URL or service-role key.
+See `.env.example`.
 
 ## Current Supabase Setup State
 
@@ -189,11 +198,47 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Apply all five migrations in filename order.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
+## Production Readiness Status
+
+**Code and documentation ready for staging deployment. Production approval is
+conditional.**
+
+The application is suitable for production only after all five migrations are
+applied to staging and `docs/MANUAL_QA_CHECKLIST.md` passes with separate Admin,
+Pharmacist, and Cashier accounts.
+
+Critical release gates:
+
+- verify RLS and route access for all roles;
+- verify concurrent sale locking, FEFO allocation, and rollback;
+- verify purchase receiving rollback and duplicate-delivery protection;
+- verify role changes and Admin self-role blocking;
+- verify real CSV, PDF, receipt, and mobile behavior;
+- establish Supabase backup and recovery ownership;
+- deploy the reviewed commit with production Supabase variables.
+
+## Deployment Steps
+
+1. Create separate staging and production Supabase projects where practical.
+2. Apply all five migrations in filename order.
+3. Keep public sign-up disabled and create staff through Supabase Auth.
+4. Promote the first owner profile to Admin.
+5. Verify all application tables have RLS enabled.
+6. Run the complete staging QA checklist.
+7. Push the reviewed release to the production Git branch.
+8. Import the repository into Vercel.
+9. Configure `NEXT_PUBLIC_SUPABASE_URL` and one public Supabase key.
+10. Deploy, set the final Vercel/custom URL in Supabase Auth URL Configuration,
+    and complete post-deployment smoke testing.
+
+See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official references.
+
 ## Latest Test and Build Status
 
-- `npm run lint`: passed June 19, 2026 after Phase 10
-- `npm run typecheck`: passed June 19, 2026 after Phase 10
-- `npm run build`: passed June 19, 2026 after Phase 10
+- `npm run lint`: passed June 19, 2026 after Phase 11 documentation and deployment handoff
+- `npm run typecheck`: passed June 19, 2026 after Phase 11
+- `npm run build`: passed June 19, 2026 after Phase 11
+- Tracked-file secret scan: passed June 19, 2026; `.env.local` remains ignored
 - Browser check: sign-in metadata, protected Settings redirect, and 375 px
   horizontal-overflow check passed June 19, 2026
 - HTTP check: production-hardening security headers were present June 19, 2026
@@ -223,6 +268,25 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Database types must be regenerated after future schema changes.
 - Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
 - Phase 10 database hardening is not verified against a live staging Supabase project.
+- The final Vercel URL, custom domain, Supabase Auth Site URL, and backup policy
+  are deployment-time values and are not configured in this repository.
+
+## Final Manual Testing Checklist
+
+The full checklist is maintained in `docs/MANUAL_QA_CHECKLIST.md`.
+
+Release-blocking checks:
+
+- unauthenticated route redirects;
+- Admin, Pharmacist, and Cashier route and RLS behavior;
+- medicine creation, deactivation, search, stock, and expiry display;
+- atomic purchase receiving, rollback, and duplicate protection;
+- atomic FEFO sales, concurrency, insufficient-stock rollback, and receipts;
+- supplier history and inactive-supplier behavior;
+- report totals, search, CSV, and PDF exports;
+- settings updates, role changes, and self-role blocking;
+- mobile layouts, keyboard focus, loading, empty, error, and confirmation states;
+- Vercel environment variables, Supabase logs, security headers, and backups.
 
 ## Important Decisions
 
@@ -273,7 +337,6 @@ See `.env.example`. Never expose the service-role key in browser code.
 
 ## Next Recommended Prompt
 
-Apply all five migrations to a fresh staging Supabase project and execute
-`docs/MANUAL_QA_CHECKLIST.md` with Admin, Pharmacist, and Cashier accounts.
-Prioritize concurrent sale, rollback, duplicate receiving, direct-write RLS, and
-role-access tests before adding password recovery or manual stock adjustment.
+Follow `docs/DEPLOYMENT.md` to create the staging Supabase and Vercel projects,
+then execute `docs/MANUAL_QA_CHECKLIST.md` with Admin, Pharmacist, and Cashier
+accounts. Do not approve production use until every release-blocking test passes.
