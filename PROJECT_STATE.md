@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 6: Supplier Management and Purchase Orders.
+Phase 7: Basic Reporting and Exports.
 
 Last updated: June 19, 2026.
 
@@ -54,6 +54,14 @@ Last updated: June 19, 2026.
 - Inventory batch creation, received-quantity updates, delivery timestamp, and inventory adjustment logging
 - Latest received cost, intended selling price, and default supplier updates on medicine records
 - Admin and Pharmacist supplier and purchase access; Cashier access remains blocked by routes, navigation, and RLS
+- Sales report with date range, sales total, transaction count, discount total, and top-selling medicines
+- Inventory report with current stock, saleable stock, low-stock filtering, reorder levels, and estimated cost value
+- Batch-level expiry report for expired, 0–30, 31–60, and 61–90 day windows
+- Purchase report with status and supplier filters, delivered-order count, and delivered value
+- CSV export for the currently visible report and filters
+- Paginated landscape PDF export using jsPDF with pharmacy name, generation date, summaries, and visible rows
+- Readable report filenames containing report type, active filter, or selected date range
+- Report loading, error, and filter-specific empty states
 
 ## Current Database Tables
 
@@ -80,7 +88,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - `/sales` provides the completed POS, checkout, receipt, and sales history MVP
 - `/suppliers` provides completed supplier management and purchase history
 - `/purchases` provides completed purchase ordering and delivery receiving
-- `/reports`
+- `/reports` provides sales, inventory, expiry, and purchase reports with CSV and PDF export
 - `/settings`
 - `/unauthorized`
 
@@ -95,6 +103,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - POS medicine grid, cart, checkout summary, sales history, receipt dialog, print view, and PDF receipt
 - Supplier management, supplier form dialog, and supplier detail/history dialog
 - Purchase-order management, creation form, order detail, status actions, and delivery form
+- Reporting workspace, report filter controls, responsive report tables, summary metrics, and export utilities
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -135,6 +144,8 @@ See `.env.example`. Never expose the service-role key in browser code.
 - `npm run lint`: passed June 19, 2026
 - `npm run typecheck`: passed June 19, 2026
 - `npm run build`: passed June 19, 2026
+- CSV generation test: passed June 19, 2026 with UTF-8 BOM, expected headers, and expected row count
+- PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
 - Browser verification was attempted June 19, 2026, but the local server could not authenticate because the current public Supabase environment values were missing.
 - Live delivered-stock verification requires applying the new migration to a configured Supabase project.
 - Live role and mutation testing still requires an applied migration and Admin, Pharmacist, and Cashier test users.
@@ -145,7 +156,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - New medicines have zero stock until a purchase order is delivered or a future manual stock adjustment is added.
 - Inventory batches remain read-only outside the protected purchase receiving workflow.
 - Password recovery and Admin user management are not implemented.
-- Report workflows remain placeholders.
+- Reports are client-aggregated from RLS-protected operational tables; very large future datasets may require database reporting functions or pagination.
 - Dashboard expiry windows are view filters and do not change the persistent application setting.
 - Manual stock adjustments are deferred.
 - Live stock-decrease verification requires the migration, valid Supabase credentials, test users, and stocked non-expired batches.
@@ -179,7 +190,12 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Require physical batch numbers and non-expired expiry dates before delivery can add stock.
 - Update medicine default cost, intended selling price, and default supplier from the latest delivery without changing historical batches.
 - Treat the database order lock and Ordered status check as the duplicate-delivery guard.
+- Keep reports operational and basic; do not add accounting ledgers, profit-and-loss statements, tax filing, or forecasting.
+- Estimate inventory value from each stocked batch's current quantity multiplied by its saved cost price.
+- Keep expiry windows mutually exclusive so each batch appears once in the 30, 60, or 90-day grouping.
+- Export only the report rows currently visible under the active filters.
+- Load jsPDF dynamically only when a PDF export is requested.
 
 ## Next Recommended Prompt
 
-Apply all three migrations and verify supplier permissions, purchase status transitions, purchase receiving, duplicate-delivery rejection, stock increases, and inventory adjustment records with Admin, Pharmacist, and Cashier users. Then build basic reporting and exports.
+Apply all three migrations and verify the complete workflow against a live Supabase project, including report totals and exported files. Then build Admin user management and password recovery or a focused manual inventory adjustment workflow.

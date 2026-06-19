@@ -317,7 +317,81 @@ Draft and Ordered purchases can be cancelled. Delivered purchases cannot be canc
 
 ## Reports
 
-Reports and exports remain planned for a later phase.
+Admin and Pharmacist users can open **Reports**. Cashiers cannot access business reports.
+
+The report page has four sections:
+
+- Sales
+- Inventory
+- Expiry
+- Purchases
+
+### Sales Report
+
+1. Open **Reports**.
+2. Select **Sales**.
+3. Choose a start date and end date.
+
+The report shows:
+
+- Completed sales in the selected date range
+- Total sales
+- Number of transactions
+- Total discounts
+- Top-selling medicines by quantity
+
+### Inventory Report
+
+Select **Inventory** to see:
+
+- Current total stock
+- Saleable, non-expired stock
+- Reorder threshold
+- Low-stock status
+- Estimated stock cost value
+
+Use the filter to show all medicines, low-stock medicines, or medicines with available stock.
+
+The stock value is an estimate. It uses each remaining batch quantity multiplied by that batch's saved cost price. It is not a full accounting valuation.
+
+### Expiry Report
+
+Select **Expiry** to review stocked batches in these groups:
+
+- Expired
+- Expiring within 30 days
+- Expiring in 31–60 days
+- Expiring in 61–90 days
+
+Each batch appears in only one group. The report also shows the batch number, quantity, expiry date, and estimated cost value.
+
+### Purchase Report
+
+Select **Purchases** to review purchase orders.
+
+You can filter by:
+
+- Draft
+- Ordered
+- Delivered
+- Cancelled
+- Supplier
+
+The summary shows the visible order count, delivered order count, and delivered purchase value.
+
+### Exporting a Report
+
+The export uses the currently selected report and active filters.
+
+To export:
+
+1. Select the report and filters.
+2. Select **CSV** for a spreadsheet-compatible file.
+3. Select **PDF** for a formatted printable report.
+
+PDF reports include the pharmacy name, generation date, report summary, table rows, and page numbers. Filenames include the report type and date range or active filter.
+
+If there are no visible records, export buttons are disabled.
 
 ## Connecting Supabase
 
@@ -399,6 +473,18 @@ Allow pop-ups for the pharmacy website, then select **Print** again.
 
 Cashiers see only sales completed by their own account.
 
+### A report is empty
+
+Change the date range or report filter. Reports only include records visible under the selected filters.
+
+### A downloaded CSV opens with incorrect characters
+
+Use a current version of Excel, LibreOffice, or Google Sheets. The export includes UTF-8 formatting for medicine and supplier names.
+
+### A PDF report does not download
+
+Confirm the browser allows downloads from the pharmacy website, then try again.
+
 ## Change History
 
 ### Phase 0: Foundation
@@ -449,3 +535,11 @@ Cashiers see only sales completed by their own account.
 - Added protected delivery confirmation with batch number and expiry entry.
 - Added atomic inventory batch creation, stock increases, price updates, and adjustment records.
 - Kept Cashiers excluded from supplier and purchase management.
+
+### Phase 7: Basic Reporting and Exports
+
+- Added sales reports with date filters, totals, discounts, and top-selling medicines.
+- Added inventory reports with low-stock filtering and estimated stock value.
+- Added expired and 30, 60, and 90-day expiry reports.
+- Added purchase reports with status and supplier filters.
+- Added CSV and paginated PDF export for the currently visible report.
