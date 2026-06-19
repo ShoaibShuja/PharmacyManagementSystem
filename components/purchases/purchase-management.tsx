@@ -45,6 +45,7 @@ import {
   receivePurchaseOrder,
   setPurchaseOrderStatus,
 } from "@/lib/purchases/api";
+import { getUserErrorMessage } from "@/lib/errors";
 import type {
   PurchaseDeliveryFormValues,
   PurchaseOrderFormValues,
@@ -65,10 +66,6 @@ const dateFormatter = new Intl.DateTimeFormat("en", {
   month: "short",
   day: "numeric",
 });
-
-function getErrorMessage(error: unknown) {
-  return error instanceof Error ? error.message : "The action could not be completed.";
-}
 
 export function PurchaseManagement() {
   const queryClient = useQueryClient();
@@ -95,6 +92,8 @@ export function PurchaseManagement() {
       queryClient.invalidateQueries({ queryKey: ["medicine-catalog"] }),
       queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
       queryClient.invalidateQueries({ queryKey: ["sales-page"] }),
+      queryClient.invalidateQueries({ queryKey: ["reports"] }),
+      queryClient.invalidateQueries({ queryKey: ["global-search"] }),
     ]);
   };
 
@@ -105,7 +104,7 @@ export function PurchaseManagement() {
       setFormOpen(false);
       toast.success("Purchase order draft created.");
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const statusMutation = useMutation({
@@ -125,7 +124,7 @@ export function PurchaseManagement() {
           : "Purchase order cancelled.",
       );
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const receiveMutation = useMutation({
@@ -142,7 +141,7 @@ export function PurchaseManagement() {
       toast.success("Delivery confirmed and inventory stock increased.");
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error));
+      toast.error(getUserErrorMessage(error));
       purchasesQuery.refetch();
     },
   });
@@ -175,7 +174,10 @@ export function PurchaseManagement() {
     return (
       <ErrorState
         title="Purchase orders could not be loaded"
-        message={getErrorMessage(purchasesQuery.error)}
+        message={getUserErrorMessage(
+          purchasesQuery.error,
+          "Purchase data is unavailable.",
+        )}
         onRetry={() => purchasesQuery.refetch()}
       />
     );

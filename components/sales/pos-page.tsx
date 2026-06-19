@@ -49,6 +49,7 @@ import {
   estimateMedicineTotal,
   getSalesPageData,
 } from "@/lib/sales/api";
+import { getUserErrorMessage } from "@/lib/errors";
 import type {
   CartItem,
   PosMedicineOption,
@@ -101,14 +102,14 @@ export function PosPage() {
         queryClient.invalidateQueries({ queryKey: salesQueryKey }),
         queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
         queryClient.invalidateQueries({ queryKey: ["medicine-catalog"] }),
+        queryClient.invalidateQueries({ queryKey: ["reports"] }),
+        queryClient.invalidateQueries({ queryKey: ["global-search"] }),
       ]);
       toast.success(`Sale ${completedReceipt.sale_number} completed.`);
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "The sale could not be completed.",
+        getUserErrorMessage(error, "The sale could not be completed."),
       );
       salesQuery.refetch();
     },

@@ -46,6 +46,7 @@ import {
   getSuppliersPageData,
   updateSupplier,
 } from "@/lib/suppliers/api";
+import { getUserErrorMessage } from "@/lib/errors";
 import type { SupplierFormValues } from "@/lib/suppliers/schema";
 import type { SupplierListItem } from "@/lib/suppliers/types";
 import { cn } from "@/lib/utils";
@@ -53,10 +54,6 @@ import { cn } from "@/lib/utils";
 const queryKey = ["suppliers"] as const;
 type StatusFilter = "active" | "inactive" | "all";
 type SortOption = "name" | "orders" | "value";
-
-function getErrorMessage(error: unknown) {
-  return error instanceof Error ? error.message : "The action could not be completed.";
-}
 
 export function SupplierManagement() {
   const queryClient = useQueryClient();
@@ -96,12 +93,14 @@ export function SupplierManagement() {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey }),
         queryClient.invalidateQueries({ queryKey: ["purchases"] }),
+        queryClient.invalidateQueries({ queryKey: ["reports"] }),
+        queryClient.invalidateQueries({ queryKey: ["global-search"] }),
       ]);
       toast.success(editingSupplier ? "Supplier updated." : "Supplier added.");
       setFormOpen(false);
       setEditingSupplier(null);
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const filteredSuppliers = useMemo(() => {
@@ -136,7 +135,10 @@ export function SupplierManagement() {
     return (
       <ErrorState
         title="Suppliers could not be loaded"
-        message={getErrorMessage(suppliersQuery.error)}
+        message={getUserErrorMessage(
+          suppliersQuery.error,
+          "Supplier data is unavailable.",
+        )}
         onRetry={() => suppliersQuery.refetch()}
       />
     );
