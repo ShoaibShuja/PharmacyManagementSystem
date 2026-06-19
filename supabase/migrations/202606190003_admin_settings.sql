@@ -13,16 +13,16 @@ set search_path = ''
 as $$
 declare
   current_user_id uuid := auth.uid();
-  current_role public.app_role;
+  current_app_role public.app_role;
   target_role public.app_role;
 begin
   select role
-  into current_role
+  into current_app_role
   from public.profiles
   where id = current_user_id
     and is_active = true;
 
-  if current_user_id is null or current_role <> 'admin' then
+  if current_user_id is null or current_app_role <> 'admin' then
     raise exception 'Only an active Admin can change user roles.';
   end if;
 

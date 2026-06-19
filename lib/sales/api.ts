@@ -57,7 +57,6 @@ export async function getSalesPageData(): Promise<SalesPageData> {
         .select(
           "id, medicine_id, batch_number, expiry_date, selling_price, current_quantity, received_at",
         )
-        .gt("current_quantity", 0)
         .order("expiry_date")
         .order("received_at"),
       supabase
