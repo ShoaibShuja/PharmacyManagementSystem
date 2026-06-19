@@ -14,7 +14,7 @@ Admin users can access all current pages and can manage medicines, categories, s
 
 ### Pharmacist
 
-Pharmacists can manage medicines, categories, suppliers, purchase orders, and sales. They cannot access sensitive Admin settings or manage staff roles.
+Pharmacists can manage medicines, categories, suppliers, purchase orders, and sales. They can review pharmacy settings but cannot change them or manage staff roles.
 
 ### Cashier
 
@@ -435,6 +435,61 @@ PDF reports include the pharmacy name, generation date, report summary, table ro
 
 If there are no visible records, export buttons are disabled.
 
+## Settings
+
+Admin and Pharmacist users can open **Settings**.
+
+### Pharmacy Profile Settings
+
+The pharmacy profile contains:
+
+- Pharmacy name
+- Address
+- Phone
+- Currency code
+- Receipt footer note
+- Default expiry warning days
+
+Admin users can change these details:
+
+1. Open **Settings**.
+2. Update the required fields.
+3. Select **Save pharmacy settings**.
+
+Use a three-letter currency code such as USD, AFN, or PKR. The expiry-warning
+number controls the default dashboard warning window.
+
+Pharmacists can review these details but see a **View only** label.
+
+### User Roles
+
+Admin users can view staff profiles that already exist in Supabase
+Authentication.
+
+To change a role:
+
+1. Open **Settings**.
+2. Find the user under **Users and roles**.
+3. Select Admin, Pharmacist, or Cashier.
+4. Read the confirmation.
+5. Select **Change role**.
+
+An Admin cannot change their own role. This protects the pharmacy from
+accidentally losing Admin access.
+
+The Settings page does not create login accounts, send invitations, reset
+passwords, or deactivate users. Use the Supabase Dashboard for those account
+tasks.
+
+### Private Document Storage
+
+File uploads are not enabled in the application. Receipts already download
+directly as PDF files.
+
+An optional private Supabase Storage bucket named `pharmacy-documents` is
+documented in `supabase/README.md` for a future purchase-document workflow.
+Keep it private and do not store patient or prescription files.
+
 ## Connecting Supabase
 
 1. Create a Supabase project.
@@ -442,6 +497,7 @@ If there are no visible records, export buttons are disabled.
    - `supabase/migrations/202606180001_initial_schema.sql`
    - `supabase/migrations/202606190001_complete_sale_rpc.sql`
    - `supabase/migrations/202606190002_purchase_order_workflow.sql`
+   - `supabase/migrations/202606190003_admin_settings.sql`
 3. Optionally run `supabase/seed.sql`.
 4. Copy `.env.example` to `.env.local`.
 5. Add the Supabase project URL and anonymous key.
@@ -535,6 +591,20 @@ Check spelling and clear any page filters. Global search requires at least two c
 
 Check the search box, filters, and current page. Select **Rows 50** to show more records at once or use the next-page arrow.
 
+### Pharmacy settings cannot be edited
+
+Only Admin users can edit pharmacy settings. Pharmacists can review them in
+view-only mode.
+
+### A staff member is missing from User Management
+
+Create the login account in Supabase Authentication first. The profile is
+created automatically and will then appear in Settings.
+
+### A role change is rejected
+
+Confirm you are signed in as an active Admin. You cannot change your own role.
+
 ## Change History
 
 ### Phase 0: Foundation
@@ -602,3 +672,11 @@ Check the search box, filters, and current page. Select **Rows 50** to show more
 - Added medicine and batch search to sales history.
 - Added text search to all report sections.
 - Preserved responsive mobile cards and scroll-safe report tables.
+
+### Phase 9: Admin Settings Foundation
+
+- Added editable pharmacy name, address, phone, currency, receipt note, and expiry-warning settings.
+- Added Pharmacist read-only access to pharmacy profile settings.
+- Added Admin staff-profile and role management for existing Auth users.
+- Added protected role changes and blocked Admin self-demotion.
+- Added optional private Supabase Storage setup guidance without adding unnecessary file uploads.
