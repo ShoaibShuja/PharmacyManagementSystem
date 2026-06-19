@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 9: Admin Settings Foundation.
+Phase 10: Production Hardening, QA, Security, and UX Polish.
 
 Last updated: June 19, 2026.
 
@@ -88,6 +88,22 @@ Last updated: June 19, 2026.
 - Self-role changes blocked in both the UI and database
 - Optional private Supabase Storage bucket guidance for future pharmacy documents
 - File uploads intentionally deferred because no simple MVP document workflow requires them
+- Transactional tables hardened so browser clients cannot directly mutate
+  inventory batches, sales, sale items, purchase orders, purchase items, or
+  inventory adjustments
+- Direct profile inserts and browser-side hard deletion policies removed
+- Case-insensitive batch-number uniqueness enforced per medicine
+- Database validation added for purchase-order expected dates
+- Supabase publishable-key environment naming supported with legacy anon-key fallback
+- Security response headers added for framing, content sniffing, referrers, and
+  browser permissions
+- Shared user-friendly handling added for duplicate, permission, and network errors
+- Sales, medicine, supplier, and purchase mutations now invalidate reports and
+  global search consistently
+- Missing route metadata added for sign-in, suppliers, purchases, reports,
+  settings, and access-denied pages
+- Deferred document-storage guidance removed from the user-facing Settings page
+- Complete staging manual QA checklist added in `docs/MANUAL_QA_CHECKLIST.md`
 
 ## Current Database Tables
 
@@ -138,7 +154,8 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 ## Current Environment Variables
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` supported as a legacy fallback
 - `SUPABASE_SERVICE_ROLE_KEY` reserved for future server-only administration
 
 See `.env.example`. Never expose the service-role key in browser code.
@@ -149,6 +166,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - The transactional sale migration is in `supabase/migrations/202606190001_complete_sale_rpc.sql`.
 - The transactional purchase workflow migration is in `supabase/migrations/202606190002_purchase_order_workflow.sql`.
 - The Admin settings and role-management migration is in `supabase/migrations/202606190003_admin_settings.sql`.
+- The production-hardening migration is in `supabase/migrations/202606190004_production_hardening.sql`.
 - Local seed data is in `supabase/seed.sql`.
 - RLS and the transactional function support this phase:
   - All active authenticated roles can read medicines, categories, batches, and settings.
@@ -168,14 +186,18 @@ See `.env.example`. Never expose the service-role key in browser code.
   - `public.change_user_role` accepts only active Admin users and rejects self-role changes.
   - Direct profile updates are no longer available through RLS.
   - Admin users can still read all profiles; non-Admin users can read only their own profile.
-- Apply all four migrations in filename order.
+- Apply all five migrations in filename order.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
 
-- `npm run lint`: passed June 19, 2026
-- `npm run typecheck`: passed June 19, 2026
-- `npm run build`: passed June 19, 2026
+- `npm run lint`: passed June 19, 2026 after Phase 10
+- `npm run typecheck`: passed June 19, 2026 after Phase 10
+- `npm run build`: passed June 19, 2026 after Phase 10
+- Browser check: sign-in metadata, protected Settings redirect, and 375 px
+  horizontal-overflow check passed June 19, 2026
+- HTTP check: production-hardening security headers were present June 19, 2026
+- UTF-8 source audit found no malformed source or documentation text
 - CSV generation test: passed June 19, 2026 with UTF-8 BOM, expected headers, and expected row count
 - PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
 - Browser verification was attempted June 19, 2026, but the local server could not authenticate because the current public Supabase environment values were missing.
@@ -200,6 +222,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Receipt PDFs use a compact fixed receipt page and may continue onto the printable receipt more cleanly for unusually large carts.
 - Database types must be regenerated after future schema changes.
 - Two moderate transitive npm audit findings remain; do not force a breaking downgrade.
+- Phase 10 database hardening is not verified against a live staging Supabase project.
 
 ## Important Decisions
 
@@ -241,7 +264,16 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Allow Admin role changes only through a security-definer function and block self-demotion.
 - Let Pharmacists review pharmacy identity and receipt settings without granting update access.
 - Keep Storage optional and private; do not add uploads until purchase documents have a defined workflow.
+- Treat sales, purchase receiving, batch changes, and adjustment logging as
+  RPC-only workflows. RLS must not expose direct browser writes.
+- Keep physical batch numbers case-insensitively unique per medicine.
+- Accept the current Supabase publishable-key name while retaining legacy
+  anon-key compatibility during deployment transition.
+- Keep deferred infrastructure guidance out of beginner-facing operational screens.
 
 ## Next Recommended Prompt
 
-Apply all four migrations and verify pharmacy-setting updates, role changes, self-role protection, and Pharmacist read-only access with live test users. Next build password recovery through Supabase Auth or a focused manual inventory adjustment workflow.
+Apply all five migrations to a fresh staging Supabase project and execute
+`docs/MANUAL_QA_CHECKLIST.md` with Admin, Pharmacist, and Cashier accounts.
+Prioritize concurrent sale, rollback, duplicate receiving, direct-write RLS, and
+role-access tests before adding password recovery or manual stock adjustment.

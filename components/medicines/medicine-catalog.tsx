@@ -48,6 +48,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { AppRole } from "@/lib/auth/types";
+import { getUserErrorMessage } from "@/lib/errors";
 import {
   createMedicine,
   createMedicineCategory,
@@ -77,19 +78,6 @@ type StockFilter = "all" | "low" | "expiring";
 type StatusFilter = "all" | "active" | "inactive";
 type SortOption = "name" | "stock-low" | "stock-high" | "expiry";
 
-function getErrorMessage(error: unknown) {
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    error.code === "23505"
-  ) {
-    return "A medicine or category with the same unique value already exists.";
-  }
-
-  return error instanceof Error ? error.message : "The action could not be completed.";
-}
-
 export function MedicineCatalog({ role }: MedicineCatalogProps) {
   const canManage = role === "admin" || role === "pharmacist";
   const searchParams = useSearchParams();
@@ -115,7 +103,11 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
   });
 
   const refreshCatalog = () =>
-    queryClient.invalidateQueries({ queryKey });
+    Promise.all([
+      queryClient.invalidateQueries({ queryKey }),
+      queryClient.invalidateQueries({ queryKey: ["reports"] }),
+      queryClient.invalidateQueries({ queryKey: ["global-search"] }),
+    ]);
 
   const medicineMutation = useMutation({
     mutationFn: async (values: MedicineFormValues) => {
@@ -138,7 +130,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
       setFormOpen(false);
       setEditingMedicine(null);
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const statusMutation = useMutation({
@@ -157,7 +149,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
           : "Medicine restored.",
       );
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const categoryMutation = useMutation({
@@ -171,7 +163,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
       toast.success("Category added.");
       setCategoryOpen(false);
     },
-    onError: (error) => toast.error(getErrorMessage(error)),
+    onError: (error) => toast.error(getUserErrorMessage(error)),
   });
 
   const filteredMedicines = useMemo(() => {
@@ -256,7 +248,10 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
     return (
       <ErrorState
         title="Medicines could not be loaded"
-        message={getErrorMessage(catalogQuery.error)}
+        message={getUserErrorMessage(
+          catalogQuery.error,
+          "Medicine data is unavailable.",
+        )}
         onRetry={() => catalogQuery.refetch()}
       />
     );

@@ -1,15 +1,14 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Database, FileLock2, HardDrive } from "lucide-react";
 import { toast } from "sonner";
 import { PharmacySettingsForm } from "@/components/settings/pharmacy-settings-form";
 import { UserManagement } from "@/components/settings/user-management";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
-import { Card, CardContent } from "@/components/ui/card";
 import type { AppRole } from "@/lib/auth/types";
+import { getUserErrorMessage } from "@/lib/errors";
 import {
   changeUserRole,
   getSettingsPageData,
@@ -48,9 +47,10 @@ export function SettingsManagement({
     },
     onError: (error) =>
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "Pharmacy settings could not be saved.",
+        getUserErrorMessage(
+          error,
+          "Pharmacy settings could not be saved.",
+        ),
       ),
   });
 
@@ -63,9 +63,10 @@ export function SettingsManagement({
     },
     onError: (error) =>
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "The user role could not be changed.",
+        getUserErrorMessage(
+          error,
+          "The user role could not be changed.",
+        ),
       ),
   });
 
@@ -112,63 +113,6 @@ export function SettingsManagement({
           }}
         />
       ) : null}
-
-      <StorageFoundation />
-    </div>
-  );
-}
-
-function StorageFoundation() {
-  return (
-    <Card>
-      <div className="flex items-start gap-3 border-b px-5 py-4">
-        <div className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-          <HardDrive className="size-5" />
-        </div>
-        <div>
-          <h2 className="font-semibold">Private document storage</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Optional foundation for future receipt or purchase-document files.
-          </p>
-        </div>
-      </div>
-      <CardContent className="grid gap-4 sm:grid-cols-2">
-        <StorageNote
-          icon={FileLock2}
-          title="Keep the bucket private"
-          description="Create a private bucket named pharmacy-documents. Do not make business files publicly accessible."
-        />
-        <StorageNote
-          icon={Database}
-          title="Uploads are not enabled yet"
-          description="Receipts already download as PDF. File uploads are deferred until a clear document workflow is required."
-        />
-        <p className="sm:col-span-2 rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground">
-          Setup instructions and recommended Storage policies are documented in
-          the Supabase README. No document-management or patient-file feature is
-          included.
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
-
-function StorageNote({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: typeof FileLock2;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex gap-3 rounded-lg border p-4">
-      <Icon className="mt-0.5 size-5 shrink-0 text-primary" />
-      <div>
-        <p className="font-medium">{title}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-      </div>
     </div>
   );
 }

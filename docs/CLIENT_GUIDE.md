@@ -498,14 +498,19 @@ Keep it private and do not store patient or prescription files.
    - `supabase/migrations/202606190001_complete_sale_rpc.sql`
    - `supabase/migrations/202606190002_purchase_order_workflow.sql`
    - `supabase/migrations/202606190003_admin_settings.sql`
+   - `supabase/migrations/202606190004_production_hardening.sql`
 3. Optionally run `supabase/seed.sql`.
 4. Copy `.env.example` to `.env.local`.
-5. Add the Supabase project URL and anonymous key.
+5. Add the Supabase project URL and publishable key. The app also accepts the
+   older anonymous-key variable name during migration from an existing setup.
 6. Create the pharmacy owner in Supabase Authentication.
 7. Promote the owner to Admin using the SQL in `supabase/README.md`.
 8. Keep public sign-up disabled.
 
 Never place the service-role key in browser code.
+
+After staging setup, follow `docs/MANUAL_QA_CHECKLIST.md` with separate Admin,
+Pharmacist, and Cashier test accounts before using the system with real stock.
 
 ## Running and Maintaining the Project
 
@@ -680,3 +685,15 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Added Admin staff-profile and role management for existing Auth users.
 - Added protected role changes and blocked Admin self-demotion.
 - Added optional private Supabase Storage setup guidance without adding unnecessary file uploads.
+
+### Phase 10: Production Hardening and QA
+
+- Blocked direct browser changes to stock batches, sales records, purchase
+  records, and inventory adjustment logs.
+- Kept medicine, supplier, and category history safe by blocking hard deletion.
+- Added stronger batch-number and purchase-date checks.
+- Added clearer permission, duplicate-record, and connection error messages.
+- Improved cache refresh after sales, medicine, supplier, purchase, and settings changes.
+- Added page titles and browser security headers.
+- Removed deferred document-storage information from the operational Settings page.
+- Added a complete staging QA checklist for every core module and user role.

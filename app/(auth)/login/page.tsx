@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Pill } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { getCurrentAuthContext } from "@/lib/auth/server";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+};
 
 export default async function LoginPage() {
   const context = await getCurrentAuthContext();

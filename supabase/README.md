@@ -10,6 +10,7 @@ Use one of these supported methods:
    - `migrations/202606190001_complete_sale_rpc.sql`
    - `migrations/202606190002_purchase_order_workflow.sql`
    - `migrations/202606190003_admin_settings.sql`
+   - `migrations/202606190004_production_hardening.sql`
 
 For local development seed data, run `seed.sql` after the migration.
 
@@ -100,3 +101,6 @@ Review the generated diff, then run `npm run typecheck`.
   records inventory adjustments in one transaction.
 - Change roles only through `public.change_user_role`. Direct profile updates
   are blocked, and an Admin cannot change their own role.
+- Browser clients have read-only access to transactional stock, sales,
+  purchase, and adjustment tables. Use the protected RPC workflows for changes.
+- Batch numbers are case-insensitively unique per medicine.
