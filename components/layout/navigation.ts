@@ -58,7 +58,7 @@ export const navigationItems: NavigationItem[] = [
     label: "Settings",
     href: "/settings",
     icon: Settings,
-    roles: ["admin"],
+    roles: ["admin", "pharmacist"],
   },
 ];
 

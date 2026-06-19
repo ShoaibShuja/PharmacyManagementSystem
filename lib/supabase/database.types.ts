@@ -492,6 +492,13 @@ export type Database = {
         };
         Returns: undefined;
       };
+      change_user_role: {
+        Args: {
+          requested_user_id: string;
+          requested_role: Database["public"]["Enums"]["app_role"];
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
       app_role: "admin" | "pharmacist" | "cashier";

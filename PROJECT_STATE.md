@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 8: Search, Filtering, and List Usability.
+Phase 9: Admin Settings Foundation.
 
 Last updated: June 19, 2026.
 
@@ -77,6 +77,17 @@ Last updated: June 19, 2026.
 - Page-size controls for medicines, sales history, suppliers, and purchase orders
 - Text search within sales, inventory, expiry, and purchase reports
 - Existing responsive desktop tables and mobile cards preserved across management pages
+- Admin pharmacy profile settings for name, address, phone, currency code, receipt footer, and expiry alert window
+- React Hook Form and Zod validation for pharmacy settings
+- Settings cache invalidation across dashboard, medicine, sales, and report views
+- Pharmacist read-only access to pharmacy profile settings
+- Admin user/profile list with role and active-status visibility
+- Confirmed role changes for existing Admin, Pharmacist, and Cashier profiles
+- Protected `public.change_user_role` database function
+- Direct browser profile updates removed to prevent unsafe role changes
+- Self-role changes blocked in both the UI and database
+- Optional private Supabase Storage bucket guidance for future pharmacy documents
+- File uploads intentionally deferred because no simple MVP document workflow requires them
 
 ## Current Database Tables
 
@@ -104,7 +115,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - `/suppliers` provides completed supplier management and purchase history
 - `/purchases` provides completed purchase ordering and delivery receiving
 - `/reports` provides sales, inventory, expiry, and purchase reports with CSV and PDF export
-- `/settings`
+- `/settings` provides Admin editing, Admin role management, and Pharmacist read-only pharmacy settings
 - `/unauthorized`
 
 ## Current Components
@@ -120,6 +131,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Purchase-order management, creation form, order detail, status actions, and delivery form
 - Reporting workspace, report filter controls, responsive report tables, summary metrics, and export utilities
 - Shared list search, pagination, and list-loading components
+- Pharmacy settings form, user-role management, and Storage foundation guidance
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -136,6 +148,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - The initial migration is in `supabase/migrations/202606180001_initial_schema.sql`.
 - The transactional sale migration is in `supabase/migrations/202606190001_complete_sale_rpc.sql`.
 - The transactional purchase workflow migration is in `supabase/migrations/202606190002_purchase_order_workflow.sql`.
+- The Admin settings and role-management migration is in `supabase/migrations/202606190003_admin_settings.sql`.
 - Local seed data is in `supabase/seed.sql`.
 - RLS and the transactional function support this phase:
   - All active authenticated roles can read medicines, categories, batches, and settings.
@@ -152,7 +165,10 @@ See `.env.example`. Never expose the service-role key in browser code.
   - `public.create_purchase_order` validates and creates the order and all items atomically.
   - `public.set_purchase_order_status` permits only Draft to Ordered and Draft/Ordered to Cancelled transitions.
   - `public.receive_purchase_order` locks the order, requires Ordered status, rejects repeat delivery, creates batches, updates stock metadata, and records adjustments atomically.
-- Apply all three migrations in filename order.
+  - `public.change_user_role` accepts only active Admin users and rejects self-role changes.
+  - Direct profile updates are no longer available through RLS.
+  - Admin users can still read all profiles; non-Admin users can read only their own profile.
+- Apply all four migrations in filename order.
 - The migration has not yet been confirmed as applied to a linked Supabase project.
 
 ## Latest Test and Build Status
@@ -164,7 +180,9 @@ See `.env.example`. Never expose the service-role key in browser code.
 - PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
 - Browser verification was attempted June 19, 2026, but the local server could not authenticate because the current public Supabase environment values were missing.
 - Search UI browser verification was attempted June 19, 2026 with a temporary publishable-key alias; the app reached the sign-in page, but authenticated testing requires a test user login.
+- Settings route browser verification was attempted June 19, 2026; unauthenticated access correctly redirected to sign-in, while update testing requires an Admin test account and the fourth migration.
 - Live delivered-stock verification requires applying the new migration to a configured Supabase project.
+- Live pharmacy-setting and role-change verification requires applying `202606190003_admin_settings.sql`.
 - Live role and mutation testing still requires an applied migration and Admin, Pharmacist, and Cashier test users.
 
 ## Current Known Issues
@@ -172,7 +190,8 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Supabase migration and role behavior are not confirmed against a live linked project.
 - New medicines have zero stock until a purchase order is delivered or a future manual stock adjustment is added.
 - Inventory batches remain read-only outside the protected purchase receiving workflow.
-- Password recovery and Admin user management are not implemented.
+- Password recovery and Auth account creation are not implemented.
+- Password recovery, Auth user creation, invitations, and account deactivation remain Supabase Dashboard tasks.
 - Reports are client-aggregated from RLS-protected operational tables; very large future datasets may require database reporting functions or pagination.
 - Global search intentionally caps each record type for small-to-medium pharmacy data and does not use an external search service.
 - Dashboard expiry windows are view filters and do not change the persistent application setting.
@@ -218,7 +237,11 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Limit sales history to the latest 250 completed sales for responsive browser-side filtering.
 - Preserve RLS as the global-search authorization boundary and do not request supplier or purchase data for Cashiers.
 - Keep pagination local to visible filtered results and reset to the first page when search, filters, sorting, or page size changes.
+- Keep Auth account lifecycle operations out of the browser until a server-only Admin API is deliberately introduced.
+- Allow Admin role changes only through a security-definer function and block self-demotion.
+- Let Pharmacists review pharmacy identity and receipt settings without granting update access.
+- Keep Storage optional and private; do not add uploads until purchase documents have a defined workflow.
 
 ## Next Recommended Prompt
 
-Configure a live Supabase project and authenticated role test accounts, then verify global search, list filtering, pagination, and role visibility. Next build Admin user management and password recovery or a focused manual inventory adjustment workflow.
+Apply all four migrations and verify pharmacy-setting updates, role changes, self-role protection, and Pharmacist read-only access with live test users. Next build password recovery through Supabase Auth or a focused manual inventory adjustment workflow.
