@@ -128,7 +128,7 @@ export function PurchaseOrderFormDialog({
                 name="supplier_id"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Supplier">
                       <SelectValue placeholder="Select supplier" />
                     </SelectTrigger>
                     <SelectContent>
@@ -145,7 +145,11 @@ export function PurchaseOrderFormDialog({
               />
             </Field>
             <Field label="Expected date">
-              <Input type="date" {...form.register("expected_date")} />
+              <Input
+                aria-label="Expected date"
+                type="date"
+                {...form.register("expected_date")}
+              />
             </Field>
           </div>
 
@@ -183,7 +187,7 @@ export function PurchaseOrderFormDialog({
                       value={watchedItems[index]?.medicine_id}
                       onValueChange={(value) => selectMedicine(index, value)}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger aria-label={`Medicine ${index + 1}`}>
                         <SelectValue placeholder="Select medicine" />
                       </SelectTrigger>
                       <SelectContent>
@@ -206,6 +210,7 @@ export function PurchaseOrderFormDialog({
                     }
                   >
                     <Input
+                      aria-label={`Quantity for item ${index + 1}`}
                       type="number"
                       min="1"
                       step="1"
@@ -221,6 +226,7 @@ export function PurchaseOrderFormDialog({
                     }
                   >
                     <Input
+                      aria-label={`Cost for item ${index + 1}`}
                       type="number"
                       min="0"
                       step="0.01"
@@ -237,6 +243,7 @@ export function PurchaseOrderFormDialog({
                     }
                   >
                     <Input
+                      aria-label={`Selling price for item ${index + 1}`}
                       type="number"
                       min="0"
                       step="0.01"
@@ -251,6 +258,7 @@ export function PurchaseOrderFormDialog({
                       type="button"
                       variant="ghost"
                       size="icon"
+                      aria-label={`Remove purchase item ${index + 1}`}
                       title="Remove item"
                       disabled={items.fields.length === 1}
                       onClick={() => items.remove(index)}
@@ -275,6 +283,7 @@ export function PurchaseOrderFormDialog({
 
           <Field label="Notes" error={form.formState.errors.notes?.message}>
             <Textarea
+              aria-label="Notes"
               rows={3}
               placeholder="Optional delivery or ordering notes"
               {...form.register("notes")}

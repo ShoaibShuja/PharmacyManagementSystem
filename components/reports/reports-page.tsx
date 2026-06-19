@@ -581,7 +581,7 @@ function InventoryView({
       <FilterCard>
         <SelectField label="Stock filter">
           <Select value={filter} onValueChange={onFilterChange}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Stock filter"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All medicines</SelectItem>
               <SelectItem value="low">Low stock only</SelectItem>
@@ -618,7 +618,7 @@ function ExpiryView({
       <FilterCard>
         <SelectField label="Expiry window">
           <Select value={filter} onValueChange={onFilterChange}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Expiry window"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All alerts through 90 days</SelectItem>
               <SelectItem value="expired">Expired</SelectItem>
@@ -666,7 +666,7 @@ function PurchasesView({
       <FilterCard>
         <SelectField label="Status">
           <Select value={status} onValueChange={onStatusChange}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Purchase status"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All statuses</SelectItem>
               <SelectItem value="draft">Draft</SelectItem>
@@ -678,7 +678,7 @@ function PurchasesView({
         </SelectField>
         <SelectField label="Supplier">
           <Select value={supplierId} onValueChange={onSupplierChange}>
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Supplier filter"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All suppliers</SelectItem>
               {suppliers.map((supplier) => (
@@ -703,7 +703,7 @@ function FilterCard({ children }: { children: React.ReactNode }) {
 }
 
 function DateField({ label, value, onChange, min, max }: { label: string; value: string; onChange: (value: string) => void; min?: string; max?: string }) {
-  return <div className="grid gap-2"><Label>{label}</Label><Input type="date" value={value} min={min} max={max} onChange={(event) => onChange(event.target.value)} /></div>;
+  return <div className="grid gap-2"><Label>{label}</Label><Input aria-label={label} type="date" value={value} min={min} max={max} onChange={(event) => onChange(event.target.value)} /></div>;
 }
 
 function SelectField({ label, children }: { label: string; children: React.ReactNode }) {

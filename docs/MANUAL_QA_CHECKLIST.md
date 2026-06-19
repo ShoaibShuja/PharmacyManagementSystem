@@ -79,7 +79,7 @@ migration in filename order. Use separate Admin, Pharmacist, and Cashier users.
 - [ ] Invalid email addresses show a validation message.
 - [ ] Inactive suppliers remain visible in history and cannot be used for new orders.
 - [ ] Search, status filter, sorting, pagination, details, and purchase history work.
-- [ ] Duplicate supplier names produce a useful error.
+- [ ] Staff avoid creating a second supplier record for the same business.
 - [ ] Direct supplier deletion is rejected.
 
 ## Purchase Orders and Receiving

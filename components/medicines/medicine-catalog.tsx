@@ -576,6 +576,7 @@ function MedicineTable({
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label={`View ${medicine.brand_name}`}
                   title="View medicine"
                   onClick={() => onView(medicine)}
                 >
@@ -586,6 +587,7 @@ function MedicineTable({
                     <Button
                       variant="ghost"
                       size="icon"
+                      aria-label={`Edit ${medicine.brand_name}`}
                       title="Edit medicine"
                       onClick={() => onEdit(medicine)}
                     >
@@ -718,6 +720,11 @@ function StatusAction({
         <Button
           variant="ghost"
           size={isActive ? "icon" : "sm"}
+          aria-label={
+            isActive
+              ? `Deactivate ${medicine.brand_name}`
+              : `Restore ${medicine.brand_name}`
+          }
           title={isActive ? "Deactivate medicine" : "Restore medicine"}
         >
           {isActive ? (

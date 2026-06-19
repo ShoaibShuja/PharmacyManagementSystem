@@ -63,10 +63,12 @@ Install and authenticate the Supabase CLI, then run from the repository root:
 
 ```bash
 npx supabase login
+npx supabase init
 npx supabase link --project-ref YOUR_PROJECT_REF
 npx supabase db push
 ```
 
+Run `supabase init` only when `supabase/config.toml` does not already exist.
 Review the migration list before confirming. The CLI applies files from
 `supabase/migrations` in filename order.
 

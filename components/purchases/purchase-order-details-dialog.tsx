@@ -304,6 +304,7 @@ function DeliveryDialog({
               <div className="grid gap-2">
                 <Label>Batch number</Label>
                 <Input
+                  aria-label={`Batch number for ${item.medicine?.brand_name ?? `item ${index + 1}`}`}
                   {...form.register(`deliveries.${index}.batch_number`)}
                 />
                 {form.formState.errors.deliveries?.[index]?.batch_number?.message ? (
@@ -315,6 +316,7 @@ function DeliveryDialog({
               <div className="grid gap-2">
                 <Label>Expiry date</Label>
                 <Input
+                  aria-label={`Expiry date for ${item.medicine?.brand_name ?? `item ${index + 1}`}`}
                   type="date"
                   min={today}
                   {...form.register(`deliveries.${index}.expiry_date`)}
