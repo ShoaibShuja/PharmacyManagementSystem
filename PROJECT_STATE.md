@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 7: Basic Reporting and Exports.
+Phase 8: Search, Filtering, and List Usability.
 
 Last updated: June 19, 2026.
 
@@ -62,6 +62,21 @@ Last updated: June 19, 2026.
 - Paginated landscape PDF export using jsPDF with pharmacy name, generation date, summaries, and visible rows
 - Readable report filenames containing report type, active filter, or selected date range
 - Report loading, error, and filter-specific empty states
+- Role-aware global search command in the authenticated header
+- Global search across medicines and permitted sales for all roles
+- Global supplier and purchase-order search for Admin and Pharmacist users
+- Search-result deep links that prefill the target page search
+- Reusable list search input with clear action and accessible labels
+- Reusable pagination with page size, range text, and previous/next controls
+- Reusable list-focused loading skeleton
+- Medicine sorting by name, stock quantity, and nearest expiry
+- Supplier sorting by name, purchase count, and delivered value
+- Purchase-order sorting by date and order value
+- Searchable sales history by receipt number, medicine, and batch number
+- Sales history payment filtering, sorting, and pagination
+- Page-size controls for medicines, sales history, suppliers, and purchase orders
+- Text search within sales, inventory, expiry, and purchase reports
+- Existing responsive desktop tables and mobile cards preserved across management pages
 
 ## Current Database Tables
 
@@ -94,7 +109,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 
 ## Current Components
 
-- Role-aware sidebar, mobile navigation, and authenticated header
+- Role-aware sidebar, mobile navigation, authenticated header, and global search command
 - Login form and logout action
 - Auth server helpers and role guards
 - Query provider and global toast provider
@@ -104,6 +119,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Supplier management, supplier form dialog, and supplier detail/history dialog
 - Purchase-order management, creation form, order detail, status actions, and delivery form
 - Reporting workspace, report filter controls, responsive report tables, summary metrics, and export utilities
+- Shared list search, pagination, and list-loading components
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
 
@@ -147,6 +163,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - CSV generation test: passed June 19, 2026 with UTF-8 BOM, expected headers, and expected row count
 - PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
 - Browser verification was attempted June 19, 2026, but the local server could not authenticate because the current public Supabase environment values were missing.
+- Search UI browser verification was attempted June 19, 2026 with a temporary publishable-key alias; the app reached the sign-in page, but authenticated testing requires a test user login.
 - Live delivered-stock verification requires applying the new migration to a configured Supabase project.
 - Live role and mutation testing still requires an applied migration and Admin, Pharmacist, and Cashier test users.
 
@@ -157,6 +174,7 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Inventory batches remain read-only outside the protected purchase receiving workflow.
 - Password recovery and Admin user management are not implemented.
 - Reports are client-aggregated from RLS-protected operational tables; very large future datasets may require database reporting functions or pagination.
+- Global search intentionally caps each record type for small-to-medium pharmacy data and does not use an external search service.
 - Dashboard expiry windows are view filters and do not change the persistent application setting.
 - Manual stock adjustments are deferred.
 - Live stock-decrease verification requires the migration, valid Supabase credentials, test users, and stocked non-expired batches.
@@ -195,7 +213,12 @@ See `.env.example`. Never expose the service-role key in browser code.
 - Keep expiry windows mutually exclusive so each batch appears once in the 30, 60, or 90-day grouping.
 - Export only the report rows currently visible under the active filters.
 - Load jsPDF dynamically only when a PDF export is requested.
+- Keep shared list controls small and composable instead of introducing a heavy data-grid dependency.
+- Use deferred client-side search for the current small-to-medium dataset size.
+- Limit sales history to the latest 250 completed sales for responsive browser-side filtering.
+- Preserve RLS as the global-search authorization boundary and do not request supplier or purchase data for Cashiers.
+- Keep pagination local to visible filtered results and reset to the first page when search, filters, sorting, or page size changes.
 
 ## Next Recommended Prompt
 
-Apply all three migrations and verify the complete workflow against a live Supabase project, including report totals and exported files. Then build Admin user management and password recovery or a focused manual inventory adjustment workflow.
+Configure a live Supabase project and authenticated role test accounts, then verify global search, list filtering, pagination, and role visibility. Next build Admin user management and password recovery or a focused manual inventory adjustment workflow.

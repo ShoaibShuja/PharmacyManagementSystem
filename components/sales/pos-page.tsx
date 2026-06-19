@@ -12,12 +12,18 @@ import {
   ShoppingCart,
   Trash2,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ReceiptDialog } from "@/components/sales/receipt-dialog";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  ListPagination,
+  ListSearchInput,
+  paginateItems,
+} from "@/components/shared/list-controls";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -63,8 +69,12 @@ const dateTimeFormatter = new Intl.DateTimeFormat("en", {
 type View = "pos" | "history";
 
 export function PosPage() {
+  const searchParams = useSearchParams();
+  const initialRecordSearch = searchParams.get("search") ?? "";
   const queryClient = useQueryClient();
-  const [view, setView] = useState<View>("pos");
+  const [view, setView] = useState<View>(
+    initialRecordSearch ? "history" : "pos",
+  );
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -379,6 +389,7 @@ export function PosPage() {
           sales={sales}
           currencyCode={settings.currencyCode}
           onView={(sale) => setReceipt(historyToReceipt(sale))}
+          initialSearch={initialRecordSearch}
         />
       )}
 
@@ -586,20 +597,107 @@ function SalesHistory({
   sales,
   currencyCode,
   onView,
+  initialSearch,
 }: {
   sales: SaleHistoryDetail[];
   currencyCode: string;
   onView: (sale: SaleHistoryDetail) => void;
+  initialSearch: string;
 }) {
+  const [search, setSearch] = useState(initialSearch);
+  const deferredSearch = useDeferredValue(search);
+  const [paymentFilter, setPaymentFilter] = useState("all");
+  const [sort, setSort] = useState("newest");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const filteredSales = useMemo(() => {
+    const term = deferredSearch.trim().toLowerCase();
+    return sales
+      .filter((sale) => {
+        const matchesSearch =
+          !term ||
+          sale.sale_number.toLowerCase().includes(term) ||
+          sale.items.some(
+            (item) =>
+              item.medicine_name.toLowerCase().includes(term) ||
+              item.batch_number.toLowerCase().includes(term),
+          );
+        const matchesPayment =
+          paymentFilter === "all" || sale.payment_method === paymentFilter;
+        return matchesSearch && matchesPayment;
+      })
+      .toSorted((a, b) => {
+        const aDate = a.completed_at ?? a.created_at;
+        const bDate = b.completed_at ?? b.created_at;
+        if (sort === "oldest") return aDate.localeCompare(bDate);
+        if (sort === "total-high") return b.total_amount - a.total_amount;
+        return bDate.localeCompare(aDate);
+      });
+  }, [deferredSearch, paymentFilter, sales, sort]);
+  const paginatedSales = paginateItems(filteredSales, page, pageSize);
+
   return (
     <Card>
       <CardContent className="p-0">
+        <div className="grid gap-3 border-b p-4 md:grid-cols-[minmax(0,1fr)_10rem_11rem]">
+          <ListSearchInput
+            value={search}
+            onChange={(value) => {
+              setSearch(value);
+              setPage(1);
+            }}
+            placeholder="Search receipt, medicine, or batch"
+            label="Search sales history"
+          />
+          <Select
+            value={paymentFilter}
+            onValueChange={(value) => {
+              setPaymentFilter(value);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger aria-label="Filter by payment method">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All payments</SelectItem>
+              <SelectItem value="cash">Cash</SelectItem>
+              <SelectItem value="card">Card</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select
+            value={sort}
+            onValueChange={(value) => {
+              setSort(value);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger aria-label="Sort sales history">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="newest">Newest first</SelectItem>
+              <SelectItem value="oldest">Oldest first</SelectItem>
+              <SelectItem value="total-high">Highest total</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         {sales.length === 0 ? (
           <div className="flex min-h-80 flex-col items-center justify-center p-8 text-center">
             <History className="size-9 text-muted-foreground" />
             <p className="mt-4 font-semibold">No completed sales yet</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Completed sales and receipts will appear here.
+            </p>
+          </div>
+        ) : filteredSales.length === 0 ? (
+          <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center">
+            <History className="size-9 text-muted-foreground" />
+            <p className="mt-4 font-semibold">No matching sales found</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Try a different receipt number, medicine, batch, or payment type.
             </p>
           </div>
         ) : (
@@ -617,7 +715,7 @@ function SalesHistory({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sales.map((sale) => (
+                  {paginatedSales.items.map((sale) => (
                     <TableRow key={sale.id}>
                       <TableCell className="font-medium">
                         {sale.sale_number}
@@ -655,7 +753,7 @@ function SalesHistory({
               </Table>
             </div>
             <div className="divide-y md:hidden">
-              {sales.map((sale) => (
+              {paginatedSales.items.map((sale) => (
                 <button
                   type="button"
                   key={sale.id}
@@ -677,6 +775,17 @@ function SalesHistory({
                 </button>
               ))}
             </div>
+            <ListPagination
+              page={paginatedSales.page}
+              pageSize={pageSize}
+              totalItems={filteredSales.length}
+              itemLabel="sales"
+              onPageChange={setPage}
+              onPageSizeChange={(value) => {
+                setPageSize(value);
+                setPage(1);
+              }}
+            />
           </>
         )}
       </CardContent>

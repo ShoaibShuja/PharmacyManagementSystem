@@ -33,6 +33,26 @@ Cashiers cannot open Supplier or Purchase Order management.
 
 Always sign out on a shared pharmacy computer.
 
+## Global Search
+
+Use the search button in the top bar to quickly find pharmacy records.
+
+1. Select **Search medicines, sales, and more**.
+2. Type at least two characters.
+3. Select a result to open the correct page with the search already filled in.
+
+All users can search:
+
+- Medicines by name, generic name, strength, SKU, or barcode
+- Sales they are allowed to view by receipt number or payment type
+
+Admin and Pharmacist users can also search:
+
+- Suppliers by name, contact person, phone, or email
+- Purchase orders by order number or status
+
+Cashiers do not receive supplier or purchase-order results.
+
 ## Dashboard
 
 The Dashboard is the first page after signing in.
@@ -142,6 +162,9 @@ Filters are available for:
 - Expiry alerts
 - Category
 - Active or inactive status
+- Sorting by name, stock quantity, or nearest expiry
+
+Use **Rows** at the bottom of the list to show 10, 25, or 50 medicines at a time. Use the arrow buttons to move between pages.
 
 Select **Clear** to return to the normal active medicine list.
 
@@ -217,7 +240,15 @@ The receipt contains the pharmacy details, receipt number, date, payment method,
 
 Admin and Pharmacist users can see all permitted completed sales. Cashiers see only their own completed sales.
 
-The history currently shows the latest 50 completed sales.
+Sales history loads the latest 250 completed sales.
+
+Use the Sales History search to find:
+
+- Receipt numbers
+- Medicine names
+- Batch numbers
+
+You can also filter by Cash, Card, or Other payment and sort by newest, oldest, or highest total. Use the controls at the bottom to change page size or move between pages.
 
 ## How Stock and Expiry Work
 
@@ -256,6 +287,8 @@ Inactive suppliers stay in old purchase records but cannot be selected for new o
 
 Use the search box to find a supplier by name, contact person, phone, or email.
 
+You can sort suppliers by name, number of orders, or delivered purchase value. Long lists are divided into pages.
+
 Select a supplier to see:
 
 - Contact details
@@ -267,6 +300,8 @@ Select a supplier to see:
 ## Purchase Orders
 
 Admin and Pharmacist users can use purchase orders to restock inventory.
+
+Use the purchase search box to find an order by order number, supplier, or medicine. You can filter by status, sort by date or value, and change the number of rows shown per page.
 
 ### Creating a Purchase Order
 
@@ -325,6 +360,13 @@ The report page has four sections:
 - Inventory
 - Expiry
 - Purchases
+
+Each report section also has a search box:
+
+- Sales: receipt number or payment type
+- Inventory: medicine name
+- Expiry: medicine or batch number
+- Purchases: order number or supplier
 
 ### Sales Report
 
@@ -485,6 +527,14 @@ Use a current version of Excel, LibreOffice, or Google Sheets. The export includ
 
 Confirm the browser allows downloads from the pharmacy website, then try again.
 
+### Search returns no results
+
+Check spelling and clear any page filters. Global search requires at least two characters. Cashiers cannot search supplier or purchase-order records.
+
+### A list item seems missing
+
+Check the search box, filters, and current page. Select **Rows 50** to show more records at once or use the next-page arrow.
+
 ## Change History
 
 ### Phase 0: Foundation
@@ -543,3 +593,12 @@ Confirm the browser allows downloads from the pharmacy website, then try again.
 - Added expired and 30, 60, and 90-day expiry reports.
 - Added purchase reports with status and supplier filters.
 - Added CSV and paginated PDF export for the currently visible report.
+
+### Phase 8: Search, Filtering, and List Usability
+
+- Added a role-aware global search for medicines, sales, suppliers, and purchase orders.
+- Added shared search, pagination, page-size, and loading patterns.
+- Added sorting and paging to medicine, supplier, purchase, and sales-history lists.
+- Added medicine and batch search to sales history.
+- Added text search to all report sections.
+- Preserved responsive mobile cards and scroll-safe report tables.

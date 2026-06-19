@@ -6,22 +6,26 @@ import {
   Eye,
   Pencil,
   Plus,
-  Search,
   ShoppingBag,
   UsersRound,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/error-state";
-import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  ListPagination,
+  ListSearchInput,
+  ListLoadingState,
+  paginateItems,
+} from "@/components/shared/list-controls";
 import { SupplierDetailsDialog } from "@/components/suppliers/supplier-details-dialog";
 import { SupplierFormDialog } from "@/components/suppliers/supplier-form-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -48,6 +52,7 @@ import { cn } from "@/lib/utils";
 
 const queryKey = ["suppliers"] as const;
 type StatusFilter = "active" | "inactive" | "all";
+type SortOption = "name" | "orders" | "value";
 
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : "The action could not be completed.";
@@ -55,9 +60,13 @@ function getErrorMessage(error: unknown) {
 
 export function SupplierManagement() {
   const queryClient = useQueryClient();
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get("search") ?? "");
   const deferredSearch = useDeferredValue(search);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("active");
+  const [sort, setSort] = useState<SortOption>("name");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [formOpen, setFormOpen] = useState(false);
   const [editingSupplier, setEditingSupplier] =
     useState<SupplierListItem | null>(null);
@@ -97,7 +106,7 @@ export function SupplierManagement() {
 
   const filteredSuppliers = useMemo(() => {
     const term = deferredSearch.trim().toLowerCase();
-    return (suppliersQuery.data?.suppliers ?? []).filter((supplier) => {
+    const matches = (suppliersQuery.data?.suppliers ?? []).filter((supplier) => {
       const matchesStatus =
         statusFilter === "all" ||
         (statusFilter === "active" && supplier.is_active) ||
@@ -110,9 +119,19 @@ export function SupplierManagement() {
         supplier.email?.toLowerCase().includes(term);
       return matchesStatus && matchesSearch;
     });
-  }, [deferredSearch, statusFilter, suppliersQuery.data?.suppliers]);
+    return matches.toSorted((a, b) => {
+      if (sort === "orders") return b.purchaseCount - a.purchaseCount;
+      if (sort === "value") return b.totalPurchased - a.totalPurchased;
+      return a.name.localeCompare(b.name);
+    });
+  }, [deferredSearch, sort, statusFilter, suppliersQuery.data?.suppliers]);
+  const paginatedSuppliers = paginateItems(
+    filteredSuppliers,
+    page,
+    pageSize,
+  );
 
-  if (suppliersQuery.isLoading) return <LoadingState />;
+  if (suppliersQuery.isLoading) return <ListLoadingState />;
   if (suppliersQuery.isError || !suppliersQuery.data) {
     return (
       <ErrorState
@@ -165,19 +184,22 @@ export function SupplierManagement() {
 
       <Card>
         <CardContent className="p-0">
-          <div className="grid gap-3 border-b p-4 sm:grid-cols-[minmax(0,1fr)_11rem]">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                className="pl-9"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search supplier or contact"
-              />
-            </div>
+          <div className="grid gap-3 border-b p-4 md:grid-cols-[minmax(0,1fr)_11rem_12rem]">
+            <ListSearchInput
+              value={search}
+              onChange={(value) => {
+                setSearch(value);
+                setPage(1);
+              }}
+              placeholder="Search supplier, contact, phone, or email"
+              label="Search suppliers"
+            />
             <Select
               value={statusFilter}
-              onValueChange={(value: StatusFilter) => setStatusFilter(value)}
+              onValueChange={(value: StatusFilter) => {
+                setStatusFilter(value);
+                setPage(1);
+              }}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -186,6 +208,22 @@ export function SupplierManagement() {
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
                 <SelectItem value="all">All statuses</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              value={sort}
+              onValueChange={(value: SortOption) => {
+                setSort(value);
+                setPage(1);
+              }}
+            >
+              <SelectTrigger aria-label="Sort suppliers">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name A–Z</SelectItem>
+                <SelectItem value="orders">Most orders</SelectItem>
+                <SelectItem value="value">Highest delivered value</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -223,7 +261,7 @@ export function SupplierManagement() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredSuppliers.map((supplier) => (
+                    {paginatedSuppliers.items.map((supplier) => (
                       <TableRow
                         key={supplier.id}
                         className={cn(!supplier.is_active && "opacity-60")}
@@ -280,7 +318,7 @@ export function SupplierManagement() {
                 </Table>
               </div>
               <div className="divide-y md:hidden">
-                {filteredSuppliers.map((supplier) => (
+                {paginatedSuppliers.items.map((supplier) => (
                   <button
                     type="button"
                     key={supplier.id}
@@ -309,6 +347,17 @@ export function SupplierManagement() {
                   </button>
                 ))}
               </div>
+              <ListPagination
+                page={paginatedSuppliers.page}
+                pageSize={pageSize}
+                totalItems={filteredSuppliers.length}
+                itemLabel="suppliers"
+                onPageChange={setPage}
+                onPageSizeChange={(value) => {
+                  setPageSize(value);
+                  setPage(1);
+                }}
+              />
             </>
           )}
         </CardContent>
