@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Phase 11: Deployment Readiness and Client Handoff.
+Phase 12: Final Release Candidate Review.
 
 Last updated: June 19, 2026.
 
@@ -112,6 +112,15 @@ Last updated: June 19, 2026.
 - Runtime environment contract reduced to the Supabase URL and one public key
 - Deployment ownership, backup, post-deploy testing, update, and rollback
   procedures documented
+- Final release candidate audit completed across routes, approved scope,
+  excluded scope, role guards, transactional functions, usability states,
+  environment configuration, and deployment documentation
+- Fresh-checkout Supabase CLI instructions corrected to include initialization
+- Next.js framework-identifying response header disabled
+- Final beginner-facing release checklist added to the client guide
+- Form fields, report filters, POS quantity controls, and icon-only management
+  actions now expose explicit accessible names
+- Stale Settings description removed after the deferred setup panel was removed
 
 ## Current Database Tables
 
@@ -200,8 +209,8 @@ See `.env.example`.
 
 ## Production Readiness Status
 
-**Code and documentation ready for staging deployment. Production approval is
-conditional.**
+**Release Candidate 1 is code-complete and ready for staging acceptance.
+Production approval remains conditional.**
 
 The application is suitable for production only after all five migrations are
 applied to staging and `docs/MANUAL_QA_CHECKLIST.md` passes with separate Admin,
@@ -216,6 +225,50 @@ Critical release gates:
 - verify real CSV, PDF, receipt, and mobile behavior;
 - establish Supabase backup and recovery ownership;
 - deploy the reviewed commit with production Supabase variables.
+
+## Final Release Candidate Review
+
+### Included features confirmed
+
+- Dashboard and analytics
+- Batch-aware inventory management
+- Sales and POS
+- Expiry tracking
+- Supplier management
+- Purchase orders and atomic delivery receiving
+- Low-stock alerts
+- Admin, Pharmacist, and Cashier roles and permissions
+- Medicine catalog
+- Sales, inventory, expiry, and purchase reporting
+- Global and page-level search, filters, sorting, and pagination
+
+### Excluded scope confirmed absent
+
+No application implementation was found for patient medical records, drug
+interaction checking, prescription management, insurance claims,
+multi-branch management, loyalty rewards, full accounting, telemedicine,
+native mobile applications, AI forecasting, or SMS/email automation.
+
+### Role review
+
+- Admin routes and UI provide full current application management.
+- Pharmacist routes permit operations but keep pharmacy settings read-only and
+  hide user-role management.
+- Cashier routes permit Dashboard, Medicines, and Sales only. Medicine
+  management controls are hidden, restricted routes redirect, and RLS limits
+  sales visibility to the Cashier's own records.
+- Database functions re-check active roles independently of the frontend.
+
+### Workflow review
+
+Implementation paths were confirmed for login, medicine create/edit/search,
+low-stock and expiry alerts, sale completion, FEFO stock reduction, receipt
+generation, supplier create/edit, purchase creation and receiving, stock
+increase, reports and exports, and settings updates.
+
+Unauthenticated route redirects and invalid-login behavior were browser-tested.
+Authenticated mutation workflows still require staging test users and applied
+migrations before production approval.
 
 ## Deployment Steps
 
@@ -235,22 +288,28 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 
 ## Latest Test and Build Status
 
-- `npm run lint`: passed June 19, 2026 after Phase 11 documentation and deployment handoff
-- `npm run typecheck`: passed June 19, 2026 after Phase 11
-- `npm run build`: passed June 19, 2026 after Phase 11
-- Tracked-file secret scan: passed June 19, 2026; `.env.local` remains ignored
+- `npm run lint`: passed June 19, 2026 for Release Candidate 1
+- `npm run typecheck`: passed June 19, 2026 for Release Candidate 1
+- `npm run build`: passed June 19, 2026 for Release Candidate 1
+- Tracked-file secret scan and UTF-8 documentation scan: passed for RC1
+- `.env.local` remains ignored and untracked
 - Browser check: sign-in metadata, protected Settings redirect, and 375 px
   horizontal-overflow check passed June 19, 2026
+- Final RC browser check: invalid credentials produced the correct beginner-friendly
+  message; every protected route redirected to `/login`; 375 px sign-in layout
+  had no horizontal overflow
 - HTTP check: production-hardening security headers were present June 19, 2026
+- Final RC HTTP check: `X-Powered-By` was removed and all configured security
+  headers were present
 - UTF-8 source audit found no malformed source or documentation text
 - CSV generation test: passed June 19, 2026 with UTF-8 BOM, expected headers, and expected row count
 - PDF generation test: passed June 19, 2026 with a valid PDF document and readable filename
-- Browser verification was attempted June 19, 2026, but the local server could not authenticate because the current public Supabase environment values were missing.
-- Search UI browser verification was attempted June 19, 2026 with a temporary publishable-key alias; the app reached the sign-in page, but authenticated testing requires a test user login.
-- Settings route browser verification was attempted June 19, 2026; unauthenticated access correctly redirected to sign-in, while update testing requires an Admin test account and the fourth migration.
-- Live delivered-stock verification requires applying the new migration to a configured Supabase project.
-- Live pharmacy-setting and role-change verification requires applying `202606190003_admin_settings.sql`.
-- Live role and mutation testing still requires an applied migration and Admin, Pharmacist, and Cashier test users.
+- Public Supabase environment values are configured locally, but outbound
+  Supabase requests are blocked by the managed review environment.
+- Authenticated mutation testing still requires an applied staging schema and
+  separate Admin, Pharmacist, and Cashier test credentials.
+- The npm advisory endpoint was unavailable during the final RC review. The two
+  previously recorded moderate transitive findings remain the latest known result.
 
 ## Current Known Issues
 
@@ -270,6 +329,11 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 - Phase 10 database hardening is not verified against a live staging Supabase project.
 - The final Vercel URL, custom domain, Supabase Auth Site URL, and backup policy
   are deployment-time values and are not configured in this repository.
+- Authenticated end-to-end workflows were not executed during the final RC
+  review because no Admin, Pharmacist, or Cashier test credentials are stored
+  in the workspace.
+- Live Supabase connectivity could not be re-verified from the managed review
+  environment because outbound network requests were denied.
 
 ## Final Manual Testing Checklist
 
@@ -337,6 +401,6 @@ Release-blocking checks:
 
 ## Next Recommended Prompt
 
-Follow `docs/DEPLOYMENT.md` to create the staging Supabase and Vercel projects,
-then execute `docs/MANUAL_QA_CHECKLIST.md` with Admin, Pharmacist, and Cashier
-accounts. Do not approve production use until every release-blocking test passes.
+Deploy RC1 to staging, apply all five migrations, create Admin, Pharmacist, and
+Cashier test accounts, and execute `docs/MANUAL_QA_CHECKLIST.md`. Record every
+result and do not approve production use until all release-blocking checks pass.

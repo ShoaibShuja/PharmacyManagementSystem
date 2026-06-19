@@ -628,6 +628,30 @@ Future work should remain within pharmacy operations. Requests for patient
 records, prescription management, insurance, clinical decision tools,
 multi-branch management, or full accounting require a separate product review.
 
+## Final Release Checklist
+
+The technical maintainer must complete these checks before approving real
+pharmacy use:
+
+- [ ] All five Supabase migrations were applied in filename order.
+- [ ] Public sign-up is disabled.
+- [ ] Separate Admin, Pharmacist, and Cashier test accounts were created.
+- [ ] Each role can open only the correct pages and actions.
+- [ ] A medicine and supplier can be added and edited.
+- [ ] A purchase order can be created, ordered, and delivered.
+- [ ] Delivery increases stock exactly once.
+- [ ] A sale uses non-expired stock and decreases stock exactly once.
+- [ ] Low-stock and expiry warnings match the test data.
+- [ ] Receipts, CSV exports, and PDF exports are correct.
+- [ ] Pharmacy settings and another user's role can be updated by an Admin.
+- [ ] Admin self-role changes and unauthorized database writes are blocked.
+- [ ] Mobile and desktop layouts were checked.
+- [ ] Supabase backups, account ownership, and recovery responsibility are documented.
+- [ ] `npm run lint`, `npm run typecheck`, and `npm run build` pass.
+
+The full technical checklist is in `docs/MANUAL_QA_CHECKLIST.md`. Do not enter
+real stock until every release-blocking item passes.
+
 ## Common Problems
 
 ### Medicines do not load
@@ -791,3 +815,22 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Added page titles and browser security headers.
 - Removed deferred document-storage information from the operational Settings page.
 - Added a complete staging QA checklist for every core module and user role.
+
+### Phase 11: Deployment and Client Handoff
+
+- Added final Supabase and Vercel deployment instructions.
+- Added backup, recovery, update, and rollback guidance.
+- Finalized the beginner user manual and maintenance instructions.
+- Documented the exact public environment variables required by the application.
+
+### Phase 12: Final Release Candidate Review
+
+- Confirmed every approved module and role path exists.
+- Confirmed excluded clinical, insurance, multi-branch, accounting, automation,
+  and AI features are not implemented.
+- Rechecked protected-route redirects, security headers, mobile sign-in layout,
+  linting, type checks, and the production build.
+- Improved accessible names for form fields, filters, cart quantity controls,
+  and icon-only actions.
+- Kept production approval dependent on the staging checklist with Admin,
+  Pharmacist, and Cashier test accounts.

@@ -90,23 +90,42 @@ export function SupplierFormDialog({
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Supplier name" error={form.formState.errors.name?.message}>
-              <Input autoFocus {...form.register("name")} />
+              <Input
+                autoFocus
+                aria-label="Supplier name"
+                {...form.register("name")}
+              />
             </Field>
             <Field
               label="Contact person"
               error={form.formState.errors.contact_person?.message}
             >
-              <Input {...form.register("contact_person")} />
+              <Input
+                aria-label="Contact person"
+                {...form.register("contact_person")}
+              />
             </Field>
             <Field label="Phone" error={form.formState.errors.phone?.message}>
-              <Input type="tel" {...form.register("phone")} />
+              <Input
+                aria-label="Phone"
+                type="tel"
+                {...form.register("phone")}
+              />
             </Field>
             <Field label="Email" error={form.formState.errors.email?.message}>
-              <Input type="email" {...form.register("email")} />
+              <Input
+                aria-label="Email"
+                type="email"
+                {...form.register("email")}
+              />
             </Field>
             <div className="sm:col-span-2">
               <Field label="Address" error={form.formState.errors.address?.message}>
-                <Textarea rows={3} {...form.register("address")} />
+                <Textarea
+                  aria-label="Address"
+                  rows={3}
+                  {...form.register("address")}
+                />
               </Field>
             </div>
             <div className="sm:col-span-2">
@@ -115,7 +134,11 @@ export function SupplierFormDialog({
                 error={form.formState.errors.notes?.message}
                 hint="Optional ordering instructions or account references."
               >
-                <Textarea rows={4} {...form.register("notes")} />
+                <Textarea
+                  aria-label="Notes"
+                  rows={4}
+                  {...form.register("notes")}
+                />
               </Field>
             </div>
             <Field label="Status">
@@ -127,7 +150,7 @@ export function SupplierFormDialog({
                     value={field.value ? "active" : "inactive"}
                     onValueChange={(value) => field.onChange(value === "active")}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Status">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

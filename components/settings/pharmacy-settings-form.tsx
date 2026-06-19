@@ -80,6 +80,7 @@ export function PharmacySettingsForm({
               className="sm:col-span-2"
             >
               <Input
+                aria-label="Pharmacy name"
                 disabled={!canEdit}
                 {...form.register("pharmacy_name")}
               />
@@ -89,6 +90,7 @@ export function PharmacySettingsForm({
               error={form.formState.errors.phone?.message}
             >
               <Input
+                aria-label="Phone"
                 type="tel"
                 disabled={!canEdit}
                 placeholder="Optional"
@@ -101,6 +103,7 @@ export function PharmacySettingsForm({
               hint="Use a 3-letter code such as USD, AFN, or PKR."
             >
               <Input
+                aria-label="Currency code"
                 disabled={!canEdit}
                 maxLength={3}
                 className="uppercase"
@@ -113,6 +116,7 @@ export function PharmacySettingsForm({
               className="sm:col-span-2"
             >
               <Textarea
+                aria-label="Address"
                 disabled={!canEdit}
                 rows={3}
                 placeholder="Optional pharmacy address"
@@ -125,6 +129,7 @@ export function PharmacySettingsForm({
               hint="Dashboard alerts use this number of days."
             >
               <Input
+                aria-label="Default expiry warning"
                 type="number"
                 min="0"
                 max="365"
@@ -142,6 +147,7 @@ export function PharmacySettingsForm({
               className="sm:col-span-2"
             >
               <Textarea
+                aria-label="Receipt footer note"
                 disabled={!canEdit}
                 rows={3}
                 placeholder="Optional note printed at the bottom of receipts"

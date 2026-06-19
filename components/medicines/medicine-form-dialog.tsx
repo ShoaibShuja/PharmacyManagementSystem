@@ -116,6 +116,7 @@ export function MedicineFormDialog({
             >
               <Input
                 autoFocus
+                aria-label="Brand name"
                 placeholder="Example: Panadol"
                 {...form.register("brand_name")}
               />
@@ -125,6 +126,7 @@ export function MedicineFormDialog({
               error={form.formState.errors.generic_name?.message}
             >
               <Input
+                aria-label="Generic name"
                 placeholder="Example: Paracetamol"
                 {...form.register("generic_name")}
               />
@@ -134,6 +136,7 @@ export function MedicineFormDialog({
               error={form.formState.errors.dosage_form?.message}
             >
               <Input
+                aria-label="Dosage form"
                 placeholder="Tablet, syrup, cream"
                 {...form.register("dosage_form")}
               />
@@ -142,7 +145,11 @@ export function MedicineFormDialog({
               label="Strength"
               error={form.formState.errors.strength?.message}
             >
-              <Input placeholder="Example: 500 mg" {...form.register("strength")} />
+              <Input
+                aria-label="Strength"
+                placeholder="Example: 500 mg"
+                {...form.register("strength")}
+              />
             </FormField>
             <FormField label="Category">
               <Controller
@@ -155,7 +162,7 @@ export function MedicineFormDialog({
                       field.onChange(value === "none" ? "" : value)
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Category">
                       <SelectValue placeholder="No category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -173,22 +180,35 @@ export function MedicineFormDialog({
               />
             </FormField>
             <FormField label="Unit" error={form.formState.errors.unit?.message}>
-              <Input placeholder="unit, box, bottle" {...form.register("unit")} />
+              <Input
+                aria-label="Unit"
+                placeholder="unit, box, bottle"
+                {...form.register("unit")}
+              />
             </FormField>
             <FormField label="SKU" error={form.formState.errors.sku?.message}>
-              <Input placeholder="Optional internal code" {...form.register("sku")} />
+              <Input
+                aria-label="SKU"
+                placeholder="Optional internal code"
+                {...form.register("sku")}
+              />
             </FormField>
             <FormField
               label="Barcode"
               error={form.formState.errors.barcode?.message}
             >
-              <Input placeholder="Optional barcode" {...form.register("barcode")} />
+              <Input
+                aria-label="Barcode"
+                placeholder="Optional barcode"
+                {...form.register("barcode")}
+              />
             </FormField>
             <FormField
               label="Default cost price"
               error={form.formState.errors.default_cost_price?.message}
             >
               <Input
+                aria-label="Default cost price"
                 type="number"
                 min="0"
                 step="0.01"
@@ -200,6 +220,7 @@ export function MedicineFormDialog({
               error={form.formState.errors.default_selling_price?.message}
             >
               <Input
+                aria-label="Default selling price"
                 type="number"
                 min="0"
                 step="0.01"
@@ -212,6 +233,7 @@ export function MedicineFormDialog({
               hint="Low-stock warnings appear at or below this quantity."
             >
               <Input
+                aria-label="Reorder threshold"
                 type="number"
                 min="0"
                 step="1"
@@ -224,7 +246,7 @@ export function MedicineFormDialog({
                 name="status"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Status">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

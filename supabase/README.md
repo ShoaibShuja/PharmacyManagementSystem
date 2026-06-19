@@ -8,7 +8,8 @@ Vercel environment variables, post-deploy testing, backups, and rollback, see
 
 Use one of these supported methods:
 
-1. Install the Supabase CLI, link the project, and run `supabase db push`.
+1. Install the Supabase CLI, run `supabase init` when `config.toml` is missing,
+   link the project, and run `supabase db push`.
 2. Open the Supabase SQL Editor and run migrations in filename order:
    - `migrations/202606180001_initial_schema.sql`
    - `migrations/202606190001_complete_sale_rpc.sql`

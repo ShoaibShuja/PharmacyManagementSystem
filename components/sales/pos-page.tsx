@@ -293,6 +293,7 @@ export function PosPage() {
                   <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     autoFocus
+                    aria-label="Search saleable medicines"
                     className="h-11 pl-9"
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
@@ -471,6 +472,7 @@ function CartPanel({
                     size="icon"
                     className="size-8 text-muted-foreground hover:text-destructive"
                     onClick={() => onRemove(item.medicineId)}
+                    aria-label={`Remove ${item.brandName} from cart`}
                     title="Remove item"
                   >
                     <Trash2 className="size-4" />
@@ -482,6 +484,7 @@ function CartPanel({
                       variant="ghost"
                       size="icon"
                       className="size-8 rounded-r-none"
+                      aria-label={`Decrease ${item.brandName} quantity`}
                       onClick={() =>
                         onQuantityChange(item.medicineId, item.quantity - 1)
                       }
@@ -494,6 +497,7 @@ function CartPanel({
                       min="1"
                       max={item.availableStock}
                       value={item.quantity}
+                      aria-label={`${item.brandName} quantity`}
                       onChange={(event) =>
                         onQuantityChange(
                           item.medicineId,
@@ -505,6 +509,7 @@ function CartPanel({
                       variant="ghost"
                       size="icon"
                       className="size-8 rounded-l-none"
+                      aria-label={`Increase ${item.brandName} quantity`}
                       onClick={() =>
                         onQuantityChange(item.medicineId, item.quantity + 1)
                       }
@@ -547,7 +552,7 @@ function CartPanel({
                 value={paymentMethod}
                 onValueChange={onPaymentMethodChange}
               >
-                <SelectTrigger>
+                <SelectTrigger aria-label="Payment method">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

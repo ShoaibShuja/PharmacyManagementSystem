@@ -203,7 +203,7 @@ export function SupplierManagement() {
                 setPage(1);
               }}
             >
-              <SelectTrigger>
+              <SelectTrigger aria-label="Supplier status filter">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -299,6 +299,7 @@ export function SupplierManagement() {
                             <Button
                               variant="ghost"
                               size="icon"
+                              aria-label={`View ${supplier.name}`}
                               title="View supplier"
                               onClick={() => setDetailsSupplier(supplier)}
                             >
@@ -307,6 +308,7 @@ export function SupplierManagement() {
                             <Button
                               variant="ghost"
                               size="icon"
+                              aria-label={`Edit ${supplier.name}`}
                               title="Edit supplier"
                               onClick={() => openEdit(supplier)}
                             >

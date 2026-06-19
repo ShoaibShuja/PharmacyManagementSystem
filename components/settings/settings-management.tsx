@@ -91,7 +91,7 @@ export function SettingsManagement({
         title="Settings"
         description={
           isAdmin
-            ? "Manage pharmacy details, staff roles, and setup guidance."
+            ? "Manage pharmacy details and staff roles."
             : "Review the pharmacy details used across the system."
         }
       />

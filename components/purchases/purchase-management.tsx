@@ -239,7 +239,7 @@ export function PurchaseManagement() {
                 setPage(1);
               }}
             >
-              <SelectTrigger>
+              <SelectTrigger aria-label="Purchase order status filter">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
