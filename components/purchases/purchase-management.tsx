@@ -6,20 +6,24 @@ import {
   Eye,
   PackageCheck,
   Plus,
-  Search,
   Truck,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { PurchaseOrderDetailsDialog, StatusBadge } from "@/components/purchases/purchase-order-details-dialog";
 import { PurchaseOrderFormDialog } from "@/components/purchases/purchase-order-form-dialog";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/error-state";
-import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  ListPagination,
+  ListSearchInput,
+  ListLoadingState,
+  paginateItems,
+} from "@/components/shared/list-controls";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -54,6 +58,7 @@ type StatusFilter =
   | "ordered"
   | "received"
   | "cancelled";
+type SortOption = "newest" | "oldest" | "value-high" | "value-low";
 
 const dateFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
@@ -67,9 +72,13 @@ function getErrorMessage(error: unknown) {
 
 export function PurchaseManagement() {
   const queryClient = useQueryClient();
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get("search") ?? "");
   const deferredSearch = useDeferredValue(search);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [sort, setSort] = useState<SortOption>("newest");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [formOpen, setFormOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] =
     useState<PurchaseOrderDetail | null>(null);
@@ -140,7 +149,7 @@ export function PurchaseManagement() {
 
   const filteredOrders = useMemo(() => {
     const term = deferredSearch.trim().toLowerCase();
-    return (purchasesQuery.data?.orders ?? []).filter((order) => {
+    const matches = (purchasesQuery.data?.orders ?? []).filter((order) => {
       const matchesStatus =
         statusFilter === "all" || order.status === statusFilter;
       const matchesSearch =
@@ -152,9 +161,16 @@ export function PurchaseManagement() {
         );
       return matchesStatus && matchesSearch;
     });
-  }, [deferredSearch, purchasesQuery.data?.orders, statusFilter]);
+    return matches.toSorted((a, b) => {
+      if (sort === "oldest") return a.created_at.localeCompare(b.created_at);
+      if (sort === "value-high") return b.total_amount - a.total_amount;
+      if (sort === "value-low") return a.total_amount - b.total_amount;
+      return b.created_at.localeCompare(a.created_at);
+    });
+  }, [deferredSearch, purchasesQuery.data?.orders, sort, statusFilter]);
+  const paginatedOrders = paginateItems(filteredOrders, page, pageSize);
 
-  if (purchasesQuery.isLoading) return <LoadingState />;
+  if (purchasesQuery.isLoading) return <ListLoadingState />;
   if (purchasesQuery.isError || !purchasesQuery.data) {
     return (
       <ErrorState
@@ -204,19 +220,22 @@ export function PurchaseManagement() {
 
       <Card>
         <CardContent className="p-0">
-          <div className="grid gap-3 border-b p-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                className="pl-9"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search order, supplier, or medicine"
-              />
-            </div>
+          <div className="grid gap-3 border-b p-4 md:grid-cols-[minmax(0,1fr)_12rem_12rem]">
+            <ListSearchInput
+              value={search}
+              onChange={(value) => {
+                setSearch(value);
+                setPage(1);
+              }}
+              placeholder="Search order number, supplier, or medicine"
+              label="Search purchase orders"
+            />
             <Select
               value={statusFilter}
-              onValueChange={(value: StatusFilter) => setStatusFilter(value)}
+              onValueChange={(value: StatusFilter) => {
+                setStatusFilter(value);
+                setPage(1);
+              }}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -227,6 +246,23 @@ export function PurchaseManagement() {
                 <SelectItem value="ordered">Ordered</SelectItem>
                 <SelectItem value="received">Delivered</SelectItem>
                 <SelectItem value="cancelled">Cancelled</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              value={sort}
+              onValueChange={(value: SortOption) => {
+                setSort(value);
+                setPage(1);
+              }}
+            >
+              <SelectTrigger aria-label="Sort purchase orders">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Newest first</SelectItem>
+                <SelectItem value="oldest">Oldest first</SelectItem>
+                <SelectItem value="value-high">Highest value</SelectItem>
+                <SelectItem value="value-low">Lowest value</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -266,7 +302,7 @@ export function PurchaseManagement() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredOrders.map((order) => (
+                    {paginatedOrders.items.map((order) => (
                       <TableRow key={order.id}>
                         <TableCell className="font-medium">
                           {order.order_number}
@@ -298,7 +334,7 @@ export function PurchaseManagement() {
                 </Table>
               </div>
               <div className="divide-y md:hidden">
-                {filteredOrders.map((order) => (
+                {paginatedOrders.items.map((order) => (
                   <button
                     type="button"
                     key={order.id}
@@ -325,6 +361,17 @@ export function PurchaseManagement() {
                   </button>
                 ))}
               </div>
+              <ListPagination
+                page={paginatedOrders.page}
+                pageSize={pageSize}
+                totalItems={filteredOrders.length}
+                itemLabel="orders"
+                onPageChange={setPage}
+                onPageSizeChange={(value) => {
+                  setPageSize(value);
+                  setPage(1);
+                }}
+              />
             </>
           )}
         </CardContent>

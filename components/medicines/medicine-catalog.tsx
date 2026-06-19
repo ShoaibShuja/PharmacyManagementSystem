@@ -11,9 +11,9 @@ import {
   Pencil,
   Plus,
   RotateCcw,
-  Search,
   Tags,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { CategoryDialog } from "@/components/medicines/category-dialog";
@@ -21,13 +21,17 @@ import { MedicineDetailsDialog } from "@/components/medicines/medicine-details-d
 import { MedicineFormDialog } from "@/components/medicines/medicine-form-dialog";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/error-state";
-import { LoadingState } from "@/components/shared/loading-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  ListPagination,
+  ListSearchInput,
+  ListLoadingState,
+  paginateItems,
+} from "@/components/shared/list-controls";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -71,6 +75,7 @@ type MedicineCatalogProps = {
 
 type StockFilter = "all" | "low" | "expiring";
 type StatusFilter = "all" | "active" | "inactive";
+type SortOption = "name" | "stock-low" | "stock-high" | "expiry";
 
 function getErrorMessage(error: unknown) {
   if (
@@ -87,12 +92,16 @@ function getErrorMessage(error: unknown) {
 
 export function MedicineCatalog({ role }: MedicineCatalogProps) {
   const canManage = role === "admin" || role === "pharmacist";
+  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(() => searchParams.get("search") ?? "");
   const deferredSearch = useDeferredValue(search);
   const [stockFilter, setStockFilter] = useState<StockFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("active");
+  const [sort, setSort] = useState<SortOption>("name");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [formOpen, setFormOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [editingMedicine, setEditingMedicine] =
@@ -167,11 +176,13 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
 
   const filteredMedicines = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
-    return (catalogQuery.data?.medicines ?? []).filter((medicine) => {
+    const matches = (catalogQuery.data?.medicines ?? []).filter((medicine) => {
       const matchesSearch =
         normalizedSearch.length === 0 ||
         medicine.brand_name.toLowerCase().includes(normalizedSearch) ||
         medicine.generic_name?.toLowerCase().includes(normalizedSearch) ||
+        medicine.sku?.toLowerCase().includes(normalizedSearch) ||
+        medicine.barcode?.toLowerCase().includes(normalizedSearch) ||
         medicine.category?.name.toLowerCase().includes(normalizedSearch) ||
         medicine.batches.some((batch) =>
           batch.batch_number.toLowerCase().includes(normalizedSearch),
@@ -188,24 +199,43 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
 
       return matchesSearch && matchesStock && matchesCategory && matchesStatus;
     });
+    return matches.toSorted((a, b) => {
+      if (sort === "stock-low") return a.saleableStock - b.saleableStock;
+      if (sort === "stock-high") return b.saleableStock - a.saleableStock;
+      if (sort === "expiry") {
+        return (a.nearestExpiryDate ?? "9999-12-31").localeCompare(
+          b.nearestExpiryDate ?? "9999-12-31",
+        );
+      }
+      return a.brand_name.localeCompare(b.brand_name);
+    });
   }, [
     catalogQuery.data?.medicines,
     categoryFilter,
     deferredSearch,
     statusFilter,
     stockFilter,
+    sort,
   ]);
+  const paginatedMedicines = paginateItems(
+    filteredMedicines,
+    page,
+    pageSize,
+  );
 
   const activeFilterCount =
     Number(stockFilter !== "all") +
     Number(categoryFilter !== "all") +
-    Number(statusFilter !== "active");
+    Number(statusFilter !== "active") +
+    Number(sort !== "name");
 
   function clearFilters() {
     setSearch("");
     setStockFilter("all");
     setCategoryFilter("all");
     setStatusFilter("active");
+    setSort("name");
+    setPage(1);
   }
 
   function openAddForm() {
@@ -219,7 +249,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
   }
 
   if (catalogQuery.isLoading) {
-    return <LoadingState />;
+    return <ListLoadingState />;
   }
 
   if (catalogQuery.isError || !catalogQuery.data) {
@@ -287,20 +317,22 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
 
       <Card>
         <CardContent className="p-0">
-          <div className="grid gap-3 border-b p-4 lg:grid-cols-[minmax(16rem,1fr)_11rem_12rem_10rem_auto]">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                className="pl-9"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search name, category, or batch"
-                aria-label="Search medicines"
-              />
-            </div>
+          <div className="grid gap-3 border-b p-4 lg:grid-cols-[minmax(16rem,1fr)_11rem_12rem_10rem_11rem_auto]">
+            <ListSearchInput
+              value={search}
+              onChange={(value) => {
+                setSearch(value);
+                setPage(1);
+              }}
+              placeholder="Search name, category, barcode, or batch"
+              label="Search medicines"
+            />
             <Select
               value={stockFilter}
-              onValueChange={(value: StockFilter) => setStockFilter(value)}
+              onValueChange={(value: StockFilter) => {
+                setStockFilter(value);
+                setPage(1);
+              }}
             >
               <SelectTrigger aria-label="Stock filter">
                 <SelectValue />
@@ -311,7 +343,13 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
                 <SelectItem value="expiring">Expiry alerts</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <Select
+              value={categoryFilter}
+              onValueChange={(value) => {
+                setCategoryFilter(value);
+                setPage(1);
+              }}
+            >
               <SelectTrigger aria-label="Category filter">
                 <SelectValue placeholder="All categories" />
               </SelectTrigger>
@@ -326,7 +364,10 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
             </Select>
             <Select
               value={statusFilter}
-              onValueChange={(value: StatusFilter) => setStatusFilter(value)}
+              onValueChange={(value: StatusFilter) => {
+                setStatusFilter(value);
+                setPage(1);
+              }}
             >
               <SelectTrigger aria-label="Status filter">
                 <SelectValue />
@@ -335,6 +376,23 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
                 <SelectItem value="all">All statuses</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              value={sort}
+              onValueChange={(value: SortOption) => {
+                setSort(value);
+                setPage(1);
+              }}
+            >
+              <SelectTrigger aria-label="Sort medicines">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name A–Z</SelectItem>
+                <SelectItem value="stock-low">Lowest stock</SelectItem>
+                <SelectItem value="stock-high">Highest stock</SelectItem>
+                <SelectItem value="expiry">Nearest expiry</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -377,7 +435,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
             <>
               <div className="hidden overflow-x-auto lg:block">
                 <MedicineTable
-                  medicines={filteredMedicines}
+                  medicines={paginatedMedicines.items}
                   currencyCode={currencyCode}
                   canManage={canManage}
                   onView={setDetailsMedicine}
@@ -388,7 +446,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
                 />
               </div>
               <div className="divide-y lg:hidden">
-                {filteredMedicines.map((medicine) => (
+                {paginatedMedicines.items.map((medicine) => (
                   <MedicineMobileCard
                     key={medicine.id}
                     medicine={medicine}
@@ -402,9 +460,17 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
                   />
                 ))}
               </div>
-              <div className="border-t px-4 py-3 text-xs text-muted-foreground">
-                Showing {filteredMedicines.length} of {medicines.length} medicines
-              </div>
+              <ListPagination
+                page={paginatedMedicines.page}
+                pageSize={pageSize}
+                totalItems={filteredMedicines.length}
+                itemLabel="medicines"
+                onPageChange={setPage}
+                onPageSizeChange={(value) => {
+                  setPageSize(value);
+                  setPage(1);
+                }}
+              />
             </>
           )}
         </CardContent>

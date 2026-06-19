@@ -10,7 +10,7 @@ import {
   ShoppingCart,
   Truck,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { toast } from "sonner";
 import {
   ExpiryReportTable,
@@ -21,6 +21,7 @@ import {
 } from "@/components/reports/report-tables";
 import { ErrorState } from "@/components/shared/error-state";
 import { LoadingState } from "@/components/shared/loading-state";
+import { ListSearchInput } from "@/components/shared/list-controls";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -78,6 +79,8 @@ const dateFormatter = new Intl.DateTimeFormat("en", {
 export function ReportsPage() {
   const defaultDates = useMemo(() => getDefaultDateRange(), []);
   const [view, setView] = useState<ReportView>("sales");
+  const [reportSearch, setReportSearch] = useState("");
+  const deferredReportSearch = useDeferredValue(reportSearch);
   const [startDate, setStartDate] = useState(defaultDates.start);
   const [endDate, setEndDate] = useState(defaultDates.end);
   const [inventoryFilter, setInventoryFilter] =
@@ -94,12 +97,17 @@ export function ReportsPage() {
   });
 
   const sales = useMemo(() => {
+    const term = deferredReportSearch.trim().toLowerCase();
     return (reportsQuery.data?.sales ?? []).filter((sale) => {
       if (!sale.completed_at) return false;
       const date = getLocalDateValue(new Date(sale.completed_at));
-      return date >= startDate && date <= endDate;
+      const matchesSearch =
+        !term ||
+        sale.sale_number.toLowerCase().includes(term) ||
+        sale.payment_method.toLowerCase().includes(term);
+      return date >= startDate && date <= endDate && matchesSearch;
     });
-  }, [endDate, reportsQuery.data?.sales, startDate]);
+  }, [deferredReportSearch, endDate, reportsQuery.data?.sales, startDate]);
 
   const inventoryRows = useMemo(
     () =>
@@ -109,15 +117,22 @@ export function ReportsPage() {
       ),
     [reportsQuery.data?.batches, reportsQuery.data?.medicines],
   );
-  const visibleInventory = useMemo(
-    () =>
-      inventoryRows.filter((row) => {
-        if (inventoryFilter === "low") return row.isLowStock;
-        if (inventoryFilter === "available") return row.saleableStock > 0;
-        return true;
-      }),
-    [inventoryFilter, inventoryRows],
-  );
+  const visibleInventory = useMemo(() => {
+    const term = deferredReportSearch.trim().toLowerCase();
+    return inventoryRows.filter((row) => {
+      const matchesFilter =
+        inventoryFilter === "low"
+          ? row.isLowStock
+          : inventoryFilter === "available"
+            ? row.saleableStock > 0
+            : true;
+      const matchesSearch =
+        !term ||
+        row.brand_name.toLowerCase().includes(term) ||
+        row.generic_name?.toLowerCase().includes(term);
+      return matchesFilter && matchesSearch;
+    });
+  }, [deferredReportSearch, inventoryFilter, inventoryRows]);
 
   const expiryRows = useMemo(
     () =>
@@ -127,25 +142,46 @@ export function ReportsPage() {
       ),
     [reportsQuery.data?.batches, reportsQuery.data?.medicines],
   );
-  const visibleExpiryRows = useMemo(
-    () =>
-      expiryRows.filter(
-        (row) => expiryFilter === "all" || row.window === expiryFilter,
-      ),
-    [expiryFilter, expiryRows],
-  );
+  const visibleExpiryRows = useMemo(() => {
+    const term = deferredReportSearch.trim().toLowerCase();
+    return expiryRows.filter(
+      (row) =>
+        (expiryFilter === "all" || row.window === expiryFilter) &&
+        (!term ||
+          row.medicineName.toLowerCase().includes(term) ||
+          row.batch_number.toLowerCase().includes(term)),
+    );
+  }, [deferredReportSearch, expiryFilter, expiryRows]);
 
-  const purchases = useMemo(
-    () =>
-      (reportsQuery.data?.purchases ?? []).filter((purchase) => {
+  const purchases = useMemo(() => {
+    const term = deferredReportSearch.trim().toLowerCase();
+    const supplierMap = new Map(
+      (reportsQuery.data?.suppliers ?? []).map((supplier) => [
+        supplier.id,
+        supplier.name,
+      ]),
+    );
+    return (reportsQuery.data?.purchases ?? []).filter((purchase) => {
         const matchesStatus =
           purchaseStatus === "all" || purchase.status === purchaseStatus;
         const matchesSupplier =
           supplierId === "all" || purchase.supplier_id === supplierId;
-        return matchesStatus && matchesSupplier;
-      }),
-    [purchaseStatus, reportsQuery.data?.purchases, supplierId],
-  );
+        const matchesSearch =
+          !term ||
+          purchase.order_number.toLowerCase().includes(term) ||
+          supplierMap
+            .get(purchase.supplier_id)
+            ?.toLowerCase()
+            .includes(term);
+        return matchesStatus && matchesSupplier && matchesSearch;
+      });
+  }, [
+    deferredReportSearch,
+    purchaseStatus,
+    reportsQuery.data?.purchases,
+    reportsQuery.data?.suppliers,
+    supplierId,
+  ]);
 
   const topSelling = useMemo(
     () =>
@@ -409,13 +445,31 @@ export function ReportsPage() {
                 ? "bg-primary text-primary-foreground shadow-sm"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
-            onClick={() => setView(item.value)}
+            onClick={() => {
+              setView(item.value);
+              setReportSearch("");
+            }}
           >
             <item.icon className="size-4" />
             {item.label}
           </button>
         ))}
       </div>
+
+      <ListSearchInput
+        value={reportSearch}
+        onChange={setReportSearch}
+        placeholder={
+          view === "sales"
+            ? "Search receipt number or payment type"
+            : view === "inventory"
+              ? "Search medicine name"
+              : view === "expiry"
+                ? "Search medicine or batch number"
+                : "Search order number or supplier"
+        }
+        label={`Search ${view} report`}
+      />
 
       {view === "sales" ? (
         <SalesView

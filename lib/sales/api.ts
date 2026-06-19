@@ -74,7 +74,7 @@ export async function getSalesPageData(): Promise<SalesPageData> {
         )
         .eq("status", "completed")
         .order("completed_at", { ascending: false })
-        .limit(50),
+        .limit(250),
     ]);
 
   const error =
