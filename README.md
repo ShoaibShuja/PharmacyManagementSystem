@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pharmacy Management System
 
-## Getting Started
+A production-oriented, single-branch pharmacy operations system for medicines,
+batch inventory, sales, suppliers, purchase orders, expiry monitoring, low-stock
+alerts, staff roles, and basic reports.
 
-First, run the development server:
+The product is designed for local pharmacy owners and staff. It deliberately
+excludes patient records, prescriptions, insurance, accounting, multi-branch
+management, and other clinical or enterprise features.
+
+## Current Status
+
+The application code, database migrations, documentation, linting, type checks,
+and production build are complete. Before real pharmacy use, deploy to staging,
+apply all migrations, and complete the live role and transaction checklist in
+[`docs/MANUAL_QA_CHECKLIST.md`](docs/MANUAL_QA_CHECKLIST.md).
+
+## Tech Stack
+
+- Next.js App Router and TypeScript
+- Tailwind CSS and shadcn/ui
+- Supabase PostgreSQL, Auth, and Row Level Security
+- TanStack Query
+- React Hook Form and Zod
+- Recharts
+- jsPDF
+- Vercel
+
+## Requirements
+
+- Node.js 20 or newer
+- npm
+- A Supabase project
+- A Vercel account for hosted deployment
+
+## Local Setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy the environment template:
+
+   ```bash
+   copy .env.example .env.local
+   ```
+
+3. Set the Supabase URL and publishable key in `.env.local`.
+4. Apply the database migrations as described in
+   [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open `http://localhost:3000`.
+
+## Environment Variables
+
+| Variable | Required | Exposure | Purpose |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Browser-safe | Supabase project API URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Yes | Browser-safe | Preferred Supabase public key |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Alternative only | Browser-safe | Legacy fallback when no publishable key is available |
+
+Configure one public key variable, not both. The current application does not
+require an application URL, service-role key, database password, or Supabase
+access token at runtime.
+
+Never prefix a secret with `NEXT_PUBLIC_`.
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run typecheck
+npm run build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run lint, typecheck, and build before every release.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Apply these migrations in filename order:
 
-## Learn More
+1. `202606180001_initial_schema.sql`
+2. `202606190001_complete_sale_rpc.sql`
+3. `202606190002_purchase_order_workflow.sql`
+4. `202606190003_admin_settings.sql`
+5. `202606190004_production_hardening.sql`
 
-To learn more about Next.js, take a look at the following resources:
+The migrations create the schema, RLS policies, Auth profile trigger, atomic
+sale workflow, atomic purchase receiving workflow, role-management function,
+and production hardening.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Public sign-up must remain disabled. Create staff in Supabase Authentication,
+then assign roles as documented in [`supabase/README.md`](supabase/README.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Use [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the complete Supabase and
+Vercel deployment procedure, environment setup, post-deploy verification, and
+rollback guidance.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Documentation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md): technical deployment and release guide
+- [`docs/CLIENT_GUIDE.md`](docs/CLIENT_GUIDE.md): beginner-friendly user manual
+- [`docs/MANUAL_QA_CHECKLIST.md`](docs/MANUAL_QA_CHECKLIST.md): staging and release checklist
+- [`PROJECT_STATE.md`](PROJECT_STATE.md): current implementation state and limitations
+- [`supabase/README.md`](supabase/README.md): database-specific setup notes
+
+## Security Notes
+
+- Authorization is enforced through server route guards and Supabase RLS.
+- Stock-changing sales and purchase receiving use protected database functions.
+- The publishable or anon key is intentionally public and is safe only when RLS
+  remains enabled and correctly tested.
+- Do not expose the service-role key, database password, access tokens, or user
+  passwords in source code, browser variables, logs, screenshots, or support messages.

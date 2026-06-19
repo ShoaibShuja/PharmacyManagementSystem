@@ -1,10 +1,26 @@
-# Pharmacy Management System: Client Guide
+# Pharmacy Management System: Client User Manual
 
 ## Project Overview
 
 This single-location pharmacy system manages medicines, stock, sales, suppliers, purchase orders, expiry warnings, low-stock warnings, and basic reports.
 
 Staff can now sign in, manage medicines and suppliers, order and receive stock, monitor daily activity, process sales, and issue receipts.
+
+This system is for pharmacy business operations only. It does not store patient
+medical records, prescriptions, insurance claims, or clinical information.
+
+## Before First Use
+
+The person deploying the system should complete `docs/DEPLOYMENT.md` and the
+full staging checklist before staff enter real stock.
+
+Before daily use:
+
+1. Confirm each staff member has their own login.
+2. Confirm the pharmacy name, currency, phone, address, and receipt note.
+3. Add medicine categories, medicines, and suppliers.
+4. Add opening stock through delivered purchase orders.
+5. Test one small sale and verify the receipt and remaining stock.
 
 ## User Roles
 
@@ -24,6 +40,9 @@ Cashiers can create sales and view their own completed sale history.
 
 Cashiers cannot open Supplier or Purchase Order management.
 
+Do not share one Cashier account between staff. Separate accounts make sales
+history and access reviews more reliable.
+
 ## Signing In and Out
 
 1. Open the application.
@@ -32,6 +51,9 @@ Cashiers cannot open Supplier or Purchase Order management.
 4. To sign out, use the sign-out button in the top-right corner.
 
 Always sign out on a shared pharmacy computer.
+
+If a password is forgotten, ask the Admin or technical maintainer to reset it
+from Supabase. Password recovery is not available inside the application.
 
 ## Global Search
 
@@ -532,7 +554,79 @@ Back up Supabase before major production changes and regenerate database types a
 
 ## Deployment
 
-Deploy to Vercel and add the same public Supabase environment variables in the Vercel project settings. Do not add service-role credentials to public variables.
+Deployment is a technical maintenance task. Follow `docs/DEPLOYMENT.md`.
+
+The application requires the Supabase project URL and publishable key. It does
+not require a service-role key or application URL variable.
+
+Do not add database passwords, service-role keys, access tokens, or staff
+passwords to Vercel public variables.
+
+## Common Mistakes to Avoid
+
+- Do not create a sale before receiving non-expired stock.
+- Do not reuse a physical batch number for the same medicine.
+- Do not confirm delivery until every batch number and expiry date has been checked.
+- Do not deactivate a supplier before creating an order that still needs that supplier.
+- Do not use discounts greater than the sale subtotal.
+- Do not change database stock quantities manually.
+- Do not disable RLS to solve a permission problem.
+- Do not share Admin credentials with Cashiers.
+- Do not use real patient names or prescription information in notes.
+- Do not treat estimated inventory value as a full accounting report.
+
+## Daily Maintenance
+
+At the start of the day:
+
+1. Review low-stock and expiry warnings.
+2. Confirm staff can sign in with the correct roles.
+3. Check that the previous day's sales appear in Reports.
+
+During the day:
+
+1. Receive stock only from an Ordered purchase order.
+2. Check batch numbers and expiry dates before confirming delivery.
+3. Sign out when changing staff on a shared computer.
+
+At the end of the day:
+
+1. Review completed sales and unusual discounts.
+2. Export important sales or inventory reports when needed.
+3. Report incorrect stock immediately. Manual stock correction is not available
+   in the current version.
+
+## Technical Maintenance
+
+The technical maintainer should:
+
+- keep Supabase and Vercel account access secure;
+- verify database backups according to the Supabase plan;
+- test changes in staging before production;
+- run `npm run lint`, `npm run typecheck`, and `npm run build`;
+- create a new migration for every database change;
+- never edit migrations already applied to production;
+- regenerate `lib/supabase/database.types.ts` after schema changes;
+- repeat the relevant parts of `docs/MANUAL_QA_CHECKLIST.md`;
+- keep this guide and `PROJECT_STATE.md` current.
+
+## Requesting Future Changes
+
+When requesting a change, provide:
+
+1. The page or workflow involved.
+2. The user role affected.
+3. What currently happens.
+4. What should happen instead.
+5. A sample medicine, sale, supplier, or order when helpful.
+6. A screenshot with private information removed.
+7. Whether the change is required for all users or only one role.
+
+Do not send passwords, private keys, database credentials, or real patient data.
+
+Future work should remain within pharmacy operations. Requests for patient
+records, prescription management, insurance, clinical decision tools,
+multi-branch management, or full accounting require a separate product review.
 
 ## Common Problems
 

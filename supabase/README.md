@@ -1,5 +1,9 @@
 # Supabase Setup
 
+For the complete production procedure, including Auth URL configuration,
+Vercel environment variables, post-deploy testing, backups, and rollback, see
+`docs/DEPLOYMENT.md`.
+
 ## Apply the schema
 
 Use one of these supported methods:
