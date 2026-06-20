@@ -15,6 +15,7 @@ export type NavigationItem = {
   href: string;
   icon: LucideIcon;
   roles: readonly AppRole[];
+  primary?: boolean;
 };
 
 export const navigationItems: NavigationItem[] = [
@@ -63,5 +64,21 @@ export const navigationItems: NavigationItem[] = [
 ];
 
 export function getNavigationItems(role: AppRole) {
-  return navigationItems.filter((item) => item.roles.includes(role));
+  const availableItems = navigationItems.filter((item) =>
+    item.roles.includes(role),
+  );
+
+  if (role !== "cashier") return availableItems;
+
+  const cashierOrder = ["/sales", "/medicines", "/dashboard"];
+  return availableItems
+    .map((item) =>
+      item.href === "/sales"
+        ? { ...item, label: "New Sale", primary: true }
+        : item,
+    )
+    .toSorted(
+      (a, b) =>
+        cashierOrder.indexOf(a.href) - cashierOrder.indexOf(b.href),
+    );
 }

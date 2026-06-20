@@ -80,9 +80,8 @@ export type SaleHistoryDetail = SaleHistoryItem & {
   items: ReceiptItem[];
 };
 
-export type SalesPageData = {
+export type PosData = {
   medicines: PosMedicineOption[];
-  sales: SaleHistoryDetail[];
   settings: {
     pharmacyName: string;
     phone: string | null;
@@ -90,4 +89,8 @@ export type SalesPageData = {
     currencyCode: string;
     receiptFooter: string | null;
   };
+};
+
+export type SalesHistoryData = {
+  sales: SaleHistoryDetail[];
 };

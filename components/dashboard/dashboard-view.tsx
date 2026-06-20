@@ -233,7 +233,7 @@ export function DashboardView({ role }: { role: AppRole }) {
           <Button asChild>
             <Link href="/sales">
               <ShoppingCart className="size-4" />
-              Open sales
+              {isCashier ? "Start new sale" : "Open sales"}
             </Link>
           </Button>
         }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Printer } from "lucide-react";
+import { Download, Plus, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,11 +26,13 @@ export function ReceiptDialog({
   settings,
   open,
   onOpenChange,
+  onStartNextSale,
 }: {
   receipt: SaleReceipt | null;
   settings: ReceiptSettings;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onStartNextSale: () => void;
 }) {
   if (!receipt) return null;
   const activeReceipt = receipt;
@@ -215,14 +217,20 @@ export function ReceiptDialog({
           ) : null}
         </div>
 
-        <DialogFooter className="gap-2 sm:justify-between">
-          <Button variant="outline" onClick={printReceipt}>
-            <Printer className="size-4" />
-            Print
-          </Button>
-          <Button onClick={downloadPdf}>
-            <Download className="size-4" />
-            Download PDF
+        <DialogFooter className="gap-2 sm:flex-wrap">
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={printReceipt}>
+              <Printer className="size-4" />
+              Print
+            </Button>
+            <Button variant="outline" onClick={downloadPdf}>
+              <Download className="size-4" />
+              PDF
+            </Button>
+          </div>
+          <Button onClick={onStartNextSale}>
+            <Plus className="size-4" />
+            Start next sale
           </Button>
         </DialogFooter>
       </DialogContent>

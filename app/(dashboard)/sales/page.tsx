@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SalesPage() {
-  await requireRole(["admin", "pharmacist", "cashier"]);
+  const { profile } = await requireRole(["admin", "pharmacist", "cashier"]);
 
-  return <PosPage />;
+  return <PosPage role={profile.role} />;
 }

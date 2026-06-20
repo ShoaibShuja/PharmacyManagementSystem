@@ -62,7 +62,12 @@ export function MobileNavigation({ role }: { role: AppRole }) {
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground",
+                      item.primary &&
+                        "bg-primary text-primary-foreground shadow-sm",
                       isActive && "bg-accent text-accent-foreground",
+                      item.primary &&
+                        isActive &&
+                        "bg-primary text-primary-foreground",
                     )}
                   >
                     <item.icon className="size-4" />
