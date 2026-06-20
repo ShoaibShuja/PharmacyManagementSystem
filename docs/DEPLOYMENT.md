@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide deploys the Pharmacy Management System with Supabase and Vercel.
+This guide deploys Darman with Supabase and Vercel.
 Complete the process in a staging environment before using real pharmacy data.
 
 ## Deployment Readiness

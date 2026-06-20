@@ -4,11 +4,12 @@
 
 Phase 13: Staging Acceptance and Release-Blocker Fixes.
 
-Last updated: June 19, 2026.
+Last updated: June 21, 2026.
 
 ## Completed Features
 
 - Next.js 16 App Router, strict TypeScript, Tailwind CSS 4, and shadcn/ui foundation
+- Darman product branding with a generated medicine logo and matching browser and installable-app icons
 - Typed Supabase browser, server, and session proxy clients
 - TanStack Query provider and responsive application shell
 - Normalized database migration, seed data, Auth profile trigger, and RLS policies
@@ -158,7 +159,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 
 ## Current Components
 
-- Role-aware sidebar, mobile navigation, authenticated header, and global search command
+- Darman-branded role-aware sidebar, mobile navigation, authenticated header, and global search command
 - Login form and logout action
 - Auth server helpers and role guards
 - Query provider and global toast provider
@@ -290,6 +291,8 @@ RLS, FEFO, concurrency, and rollback paths were verified against staging.
 See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official references.
 
 ## Latest Test and Build Status
+
+- Darman branding validation passed lint, typecheck, production build, metadata/icon checks, console checks, and a 375 px overflow check on June 21, 2026
 
 - `npm run lint`: passed June 19, 2026 after staging fixes
 - `npm run typecheck`: passed June 19, 2026 after staging fixes

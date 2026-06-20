@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Pill, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { BrandMark } from "@/components/layout/brand-mark";
 import { getNavigationItems } from "@/components/layout/navigation";
 import { Button } from "@/components/ui/button";
 import type { AppRole } from "@/lib/auth/types";
@@ -37,10 +38,8 @@ export function MobileNavigation({ role }: { role: AppRole }) {
           <aside className="relative h-full w-72 bg-card shadow-xl">
             <div className="flex h-16 items-center justify-between border-b px-4">
               <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-primary p-2 text-primary-foreground">
-                  <Pill className="size-5" />
-                </div>
-                <span className="font-semibold">Pharmacy</span>
+                <BrandMark className="size-9" priority />
+                <span className="font-semibold">Darman</span>
               </div>
               <Button
                 size="icon"
