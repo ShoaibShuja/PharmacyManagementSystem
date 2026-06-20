@@ -1,4 +1,4 @@
-# Pharmacy Management System: Client User Manual
+# Darman: Client User Manual
 
 ## Project Overview
 
@@ -759,6 +759,12 @@ created automatically and will then appear in Settings.
 Confirm you are signed in as an active Admin. You cannot change your own role.
 
 ## Change History
+
+### Darman Branding Update
+
+- Renamed the application to Darman.
+- Added the Darman medicine logo to the sign-in screen and navigation.
+- Updated browser and installable-app icons to use the same logo.
 
 ### Phase 0: Foundation
 

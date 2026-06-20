@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { Pill } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
+import { BrandMark } from "@/components/layout/brand-mark";
 import { Card, CardContent } from "@/components/ui/card";
 import { getCurrentAuthContext } from "@/lib/auth/server";
 
@@ -21,11 +21,9 @@ export default async function LoginPage() {
       <Card className="w-full max-w-md">
         <CardContent className="p-6 sm:p-8">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-primary p-2 text-primary-foreground">
-              <Pill className="size-6" />
-            </div>
+            <BrandMark className="size-12" priority />
             <div>
-              <h1 className="text-xl font-semibold">Welcome back</h1>
+              <h1 className="text-xl font-semibold">Darman</h1>
               <p className="text-sm text-muted-foreground">
                 Sign in to your pharmacy workspace
               </p>

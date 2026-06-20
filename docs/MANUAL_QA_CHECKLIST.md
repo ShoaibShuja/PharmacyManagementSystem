@@ -1,4 +1,4 @@
-# Pharmacy Management System Manual QA Checklist
+# Darman Manual QA Checklist
 
 Run this checklist against a fresh staging Supabase project after applying every
 migration in filename order. Use separate Admin, Pharmacist, and Cashier users.

@@ -10,11 +10,12 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
+  applicationName: "Darman",
   title: {
-    default: "Pharmacy Management System",
-    template: "%s | Pharmacy Management System",
+    default: "Darman",
+    template: "%s | Darman",
   },
-  description: "Simple inventory, sales, supplier, and reporting tools for a pharmacy.",
+  description: "Simple pharmacy inventory, sales, purchasing, and reporting.",
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Pill } from "lucide-react";
+import { BrandMark } from "@/components/layout/brand-mark";
 import { getNavigationItems } from "@/components/layout/navigation";
 import type { AppRole } from "@/lib/auth/types";
 import { cn } from "@/lib/utils";
@@ -14,12 +14,10 @@ export function Sidebar({ role }: { role: AppRole }) {
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-64 border-r bg-card lg:block">
       <div className="flex h-16 items-center gap-3 border-b px-6">
-        <div className="rounded-lg bg-primary p-2 text-primary-foreground">
-          <Pill className="size-5" aria-hidden="true" />
-        </div>
+        <BrandMark className="size-9" priority />
         <div>
-          <p className="text-sm font-semibold">Pharmacy</p>
-          <p className="text-xs text-muted-foreground">Management System</p>
+          <p className="text-sm font-semibold">Darman</p>
+          <p className="text-xs text-muted-foreground">Pharmacy Management</p>
         </div>
       </div>
       <nav className="space-y-1 p-4" aria-label="Primary navigation">

@@ -1,6 +1,6 @@
-# Pharmacy Management System
+# Darman
 
-A production-oriented, single-branch pharmacy operations system for medicines,
+Darman is a production-oriented, single-branch pharmacy operations system for medicines,
 batch inventory, sales, suppliers, purchase orders, expiry monitoring, low-stock
 alerts, staff roles, and basic reports.
 
