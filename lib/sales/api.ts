@@ -6,7 +6,8 @@ import type {
   ReceiptItem,
   SaleHistoryDetail,
   SaleReceipt,
-  SalesPageData,
+  PosData,
+  SalesHistoryData,
 } from "@/lib/sales/types";
 import type { Json } from "@/lib/supabase/database.types";
 
@@ -42,10 +43,9 @@ export function estimateMedicineTotal(
   return Math.round(total * 100) / 100;
 }
 
-export async function getSalesPageData(): Promise<SalesPageData> {
+export async function getPosData(): Promise<PosData> {
   const supabase = createClient();
-  const [medicinesResult, batchesResult, settingsResult, salesResult] =
-    await Promise.all([
+  const [medicinesResult, batchesResult, settingsResult] = await Promise.all([
       supabase
         .from("medicines")
         .select(
@@ -57,6 +57,7 @@ export async function getSalesPageData(): Promise<SalesPageData> {
         .select(
           "id, medicine_id, batch_number, expiry_date, selling_price, current_quantity, received_at",
         )
+        .gt("current_quantity", 0)
         .order("expiry_date")
         .order("received_at"),
       supabase
@@ -66,21 +67,12 @@ export async function getSalesPageData(): Promise<SalesPageData> {
         )
         .eq("singleton", true)
         .single(),
-      supabase
-        .from("sales")
-        .select(
-          "id, sale_number, status, subtotal, discount_amount, total_amount, payment_method, completed_at, created_at",
-        )
-        .eq("status", "completed")
-        .order("completed_at", { ascending: false })
-        .limit(250),
     ]);
 
   const error =
     medicinesResult.error ??
     batchesResult.error ??
-    settingsResult.error ??
-    salesResult.error;
+    settingsResult.error;
   if (error) throw new Error(error.message);
   if (!settingsResult.data) {
     throw new Error("Application settings could not be loaded.");
@@ -110,6 +102,37 @@ export async function getSalesPageData(): Promise<SalesPageData> {
         nearestExpiryDate: batches[0]?.expiry_date ?? null,
       };
     });
+
+  return {
+    medicines,
+    settings: {
+      pharmacyName: settingsResult.data.pharmacy_name,
+      phone: settingsResult.data.phone,
+      address: settingsResult.data.address,
+      currencyCode: settingsResult.data.currency_code,
+      receiptFooter: settingsResult.data.receipt_footer,
+    },
+  };
+}
+
+export async function getSalesHistory(): Promise<SalesHistoryData> {
+  const supabase = createClient();
+  const [salesResult, medicinesResult, batchesResult] = await Promise.all([
+    supabase
+      .from("sales")
+      .select(
+        "id, sale_number, status, subtotal, discount_amount, total_amount, payment_method, completed_at, created_at",
+      )
+      .eq("status", "completed")
+      .order("completed_at", { ascending: false })
+      .limit(250),
+    supabase.from("medicines").select("id, brand_name"),
+    supabase.from("inventory_batches").select("id, batch_number"),
+  ]);
+
+  const error =
+    salesResult.error ?? medicinesResult.error ?? batchesResult.error;
+  if (error) throw new Error(error.message);
 
   const sales = salesResult.data ?? [];
   const saleIds = sales.map((sale) => sale.id);
@@ -155,17 +178,7 @@ export async function getSalesPageData(): Promise<SalesPageData> {
     items: itemsBySale.get(sale.id) ?? [],
   }));
 
-  return {
-    medicines,
-    sales: history,
-    settings: {
-      pharmacyName: settingsResult.data.pharmacy_name,
-      phone: settingsResult.data.phone,
-      address: settingsResult.data.address,
-      currencyCode: settingsResult.data.currency_code,
-      receiptFooter: settingsResult.data.receipt_footer,
-    },
-  };
+  return { sales: history };
 }
 
 export async function completeSale(input: {

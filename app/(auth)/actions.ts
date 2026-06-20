@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { getRoleLandingPath } from "@/lib/auth/landing";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = {
@@ -41,7 +42,7 @@ export async function loginAction(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: email.trim(),
     password,
   });
@@ -50,7 +51,13 @@ export async function loginAction(
     return { error: getFriendlyAuthError(error.message) };
   }
 
-  redirect("/dashboard");
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", data.user.id)
+    .single();
+
+  redirect(profile ? getRoleLandingPath(profile.role) : "/dashboard");
 }
 
 export async function logoutAction() {

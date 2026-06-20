@@ -10,6 +10,10 @@ Last updated: June 21, 2026.
 
 - Next.js 16 App Router, strict TypeScript, Tailwind CSS 4, and shadcn/ui foundation
 - Darman product branding with a generated medicine logo and matching browser and installable-app icons
+- Solid application navbar background for clear separation from scrolling content
+- Responsive medicine filter layout with viewport-contained, solid-background dropdown menus
+- Cashier-first workflow with role-aware landing, prioritized New Sale navigation, scanner-friendly barcode entry, lazy sales history, mobile checkout, and one-click next-sale reset
+- Inline medicine-card quantity controls for adding or subtracting sale items before checkout
 - Typed Supabase browser, server, and session proxy clients
 - TanStack Query provider and responsive application shell
 - Normalized database migration, seed data, Auth profile trigger, and RLS policies
@@ -146,7 +150,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 
 ## Current Routes and Pages
 
-- `/` redirects to `/dashboard`
+- `/` redirects Cashiers to `/sales` and Admin or Pharmacist users to `/dashboard`
 - `/login`
 - `/dashboard` provides the completed MVP operations dashboard
 - `/medicines` provides the completed catalog and inventory lookup MVP
@@ -165,7 +169,7 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Query provider and global toast provider
 - Medicine catalog, medicine form dialog, category dialog, and medicine detail dialog
 - Dashboard view, sales trend chart, metric cards, alert area, recent sales, low-stock list, and expiry warning list
-- POS medicine grid, cart, checkout summary, sales history, receipt dialog, print view, and PDF receipt
+- Cashier-first POS medicine grid, barcode scan-to-add, desktop cart, mobile checkout dialog, lazy sales history, next-sale receipt action, print view, and PDF receipt
 - Supplier management, supplier form dialog, and supplier detail/history dialog
 - Purchase-order management, creation form, order detail, status actions, and delivery form
 - Reporting workspace, report filter controls, responsive report tables, summary metrics, and export utilities
@@ -292,6 +296,10 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 
 ## Latest Test and Build Status
 
+- Pre-checkout medicine quantity controls passed lint, typecheck, and production build on June 21, 2026; authenticated responsive interaction remains a staging smoke-test item
+- Cashier-first sales workflow: lint, typecheck, production build, POS focus, lazy history, and 375 px mobile checkout checks passed June 21, 2026; role-specific landing and 768 px checkout remain staging smoke-test items
+- Medicine filter dropdown overflow and background validation passed lint, typecheck, and production build on June 21, 2026
+- Solid navbar background validation passed lint, typecheck, and production build on June 21, 2026
 - Darman branding validation passed lint, typecheck, production build, metadata/icon checks, console checks, and a 375 px overflow check on June 21, 2026
 
 - `npm run lint`: passed June 19, 2026 after staging fixes

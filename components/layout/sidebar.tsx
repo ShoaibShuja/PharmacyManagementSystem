@@ -30,7 +30,12 @@ export function Sidebar({ role }: { role: AppRole }) {
               href={item.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                item.primary &&
+                  "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground",
                 isActive && "bg-accent text-accent-foreground",
+                item.primary &&
+                  isActive &&
+                  "bg-primary text-primary-foreground",
               )}
             >
               <item.icon className="size-4" aria-hidden="true" />

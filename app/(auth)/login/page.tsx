@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/auth/login-form";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { Card, CardContent } from "@/components/ui/card";
+import { getRoleLandingPath } from "@/lib/auth/landing";
 import { getCurrentAuthContext } from "@/lib/auth/server";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default async function LoginPage() {
   const context = await getCurrentAuthContext();
 
   if (context?.profile.is_active) {
-    redirect("/dashboard");
+    redirect(getRoleLandingPath(context.profile.role));
   }
 
   return (

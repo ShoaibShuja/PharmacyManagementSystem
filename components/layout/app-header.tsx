@@ -19,7 +19,7 @@ export function AppHeader({
   const displayName = profile.full_name.trim() || email;
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background px-4 sm:px-6">
       <div className="flex min-w-0 items-center gap-2">
         <MobileNavigation role={profile.role} />
         <p className="hidden text-sm text-muted-foreground xl:block">

@@ -1,6 +1,11 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  type UseQueryResult,
+} from "@tanstack/react-query";
 import {
   History,
   LoaderCircle,
@@ -13,7 +18,15 @@ import {
   Trash2,
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useDeferredValue, useMemo, useState } from "react";
+import {
+  useDeferredValue,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent,
+} from "react";
 import { toast } from "sonner";
 import { ReceiptDialog } from "@/components/sales/receipt-dialog";
 import { ErrorState } from "@/components/shared/error-state";
@@ -27,6 +40,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -47,18 +67,22 @@ import {
 import {
   completeSale,
   estimateMedicineTotal,
-  getSalesPageData,
+  getPosData,
+  getSalesHistory,
 } from "@/lib/sales/api";
+import type { AppRole } from "@/lib/auth/types";
 import { getUserErrorMessage } from "@/lib/errors";
 import type {
   CartItem,
   PosMedicineOption,
   SaleHistoryDetail,
   SaleReceipt,
+  SalesHistoryData,
 } from "@/lib/sales/types";
 import { cn } from "@/lib/utils";
 
-const salesQueryKey = ["sales-page"] as const;
+const posQueryKey = ["sales-pos"] as const;
+const salesHistoryQueryKey = ["sales-history"] as const;
 const dateTimeFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
   month: "short",
@@ -69,10 +93,11 @@ const dateTimeFormatter = new Intl.DateTimeFormat("en", {
 
 type View = "pos" | "history";
 
-export function PosPage() {
+export function PosPage({ role }: { role: AppRole }) {
   const searchParams = useSearchParams();
   const initialRecordSearch = searchParams.get("search") ?? "";
   const queryClient = useQueryClient();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [view, setView] = useState<View>(
     initialRecordSearch ? "history" : "pos",
   );
@@ -84,11 +109,32 @@ export function PosPage() {
     "cash" | "card" | "other"
   >("cash");
   const [receipt, setReceipt] = useState<SaleReceipt | null>(null);
+  const [mobileCartOpen, setMobileCartOpen] = useState(false);
 
-  const salesQuery = useQuery({
-    queryKey: salesQueryKey,
-    queryFn: getSalesPageData,
+  const posQuery = useQuery({
+    queryKey: posQueryKey,
+    queryFn: getPosData,
   });
+  const historyQuery = useQuery({
+    queryKey: salesHistoryQueryKey,
+    queryFn: getSalesHistory,
+    enabled: view === "history",
+  });
+
+  const focusSearch = useCallback(() => {
+    window.requestAnimationFrame(() => searchInputRef.current?.focus());
+  }, []);
+
+  useEffect(() => {
+    if (
+      posQuery.isSuccess &&
+      view === "pos" &&
+      !receipt &&
+      !mobileCartOpen
+    ) {
+      focusSearch();
+    }
+  }, [focusSearch, mobileCartOpen, posQuery.isSuccess, receipt, view]);
 
   const completionMutation = useMutation({
     mutationFn: completeSale,
@@ -98,8 +144,10 @@ export function PosPage() {
       setDiscount(0);
       setPaymentMethod("cash");
       setSearch("");
+      setMobileCartOpen(false);
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: salesQueryKey }),
+        queryClient.invalidateQueries({ queryKey: posQueryKey }),
+        queryClient.invalidateQueries({ queryKey: salesHistoryQueryKey }),
         queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
         queryClient.invalidateQueries({ queryKey: ["medicine-catalog"] }),
         queryClient.invalidateQueries({ queryKey: ["reports"] }),
@@ -111,13 +159,13 @@ export function PosPage() {
       toast.error(
         getUserErrorMessage(error, "The sale could not be completed."),
       );
-      salesQuery.refetch();
+      posQuery.refetch();
     },
   });
 
   const medicines = useMemo(
-    () => salesQuery.data?.medicines ?? [],
-    [salesQuery.data?.medicines],
+    () => posQuery.data?.medicines ?? [],
+    [posQuery.data?.medicines],
   );
   const medicineMap = useMemo(
     () => new Map(medicines.map((medicine) => [medicine.id, medicine])),
@@ -145,6 +193,13 @@ export function PosPage() {
   const total = Math.round((subtotal - safeDiscount) * 100) / 100;
 
   function addMedicine(medicine: PosMedicineOption) {
+    const existingQuantity =
+      cart.find((item) => item.medicineId === medicine.id)?.quantity ?? 0;
+    if (existingQuantity >= medicine.availableStock) {
+      toast.error(`Only ${medicine.availableStock} ${medicine.unit} available.`);
+      return false;
+    }
+
     setCart((currentCart) => {
       const existing = currentCart.find(
         (item) => item.medicineId === medicine.id,
@@ -187,6 +242,39 @@ export function PosPage() {
         },
       ];
     });
+    return true;
+  }
+
+  function handleSearchKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Enter") return;
+
+    const barcode = search.trim().toLowerCase();
+    if (!barcode) return;
+    event.preventDefault();
+
+    const exactMatches = medicines.filter(
+      (medicine) => medicine.barcode?.trim().toLowerCase() === barcode,
+    );
+
+    if (exactMatches.length === 0) {
+      toast.error("No medicine matches this barcode.");
+      return;
+    }
+    if (exactMatches.length > 1) {
+      toast.error("This barcode is assigned to more than one medicine.");
+      return;
+    }
+
+    const medicine = exactMatches[0];
+    if (medicine.availableStock <= 0) {
+      toast.error(`${medicine.brand_name} has no saleable stock.`);
+      return;
+    }
+
+    if (addMedicine(medicine)) {
+      setSearch("");
+      focusSearch();
+    }
   }
 
   function updateQuantity(medicineId: string, quantity: number) {
@@ -244,33 +332,53 @@ export function PosPage() {
     });
   }
 
-  if (salesQuery.isLoading) return <LoadingState />;
-  if (salesQuery.isError || !salesQuery.data) {
+  if (posQuery.isLoading) return <LoadingState />;
+  if (posQuery.isError || !posQuery.data) {
     return (
       <ErrorState
         title="Sales could not be loaded"
         message={
-          salesQuery.error instanceof Error
-            ? salesQuery.error.message
+          posQuery.error instanceof Error
+            ? posQuery.error.message
             : "The POS is unavailable."
         }
-        onRetry={() => salesQuery.refetch()}
+        onRetry={() => posQuery.refetch()}
       />
     );
   }
 
-  const { settings, sales } = salesQuery.data;
+  const { settings } = posQuery.data;
+  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  function showPos() {
+    setView("pos");
+    focusSearch();
+  }
+
+  function startNextSale() {
+    setReceipt(null);
+    setCart([]);
+    setDiscount(0);
+    setPaymentMethod("cash");
+    setSearch("");
+    setMobileCartOpen(false);
+    showPos();
+  }
 
   return (
-    <div className="space-y-6">
+    <div className={cn("space-y-6", view === "pos" && "pb-24 xl:pb-0")}>
       <PageHeader
-        title="Sales & POS"
-        description="Search medicines, build a cart, and complete a sale."
+        title={role === "cashier" ? "New Sale" : "Sales & POS"}
+        description={
+          role === "cashier"
+            ? "Scan or search medicines, review the cart, and complete the sale."
+            : "Search medicines, build a cart, and complete a sale."
+        }
         action={
           <div className="flex rounded-lg border bg-card p-1">
             <ViewButton
               active={view === "pos"}
-              onClick={() => setView("pos")}
+              onClick={showPos}
               icon={ShoppingCart}
               label="New sale"
             />
@@ -292,14 +400,18 @@ export function PosPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
-                    autoFocus
+                    ref={searchInputRef}
                     aria-label="Search saleable medicines"
                     className="h-11 pl-9"
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
+                    onKeyDown={handleSearchKeyDown}
                     placeholder="Search medicine, barcode, or SKU"
                   />
                 </div>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Barcode scanner: scan the exact barcode and press Enter.
+                </p>
               </div>
 
               {filteredMedicines.length === 0 ? (
@@ -323,13 +435,17 @@ export function PosPage() {
                       cart.find((item) => item.medicineId === medicine.id)
                         ?.quantity ?? 0;
                     return (
-                      <button
-                        type="button"
+                      <div
                         key={medicine.id}
-                        className="rounded-xl border bg-background p-4 text-left transition hover:border-primary/50 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
-                        onClick={() => addMedicine(medicine)}
-                        disabled={cartQuantity >= medicine.availableStock}
+                        className="overflow-hidden rounded-xl border bg-background transition hover:border-primary/50 hover:shadow-sm focus-within:border-primary/50"
                       >
+                        <button
+                          type="button"
+                          className="w-full p-4 text-left disabled:cursor-not-allowed disabled:opacity-60"
+                          onClick={() => addMedicine(medicine)}
+                          disabled={cartQuantity >= medicine.availableStock}
+                          aria-label={`Add ${medicine.brand_name} to sale`}
+                        >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
                             <p className="truncate font-semibold">
@@ -359,7 +475,46 @@ export function PosPage() {
                             {medicine.displayPrice.toFixed(2)}
                           </p>
                         </div>
-                      </button>
+                        </button>
+                        <div className="flex items-center justify-between border-t bg-muted/30 px-3 py-2">
+                          <span className="text-xs font-medium text-muted-foreground">
+                            Quantity
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="icon"
+                              className="size-8"
+                              disabled={cartQuantity === 0}
+                              onClick={() =>
+                                updateQuantity(medicine.id, cartQuantity - 1)
+                              }
+                              aria-label={`Remove one ${medicine.brand_name} from sale`}
+                            >
+                              <Minus className="size-3.5" />
+                            </Button>
+                            <span
+                              className="min-w-8 text-center text-sm font-semibold tabular-nums"
+                              aria-live="polite"
+                            >
+                              {cartQuantity}
+                            </span>
+                            <Button
+                              type="button"
+                              size="icon"
+                              className="size-8"
+                              disabled={
+                                cartQuantity >= medicine.availableStock
+                              }
+                              onClick={() => addMedicine(medicine)}
+                              aria-label={`Add one ${medicine.brand_name} to sale`}
+                            >
+                              <Plus className="size-3.5" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
@@ -367,7 +522,68 @@ export function PosPage() {
             </CardContent>
           </Card>
 
+          <div className="hidden xl:block">
+            <CartPanel
+              cart={cart}
+              currencyCode={settings.currencyCode}
+              subtotal={subtotal}
+              discount={discount}
+              total={total}
+              paymentMethod={paymentMethod}
+              isPending={completionMutation.isPending}
+              onQuantityChange={updateQuantity}
+              onRemove={(medicineId) =>
+                setCart((current) =>
+                  current.filter((item) => item.medicineId !== medicineId),
+                )
+              }
+              onDiscountChange={handleDiscount}
+              onPaymentMethodChange={setPaymentMethod}
+              onComplete={submitSale}
+            />
+          </div>
+        </div>
+      ) : (
+        <SalesHistoryState
+          query={historyQuery}
+          currencyCode={settings.currencyCode}
+          onView={(sale) => setReceipt(historyToReceipt(sale))}
+          initialSearch={initialRecordSearch}
+        />
+      )}
+
+      {view === "pos" ? (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(15,23,42,0.08)] lg:left-64 xl:hidden">
+          <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-xs text-muted-foreground">
+                {cartItemCount} item{cartItemCount === 1 ? "" : "s"}
+              </p>
+              <p className="truncate text-lg font-semibold">
+                {settings.currencyCode} {total.toFixed(2)}
+              </p>
+            </div>
+            <Button
+              className="min-w-32"
+              onClick={() => setMobileCartOpen(true)}
+            >
+              <ShoppingCart className="size-4" />
+              {cart.length === 0 ? "View cart" : "Checkout"}
+            </Button>
+          </div>
+        </div>
+      ) : null}
+
+      <Dialog open={mobileCartOpen} onOpenChange={setMobileCartOpen}>
+        <DialogContent className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-lg xl:hidden">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Current sale</DialogTitle>
+            <DialogDescription>
+              Review quantities, payment, discount, and total.
+            </DialogDescription>
+          </DialogHeader>
           <CartPanel
+            embedded
             cart={cart}
             currencyCode={settings.currencyCode}
             subtotal={subtotal}
@@ -385,22 +601,19 @@ export function PosPage() {
             onPaymentMethodChange={setPaymentMethod}
             onComplete={submitSale}
           />
-        </div>
-      ) : (
-        <SalesHistory
-          sales={sales}
-          currencyCode={settings.currencyCode}
-          onView={(sale) => setReceipt(historyToReceipt(sale))}
-          initialSearch={initialRecordSearch}
-        />
-      )}
+        </DialogContent>
+      </Dialog>
 
       <ReceiptDialog
         receipt={receipt}
         settings={settings}
         open={receipt !== null}
+        onStartNextSale={startNextSale}
         onOpenChange={(open) => {
-          if (!open) setReceipt(null);
+          if (!open) {
+            setReceipt(null);
+            if (view === "pos") focusSearch();
+          }
         }}
       />
     </div>
@@ -408,6 +621,7 @@ export function PosPage() {
 }
 
 function CartPanel({
+  embedded = false,
   cart,
   currencyCode,
   subtotal,
@@ -421,6 +635,7 @@ function CartPanel({
   onPaymentMethodChange,
   onComplete,
 }: {
+  embedded?: boolean;
   cart: CartItem[];
   currencyCode: string;
   subtotal: number;
@@ -435,7 +650,12 @@ function CartPanel({
   onComplete: () => void;
 }) {
   return (
-    <Card className="xl:sticky xl:top-24">
+    <Card
+      className={cn(
+        "xl:sticky xl:top-24",
+        embedded && "border-0 shadow-none",
+      )}
+    >
       <div className="flex items-center justify-between border-b px-5 py-4">
         <div>
           <h2 className="font-semibold">Current sale</h2>
@@ -596,6 +816,42 @@ function CartPanel({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function SalesHistoryState({
+  query,
+  currencyCode,
+  onView,
+  initialSearch,
+}: {
+  query: UseQueryResult<SalesHistoryData, Error>;
+  currencyCode: string;
+  onView: (sale: SaleHistoryDetail) => void;
+  initialSearch: string;
+}) {
+  if (query.isLoading) return <LoadingState />;
+
+  if (query.isError || !query.data) {
+    return (
+      <ErrorState
+        title="Sales history could not be loaded"
+        message={getUserErrorMessage(
+          query.error,
+          "Completed sales are unavailable.",
+        )}
+        onRetry={() => query.refetch()}
+      />
+    );
+  }
+
+  return (
+    <SalesHistory
+      sales={query.data.sales}
+      currencyCode={currencyCode}
+      onView={onView}
+      initialSearch={initialSearch}
+    />
   );
 }
 

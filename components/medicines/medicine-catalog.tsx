@@ -312,8 +312,9 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
 
       <Card>
         <CardContent className="p-0">
-          <div className="grid gap-3 border-b p-4 lg:grid-cols-[minmax(16rem,1fr)_11rem_12rem_10rem_11rem_auto]">
+          <div className="grid gap-3 border-b p-4 sm:grid-cols-2 xl:grid-cols-[minmax(16rem,1fr)_11rem_12rem_10rem_11rem_auto]">
             <ListSearchInput
+              className="sm:col-span-2 xl:col-span-1"
               value={search}
               onChange={(value) => {
                 setSearch(value);
@@ -392,7 +393,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
             </Select>
             <Button
               variant="ghost"
-              className="px-3"
+              className="px-3 sm:justify-self-start xl:justify-self-stretch"
               onClick={clearFilters}
               disabled={activeFilterCount === 0 && search.length === 0}
             >

@@ -92,7 +92,10 @@ Admin and Pharmacist users can see:
 - Batch expiry warning list
 - A notification area summarizing current inventory alerts
 
-Cashiers see a simpler dashboard focused on their own sales, recent transactions, the active medicine count, and a shortcut to medicine lookup.
+Cashiers open directly on **New Sale** after signing in. Their navigation keeps
+New Sale first, followed by medicine lookup and the sales dashboard. The
+dashboard remains available for their own sales, recent transactions, and
+medicine availability overview.
 
 ### Changing the Expiry Warning Window
 
@@ -210,15 +213,21 @@ Cashiers can use this view for read-only availability checks.
 
 Admin, Pharmacist, and Cashier users can process sales.
 
-1. Open **Sales**.
-2. Select **New sale**.
-3. Search by medicine name, generic name, barcode, or SKU.
-4. Select a medicine to add one unit to the cart.
-5. Use the plus and minus buttons or quantity field to adjust the quantity.
+1. Sign in as a Cashier, or open **New Sale** from the navigation.
+2. Search by medicine name, generic name, barcode, or SKU.
+3. To use a barcode scanner, scan the exact barcode and press Enter. The
+   medicine is added immediately when it has saleable stock.
+4. Select a medicine or its plus icon to add one unit to the cart.
+5. Use the plus and minus icons on each medicine card to adjust quantities
+   before opening checkout. The checkout quantity controls remain available.
 6. Enter an optional discount.
 7. Select **Cash**, **Card**, or **Other**.
 8. Review the subtotal and total.
 9. Select **Complete sale**.
+
+On phones and tablets, the item count and total remain visible in a bar at the
+bottom of the screen. Select **Checkout** to review quantities, discount,
+payment method, and total.
 
 The system prevents a cart quantity above the currently available, non-expired stock. The database checks stock again when the sale is completed.
 
@@ -250,7 +259,8 @@ You can:
 
 - Select **Print** for a browser print view
 - Select **Download PDF** for a digital receipt
-- Close the receipt and continue with another sale
+- Select **Start next sale** to close the receipt, reset the cart, and return
+  focus to medicine search
 
 The receipt contains the pharmacy details, receipt number, date, payment method, medicine lines, allocated batch numbers, subtotal, discount, and total.
 
@@ -765,6 +775,18 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Renamed the application to Darman.
 - Added the Darman medicine logo to the sign-in screen and navigation.
 - Updated browser and installable-app icons to use the same logo.
+- Changed the top navigation bar to use a solid background.
+- Fixed medicine filters so dropdowns stay inside the window and use solid backgrounds.
+
+### Cashier-First Sales Update
+
+- Cashiers now open New Sale immediately after signing in.
+- New Sale is the first and most prominent Cashier navigation item.
+- Exact barcode scans can add medicine directly to the cart.
+- Sales history loads only when opened, allowing the POS to load first.
+- Added a persistent mobile cart summary and focused mobile checkout.
+- Added a Start next sale receipt action that resets and refocuses the POS.
+- Added plus and minus controls directly to medicine cards before checkout.
 
 ### Phase 0: Foundation
 
