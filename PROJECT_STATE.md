@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-Phase 13: Staging Acceptance and Release-Blocker Fixes.
+Phase 15: Final Monograph Proposal.
 
-Last updated: June 21, 2026.
+Last updated: June 28, 2026.
 
 ## Completed Features
 
@@ -131,6 +131,31 @@ Last updated: June 21, 2026.
 - Historical receipts retain batch numbers after a batch reaches zero stock
 - Fresh staging acceptance completed with role, RLS, transaction, receipt,
   export, and responsive evidence
+- Complete editable multi-page Data Flow Diagram added for the system context,
+  Level 1 processes, atomic FEFO sales, purchase receiving, reporting, search,
+  settings, and role management
+- Advanced five-page DFD added using the official draw.io Data Flow Diagram
+  library with numbered processes, identified external entities and data
+  stores, labeled flows, balanced process inputs/outputs, and validated DFD
+  connection rules
+- Advanced six-page ERD added using the official draw.io Entity Relation
+  library with conceptual entities and attributes, existence-dependent
+  associative entities, complete physical columns and constraints, row-anchored
+  crow's-foot relationships, cardinality/modality, and entity data lineage
+- Fixed six-page ERD set added in `docs/diagrams/Fixed ERD/` with wider
+  readable table layouts, horizontal field labels, matching SVG sources, and
+  WebP exports for every page
+- Fixed light-mode DFD WebP export set added in `docs/diagrams/Fixed DFD/`
+  from the advanced five-page DFD
+- Refined proposal generated in `docs/Refined Proposals/` with the fixed DFD
+  and ERD diagrams and no appendix section
+- New complete six-page ERD set added in `docs/diagrams/New ERD/` with a
+  conceptual Chen-style page, row-anchored physical data-model pages, technical
+  data types, nullability, constraints, cardinality/modality labels, and
+  matching SVG/WebP exports
+- Final university-ready monograph proposal generated in
+  `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal.docx`
+  using the fixed light-mode DFD exports and the new complete ERD exports
 
 ## Current Database Tables
 
@@ -177,6 +202,20 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 - Pharmacy settings form and user-role management
 - shadcn/ui button, card, input, label, select, dialog, table, badge, textarea, Sonner, skeleton, and confirmation dialog
 - Shared page header, stat card, empty state, loading state, and error state
+- Technical architecture diagram in
+  `docs/diagrams/darman-data-flow-diagram.drawio`
+- Advanced formal DFD in
+  `docs/diagrams/darman-advanced-data-flow-diagram.drawio`
+- Advanced conceptual and physical ERD in
+  `docs/diagrams/ERD/darman-advanced-entity-relationship-diagram.drawio`
+- Fixed readable ERD source and WebP exports in
+  `docs/diagrams/Fixed ERD/`
+- Fixed light-mode DFD source copy and WebP exports in
+  `docs/diagrams/Fixed DFD/`
+- New complete ERD source, SVG pages, and WebP exports in
+  `docs/diagrams/New ERD/`
+- Final monograph proposal DOCX, preview HTML, and embedded proposal assets in
+  `docs/final proposal/`
 
 ## Current Environment Variables
 
@@ -296,15 +335,94 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 
 ## Latest Test and Build Status
 
+- Monograph proposal generation passed on June 23, 2026:
+  - generated `docs/proposal/Darman_Pharmacy_Management_System_Proposal.docx`;
+  - generated `docs/proposal/Darman_Pharmacy_Management_System_Proposal.pdf`;
+  - embedded 11 validated DFD and ERD figures;
+  - confirmed a 12-week timeline and USD 230 direct student budget;
+  - validated DOCX structure, media, headings, tables, TOC field, and page footer;
+  - validated the 41-page PDF signature, text, page count, images, representative
+    cover, cost-table, and landscape-diagram layouts.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    proposal and documentation updates.
+- Data Flow Diagram passed XML parsing, duplicate-ID, dangling-edge,
+  edge-geometry, and vertex-overlap checks on June 23, 2026
+- Advanced formal DFD passed XML parsing, official DFD-symbol checks,
+  duplicate-ID checks, labeled-flow checks, process input/output checks,
+  prohibited entity/store-flow checks, and shape-overlap checks on June 23,
+  2026
+- Advanced ERD passed XML parsing, Entity Relation library coverage,
+  row-to-row relationship anchoring, orthogonal routing, crow's-foot
+  cardinality/modality, complete table-height, dangling-edge, duplicate-ID,
+  and table-overlap checks on June 23, 2026
+- Fixed readable ERD generation passed on June 23, 2026:
+  - generated `docs/diagrams/Fixed ERD/darman-fixed-entity-relationship-diagram.drawio`;
+  - exported six readable WebP pages and six matching SVG previews;
+  - validated XML parsing, six Draw.io pages, WebP dimensions, and removal of
+    the previous vertical table-row text settings.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    fixed ERD generation and documentation updates.
+- Fixed DFD WebP export generation passed on June 23, 2026:
+  - generated five light-mode WebP pages in `docs/diagrams/Fixed DFD/`;
+  - copied the editable advanced DFD source into the same folder;
+  - validated XML parsing, five Draw.io pages, and WebP dimensions.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    fixed DFD export and documentation updates.
+- Refined proposal generation passed on June 23, 2026:
+  - generated `docs/Refined Proposals/Darman_Pharmacy_Management_System_Refined_Proposal.docx`;
+  - generated `docs/Refined Proposals/Darman_Pharmacy_Management_System_Refined_Proposal.pdf`;
+  - replaced the proposal DFD and ERD figures with the fixed diagram exports;
+  - removed Appendix A from the refined HTML and DOCX content;
+  - validated DOCX signature, PDF signature, 29-page PDF output, fixed diagram
+    assets, and absence of the appendix heading.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    refined proposal and documentation updates.
+- New complete ERD generation passed on June 28, 2026:
+  - generated `docs/diagrams/New ERD/darman-complete-entity-relationship-diagram.drawio`;
+  - exported six matching SVG pages and six WebP pages;
+  - validated XML parsing, six Draw.io pages, 305 vertices, 51 relationships,
+    and WebP dimensions through the local Node/sharp export path;
+  - visually checked the conceptual and physical exports for horizontal text,
+    light-mode colors, row-level relationship anchors, and readable table rows.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    new ERD generation and documentation updates.
+- Final monograph proposal generation passed on June 28, 2026:
+  - generated `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal.docx`;
+  - generated final proposal preview HTML and diagram assets in
+    `docs/final proposal/`;
+  - embedded 11 fixed DFD and new ERD diagram assets;
+  - replaced the final DOCX dynamic table-of-contents field with a static
+    contents page to avoid Microsoft Word field-update prompts;
+  - removed final-mode non-splitting table-row markers so proposal tables can
+    paginate normally in Microsoft Word;
+  - recreated Section 7 as plain Word paragraphs with no tables between
+    Section 7 and Section 8 to avoid Microsoft Word scroll skips;
+  - added a Word-compatible final proposal variant at
+    `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal_Word_Compatible.docx`
+    with portrait-only sections and smaller diagram placement;
+  - validated DOCX ZIP signature, file size, embedded media, absence of
+    DOCX field codes, external relationships, `headerReference`,
+    `footerReference`, header files, and footer files, and confirmed Sections
+    7 and 8 are present in the document XML and through a read-only Microsoft
+    Word COM open test.
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
+    final proposal and documentation updates.
+- draw.io Desktop CLI is not installed in the current environment. The fixed
+  ERD WebP exports were generated through the local scripted SVG-to-WebP path,
+  the new complete ERD WebP exports were generated through the local
+  scripted SVG-to-WebP path,
+  the fixed DFD WebP exports were generated through the local scripted image
+  conversion path, and the `.drawio` sources remain ready for draw.io Desktop
+  or diagrams.net.
 - Pre-checkout medicine quantity controls passed lint, typecheck, and production build on June 21, 2026; authenticated responsive interaction remains a staging smoke-test item
 - Cashier-first sales workflow: lint, typecheck, production build, POS focus, lazy history, and 375 px mobile checkout checks passed June 21, 2026; role-specific landing and 768 px checkout remain staging smoke-test items
 - Medicine filter dropdown overflow and background validation passed lint, typecheck, and production build on June 21, 2026
 - Solid navbar background validation passed lint, typecheck, and production build on June 21, 2026
 - Darman branding validation passed lint, typecheck, production build, metadata/icon checks, console checks, and a 375 px overflow check on June 21, 2026
 
-- `npm run lint`: passed June 19, 2026 after staging fixes
-- `npm run typecheck`: passed June 19, 2026 after staging fixes
-- `npm run build`: passed June 19, 2026 after staging fixes
+- `npm run lint`: passed June 28, 2026 after final proposal updates
+- `npm run typecheck`: passed June 28, 2026 after final proposal updates
+- `npm run build`: passed June 28, 2026 after final proposal updates
 - Tracked-file secret scan and UTF-8 documentation scan: passed for RC1
 - `.env.local` remains ignored and untracked
 - Browser check: sign-in metadata, protected Settings redirect, and 375 px
@@ -367,6 +485,16 @@ Release-blocking checks:
 
 ## Important Decisions
 
+- Keep the academic proposal source in `scripts/generate-proposal.mjs` so the
+  DOCX and PDF share the same content, costs, timeline, diagrams, and wording.
+- Use `scripts/generate-proposal.mjs --final` for the final monograph proposal
+  DOCX in `docs/final proposal/`; this mode uses fixed DFD diagrams, new ERD
+  diagrams, and no DOCX header or footer references.
+- Use a student out-of-pocket estimate of USD 230. Treat development labor as
+  an academic contribution and list production hosting as an optional future
+  operating cost.
+- Use editable placeholders for university, faculty, department, student,
+  student ID, supervisor, and submission date on the proposal cover.
 - Preserve batch-normalized inventory. Do not store editable stock directly on medicines.
 - Deactivate medicines instead of hard deleting them so historical references remain valid.
 - Use the application expiry alert setting for warning calculations.

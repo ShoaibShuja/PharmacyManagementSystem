@@ -611,6 +611,20 @@ At the end of the day:
 The technical maintainer should:
 
 - keep Supabase and Vercel account access secure;
+- use `docs/diagrams/DFD/darman-simple-data-flow-diagram.drawio` when reviewing the
+  system's roles, data stores, sales flow, purchasing flow, reports, and
+  protected database operations;
+- use `docs/diagrams/DFD/darman-advanced-data-flow-diagram.drawio` when a formal
+  proposal, audit, or technical review requires standard DFD entities,
+  processes, stores, and labeled data flows;
+- use the light-mode DFD WebP exports in `docs/diagrams/Fixed DFD/` when DFD
+  diagrams need to be inserted into reports, proposals, slides, or printed
+  documents;
+- use `docs/diagrams/New ERD/darman-complete-entity-relationship-diagram.drawio`
+  when reviewing the current database entities, fields, keys, relationships,
+  cardinality, nullability, constraints, and stock-to-sale data lineage;
+- use the readable WebP exports in `docs/diagrams/New ERD/` when ERD diagrams
+  need to be inserted into reports, proposals, slides, or printed documents;
 - verify database backups according to the Supabase plan;
 - test changes in staging before production;
 - run `npm run lint`, `npm run typecheck`, and `npm run build`;
@@ -770,6 +784,59 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 
 ## Change History
 
+### Academic Monograph Proposal
+
+- Added a professional university project proposal in editable DOCX and
+  presentation-ready PDF formats under `docs/proposal/`.
+- Documented the existing system, proposed solution, logical design, physical
+  design, tools, student cost estimate, twelve-week timeline, risks, testing
+  evidence, conclusion, references, and detailed diagrams.
+- Included editable placeholders for university and student information.
+- Embedded the validated DFD and ERD images and preserved the editable draw.io
+  sources under `docs/diagrams/`.
+- Added a refined proposal version under `docs/Refined Proposals/` that uses
+  the fixed DFD and ERD diagrams and removes the appendix section.
+- Added a final monograph proposal DOCX under `docs/final proposal/` that uses
+  the fixed light-mode DFD diagrams and the new complete ERD diagrams.
+- Removed DOCX header, footer, field-code, and external-link references from
+  the final proposal document so it opens cleanly in Microsoft Word.
+- Added a Word-compatible final proposal variant with portrait-only pages,
+  smaller diagram placement, and a paragraph-only cost-estimation section so
+  Microsoft Word displays Section 7 normally while scrolling.
+- Recorded a direct student project budget of USD 230. Development labor is
+  treated as an academic contribution, while optional production hosting and
+  maintenance remain separate future costs.
+
+### Technical Data Flow Documentation
+
+- Added a reusable five-page draw.io Data Flow Diagram.
+- Added a separate advanced formal DFD using the draw.io DFD symbol library.
+- Added numbered external entities, named processes, identified data stores,
+  and labels for every input and output.
+- Validated that each process has input and output data and that invalid direct
+  entity-to-store or store-to-store flows are not present.
+- Documented the full system context and Level 1 process map.
+- Documented atomic earliest-expiry-first sales and stock deduction.
+- Documented purchase creation, status changes, and atomic stock receiving.
+- Documented dashboard, search, reporting, settings, role management, RLS, and
+  CSV/PDF output flows.
+- Added a light-mode WebP export set in `docs/diagrams/Fixed DFD/` for all
+  five advanced DFD pages.
+
+### Technical Entity Relationship Documentation
+
+- Added a six-page conceptual and physical Entity Relationship Diagram.
+- Included entities, key and derived attributes, associative and
+  existence-dependent entities, primary keys, foreign keys, junction tables,
+  data types, nullability, defaults, checks, unique constraints, and delete
+  behavior.
+- Anchored physical relationships directly to their PK and FK field rows.
+- Added crow's-foot cardinality and modality and a separate entity-lifecycle
+  data-lineage page.
+- Added a fixed readable ERD export set in `docs/diagrams/Fixed ERD/` with
+  horizontal field text, wider tables, SVG previews, and WebP images for every
+  ERD page.
+
 ### Darman Branding Update
 
 - Renamed the application to Darman.
@@ -902,3 +969,24 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Fixed protected workflow role checks.
 - Fixed historical receipt batch display for fully consumed stock.
 - Recorded the detailed results in `docs/STAGING_QA_RESULTS.md`.
+
+### Phase 14: Complete ERD Diagram Refresh
+
+- Added a new complete ERD set in `docs/diagrams/New ERD/`.
+- Included conceptual entities, weak entities, bridge tables, primary keys,
+  foreign keys, data types, nullability, constraints, and relationship rules.
+- Exported each ERD page as a readable WebP image for reports, slides, and
+  printed documents.
+
+### Phase 15: Final Monograph Proposal
+
+- Generated the final university-ready proposal at
+  `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal.docx`.
+- Used editable cover placeholders for university, student, supervisor, and
+  submission details.
+- Embedded the fixed DFD images and the new complete ERD image set.
+- Kept the document formal, clean, and free of header, footer, and dynamic
+  table-of-contents field sections.
+- Verified the Word-compatible DOCX opens through Microsoft Word and contains
+  Section 7, the total estimated direct cost, and Section 8.
+- Verified there are no Word table objects between Section 7 and Section 8.
