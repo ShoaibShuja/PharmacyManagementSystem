@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Darman Pharmacy Management System - Monograph Project Proposal</title>
+<style>
+  @page { size: A4; margin: 18mm 18mm 19mm; }
+  @page landscape { size: A4 landscape; margin: 14mm 16mm 16mm; }
+  :root { --navy:#17324d; --blue:#1e5a85; --cyan:#2c8fb5; --pale:#eaf3f8; --ink:#1f2933; --muted:#52606d; --line:#b8c7d1; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font-family:"Aptos","Segoe UI",Arial,sans-serif; font-size:10.2pt; line-height:1.48; }
+  .page { break-after:page; min-height:250mm; position:relative; }
+  .cover { display:flex; flex-direction:column; min-height:258mm; border-top:12px solid var(--navy); padding:15mm 12mm 6mm; }
+  .cover img { width:42mm; align-self:center; margin:8mm 0 12mm; }
+  .cover .eyebrow { color:var(--cyan); letter-spacing:2px; text-transform:uppercase; text-align:center; font-size:10pt; font-weight:700; }
+  .cover h1 { color:var(--navy); text-align:center; font-size:28pt; line-height:1.15; margin:7mm 0 3mm; }
+  .cover h2 { color:var(--blue); text-align:center; font-size:16pt; font-weight:500; margin:0 0 12mm; }
+  .meta { width:82%; margin:auto auto 8mm; border-collapse:collapse; }
+  .meta td { border:none; border-bottom:1px solid var(--line); padding:3mm 2mm; }
+  .meta td:first-child { width:34%; color:var(--muted); font-weight:700; }
+  .cover .statement { margin:7mm auto 0; width:86%; color:var(--muted); text-align:center; font-size:9pt; }
+  header { position:running(doc-header); }
+  h1 { color:var(--navy); font-size:20pt; line-height:1.2; margin:0 0 7mm; padding-bottom:3mm; border-bottom:2px solid var(--cyan); }
+  h2 { color:var(--blue); font-size:14pt; margin:7mm 0 3mm; break-after:avoid; }
+  h3 { color:var(--navy); font-size:11.5pt; margin:5mm 0 2mm; break-after:avoid; }
+  p { margin:0 0 3.2mm; text-align:justify; orphans:3; widows:3; }
+  ul, ol { margin:2mm 0 4mm 7mm; padding-left:5mm; }
+  li { margin:0 0 1.5mm; }
+  .toc ol { list-style:none; padding:0; margin:8mm 0; }
+  .toc li { display:flex; align-items:flex-end; gap:3mm; margin:3.3mm 0; color:var(--navy); font-weight:600; }
+  .toc .leader { flex:1; border-bottom:1px dotted var(--line); transform:translateY(-1.5mm); }
+  .notice { padding:4mm; background:var(--pale); border-left:4px solid var(--cyan); margin:4mm 0; }
+  table { width:100%; border-collapse:collapse; margin:3mm 0 6mm; font-size:8.8pt; break-inside:auto; }
+  tr { break-inside:avoid; }
+  th { background:var(--navy); color:white; text-align:left; font-weight:700; padding:2.4mm; border:1px solid var(--navy); }
+  td { vertical-align:top; padding:2.2mm; border:1px solid var(--line); }
+  tbody tr:nth-child(even) td { background:#f7fafc; }
+  .compact { font-size:8pt; }
+  .cost td:nth-child(4), .cost th:nth-child(4) { text-align:right; }
+  .diagram-page { page:landscape; break-before:page; break-after:page; min-height:174mm; display:flex; flex-direction:column; }
+  .diagram-page h2 { margin:0 0 3mm; font-size:15pt; }
+  .diagram-frame { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); padding:3mm; background:white; }
+  .diagram-frame img { display:block; max-width:100%; max-height:150mm; object-fit:contain; }
+  .caption { margin:2.5mm 0 0; text-align:center; color:var(--muted); font-size:8.5pt; font-style:italic; }
+  .status-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; margin:4mm 0 6mm; }
+  .status-card { border:1px solid var(--line); border-top:4px solid var(--cyan); padding:4mm; background:#fbfdfe; }
+  .status-card strong { display:block; color:var(--navy); margin-bottom:1mm; }
+  .footer-note { color:var(--muted); font-size:8.5pt; }
+  .references li { margin-bottom:3mm; }
+  .appendix-title { break-before:page; }
+  a { color:var(--blue); text-decoration:none; }
+</style>
+</head>
+<body>
+  <section class="cover page">
+    <div class="eyebrow">Academic Software Project Proposal</div>
+    <img src="../../public/brand/darman-logo.png" alt="Darman logo">
+    <h1>Darman Pharmacy Management System</h1>
+    <h2>Monograph Project Proposal</h2>
+    
+  <table class="meta">
+    <thead><tr><th></th><th></th></tr></thead>
+    <tbody><tr><td>University</td><td>[University Name]</td></tr><tr><td>Faculty</td><td>[Faculty Name]</td></tr><tr><td>Department</td><td>[Department Name]</td></tr><tr><td>Student</td><td>[Student Full Name]</td></tr><tr><td>Student ID</td><td>[Student ID]</td></tr><tr><td>Supervisor</td><td>[Supervisor Name and Academic Title]</td></tr><tr><td>Submission Date</td><td>[Month Year]</td></tr></tbody>
+  </table>
+    <p class="statement">Submitted in partial fulfillment of the requirements for the assigned university software project.</p>
+  </section>
+
+  <section class="toc page">
+    <h1>Table of Contents</h1>
+    <ol><li><span>Executive Summary</span><span class="leader"></span></li><li><span>1. Introduction</span><span class="leader"></span></li><li><span>2. Existing System</span><span class="leader"></span></li><li><span>3. Proposed System</span><span class="leader"></span></li><li><span>4. Logical Design</span><span class="leader"></span></li><li><span>5. Physical Design</span><span class="leader"></span></li><li><span>6. Tools and Technologies</span><span class="leader"></span></li><li><span>7. Project Time and Cost Estimation</span><span class="leader"></span></li><li><span>8. Project Timeline</span><span class="leader"></span></li><li><span>9. Risk Assessment and Trust Signals</span><span class="leader"></span></li><li><span>10. Conclusion</span><span class="leader"></span></li><li><span>11. References</span><span class="leader"></span></li><li><span>Appendix A. Detailed Logical and Physical Diagrams</span><span class="leader"></span></li></ol>
+    <div class="notice"><strong>Document status:</strong> This proposal describes the validated release candidate and the remaining controlled production deployment activities.</div>
+  </section>
+
+  <section class="page">
+    <h1>Executive Summary</h1>
+    <p>Darman Pharmacy Management System is a secure, single-branch web application designed to improve the daily operation of a community pharmacy. The project addresses recurring operational problems such as inaccurate stock records, weak expiry monitoring, slow sales processing, fragmented supplier information, and limited reporting. It replaces paper-based or spreadsheet-based work with a unified system that is suitable for pharmacy owners and staff with limited technical experience.</p><p>The proposed solution covers medicine and category management, batch-based inventory, low-stock and expiry alerts, point-of-sale processing, supplier management, purchase orders, role-based access, operational reports, and CSV or PDF exports. Sales deduct inventory atomically using First Expire, First Out allocation. Purchase receiving creates inventory batches and stock adjustment records in one protected transaction. Administrative, pharmacist, and cashier roles provide clear separation of responsibility.</p><p>The project is implemented with Next.js, TypeScript, Supabase PostgreSQL and Auth, Tailwind CSS, shadcn/ui, TanStack Query, React Hook Form, Zod, Recharts, and jsPDF. Row Level Security and database functions protect sensitive workflows. The release candidate has passed staging tests covering permissions, concurrent sales, rollback behavior, purchase receiving, reporting, exports, responsive layouts, and security headers. Production deployment remains dependent on applying the reviewed migrations, configuring production services, assigning backup ownership, and completing production smoke tests.</p><p>The work is planned as a twelve-week academic software project. Development labor is treated as the student's academic contribution, while the estimated direct project cost is USD 230 for connectivity, electricity, a domain, printing, testing, and contingency. The result is a practical monograph project that demonstrates requirements analysis, database design, secure full-stack development, quality assurance, and deployment planning.</p>
+    <div class="status-grid">
+      <div class="status-card"><strong>Product scope</strong>Single-branch pharmacy operations MVP</div>
+      <div class="status-card"><strong>Academic plan</strong>Twelve development weeks</div>
+      <div class="status-card"><strong>Direct cost</strong>USD 230 student budget</div>
+    </div>
+  </section>
+
+  <section class="page">
+    <h1>1. Introduction</h1>
+    <h2>1.1 Background</h2><p>Community pharmacies manage many fast-moving products with different batch numbers, prices, suppliers, and expiry dates. Daily decisions depend on knowing what is available, what is safe to sell, what must be reordered, and which stock should be used first. When these records are maintained manually, a small recording error can affect purchasing, sales, reporting, and customer service.</p><p>A pharmacy management system should therefore provide more than a medicine list. It should connect purchasing, batch inventory, sales, alerts, and reporting while preserving a clear record of each stock movement. It must also be simple enough for a cashier or pharmacist to learn quickly and secure enough to prevent unauthorized changes.</p>
+    <h2>1.2 Project Aim</h2><p>The aim of this project is to design, implement, test, and prepare for deployment a production-quality, single-branch pharmacy management system that supports core operational workflows without introducing clinical, insurance, or enterprise accounting functions.</p>
+    <h2>1.3 Objectives</h2><ul><li>Create a searchable medicine catalog with categories, barcodes, pricing, supplier references, reorder levels, and active or inactive status.</li><li>Track physical inventory by batch number, quantity, received date, cost, selling price, and expiry date.</li><li>Provide low-stock and expiry warnings that support timely purchasing and stock handling.</li><li>Implement a fast cashier-oriented point of sale with barcode scanning, discounts, receipts, and protected stock deduction.</li><li>Manage suppliers and purchase orders from draft creation through ordered, delivered, or cancelled states.</li><li>Provide role-based access for Admin, Pharmacist, and Cashier users.</li><li>Produce basic operational reports with filters and CSV or PDF exports.</li><li>Protect data with validation, Row Level Security, transactional database functions, and auditable inventory adjustments.</li><li>Deliver deployment, testing, maintenance, and beginner user documentation.</li></ul>
+    <h2>1.4 Significance of the Project</h2><p>For a pharmacy owner, the system provides a clearer view of sales, inventory value, purchase activity, low stock, and upcoming expiry. For pharmacists and cashiers, it reduces repeated manual calculations and improves access to current medicine availability. For the university, the project demonstrates the complete software development lifecycle using a realistic business case.</p><p>The project also creates a maintainable foundation for future improvement while deliberately limiting its first release to a manageable and testable operational scope.</p>
+    <h2>1.5 Stakeholders</h2>
+  <table class="">
+    <thead><tr><th>Stakeholder</th><th>Interest and Responsibility</th></tr></thead>
+    <tbody><tr><td>Pharmacy owner or Admin</td><td>Controls users, settings, medicines, suppliers, purchases, sales, and reports.</td></tr><tr><td>Pharmacist</td><td>Manages operational data but cannot manage users or dangerous system settings.</td></tr><tr><td>Cashier</td><td>Processes sales and checks medicine availability without changing master or purchasing data.</td></tr><tr><td>University supervisor</td><td>Reviews the project's academic quality, design decisions, implementation, and evidence.</td></tr><tr><td>System maintainer</td><td>Applies migrations, manages deployments, monitors logs, and coordinates backups.</td></tr></tbody>
+  </table>
+    <h2>1.6 Development Methodology</h2><p>The project follows an iterative development method. Work begins with scope definition and process analysis, followed by logical and physical database design. Features are then implemented in small modules, integrated through protected workflows, and verified with linting, type checking, production builds, browser tests, database tests, and staged user-role acceptance tests.</p><p>Each phase produces usable software and documentation. High-risk workflows such as sales, receiving, and role changes are tested at both the application and database layers before release.</p>
+  </section>
+
+  <section class="page">
+    <h1>2. Existing System</h1>
+    <h2>2.1 Current Operating Approach</h2><p>The existing environment is assumed to use paper records, informal stock counting, spreadsheets, or separate applications for sales and purchasing. Such approaches can work for a very small inventory, but they become difficult to control as the number of products, batches, suppliers, and transactions increases.</p><p>Data is often re-entered into several records. A purchase may be recorded in a notebook, stock may be changed in a spreadsheet, and sales totals may be calculated separately. Because these records are not connected, managers cannot easily confirm whether a figure is complete or current.</p>
+    <h2>2.2 Identified Problems</h2>
+  <table class="">
+    <thead><tr><th>Area</th><th>Existing Limitation</th></tr></thead>
+    <tbody><tr><td>Stock accuracy</td><td>Manual deductions and delayed updates can produce incorrect availability and purchasing decisions.</td></tr><tr><td>Expiry control</td><td>Expiry dates may be checked visually instead of through systematic, configurable warnings.</td></tr><tr><td>Batch traceability</td><td>The batch sold or received may not be connected to the related transaction.</td></tr><tr><td>Sales speed</td><td>Manual medicine lookup, calculations, and receipt preparation slow down checkout.</td></tr><tr><td>Supplier records</td><td>Contact information and order history can be scattered across notebooks or files.</td></tr><tr><td>Reporting</td><td>Sales, stock value, expiry exposure, and purchase totals require repeated manual calculations.</td></tr><tr><td>Access control</td><td>Shared spreadsheets or notebooks provide little separation between staff responsibilities.</td></tr><tr><td>Auditability</td><td>It may be unclear who changed stock, when it changed, and which workflow caused the change.</td></tr><tr><td>Data recovery</td><td>Paper can be lost and local files may not have a defined backup or recovery owner.</td></tr></tbody>
+  </table>
+    <h2>2.3 Need for Change</h2><p>A unified system is required to maintain one controlled operational record, connect stock movements to business transactions, reduce calculation errors, and provide timely information without overwhelming beginner users.</p>
+  </section>
+
+  <section class="page">
+    <h1>3. Proposed System</h1>
+    <h2>3.1 Solution Overview</h2><p>Darman is a responsive browser-based system for one pharmacy branch. It provides role-aware navigation and focused workflows for medicines, sales, suppliers, purchases, reports, settings, and dashboard analytics. The interface uses clear forms, searchable lists, confirmation dialogs, empty states, loading feedback, and actionable error messages.</p><p>The database is the authoritative source for protected business operations. The browser requests a sale or purchase action, while PostgreSQL validates the user's role, checks the current records, locks affected data where required, calculates trusted values, and commits all related changes together.</p>
+    <h2>3.2 Scope of Work</h2>
+  <table class="">
+    <thead><tr><th>Module</th><th>Proposed Capability</th></tr></thead>
+    <tbody><tr><td>Dashboard and analytics</td><td>Daily and summary indicators, recent sales, low-stock alerts, expiry warnings, and a seven-day sales trend.</td></tr><tr><td>Medicine catalog</td><td>Categories, generic and brand details, dosage form, strength, barcode, prices, supplier, reorder level, and active status.</td></tr><tr><td>Batch inventory</td><td>Batch number, quantity, cost, selling price, received date, expiry date, and saleable-stock calculation.</td></tr><tr><td>Sales and POS</td><td>Search, barcode input, stock-aware cart, discount, payment method, atomic completion, history, receipt, and PDF printing.</td></tr><tr><td>Suppliers</td><td>Contact details, notes, active status, search, and purchase history.</td></tr><tr><td>Purchase orders</td><td>Draft creation, ordered status, cancellation, delivery confirmation, batch entry, and atomic receiving.</td></tr><tr><td>Reports</td><td>Sales, inventory, expiry, and purchase reports with filtering, search, pagination, CSV, and PDF export.</td></tr><tr><td>Users and settings</td><td>Role management for existing Auth users and pharmacy identity, currency, receipt, and expiry settings.</td></tr></tbody>
+  </table>
+    <h2>3.3 User Roles</h2>
+  <table class="">
+    <thead><tr><th>Role</th><th>Access</th></tr></thead>
+    <tbody><tr><td>Admin</td><td>Full access to current application management, including users and settings.</td></tr><tr><td>Pharmacist</td><td>Operational access to medicines, inventory, sales, suppliers, and purchase orders; settings are read-only.</td></tr><tr><td>Cashier</td><td>Processes sales and views basic medicine availability; cannot change master, supplier, purchase, user, or settings data.</td></tr></tbody>
+  </table>
+    <h2>3.4 Non-Functional Requirements</h2>
+  <table class="">
+    <thead><tr><th>Requirement</th><th>Expected Standard</th></tr></thead>
+    <tbody><tr><td>Usability</td><td>Common tasks must be understandable to a beginner user and remain usable on phone, tablet, and desktop widths.</td></tr><tr><td>Performance</td><td>Lists use search, sorting, filtering, and pagination suitable for a small-to-medium single-branch dataset.</td></tr><tr><td>Security</td><td>Authentication, route protection, role-aware interfaces, RLS, and database role checks must work together.</td></tr><tr><td>Integrity</td><td>Sales and receiving must be atomic so partial stock changes cannot remain after a failure.</td></tr><tr><td>Maintainability</td><td>Typed, validated, modular code and ordered database migrations must support controlled future releases.</td></tr><tr><td>Availability</td><td>The cloud-hosted system requires a stable internet connection and documented service ownership.</td></tr></tbody>
+  </table>
+    <h2>3.5 Explicit Exclusions</h2><ul><li>Patient medical records and EMR or EHR functions</li><li>Prescription management and drug interaction checking</li><li>Insurance claims and processing</li><li>Multi-branch operation</li><li>Loyalty programs and full accounting</li><li>Telemedicine and native mobile applications</li><li>AI demand forecasting</li><li>SMS or email automation</li></ul>
+  </section>
+
+  <section class="page">
+    <h1>4. Logical Design</h1>
+    <h2>4.1 Logical Architecture</h2><p>The logical design describes what information enters and leaves the system, which processes transform it, and how the principal business entities relate. It is independent of detailed hosting or programming decisions.</p><p>External actors include Admin, Pharmacist, Cashier, Supplier, Supabase Auth, and a business reviewer. Major processes cover authentication, catalog and inventory management, sales, purchasing, reporting, and administration. Data stores represent users, catalog records, batches, sales, purchases, adjustments, and settings.</p>
+    <h2>4.2 Core Data Rules</h2><ul><li>A medicine can have many inventory batches, while each batch belongs to one medicine.</li><li>A sale contains one or more sale items, and each sale item identifies the allocated inventory batch.</li><li>A supplier can have many purchase orders, and each purchase order contains one or more purchase items.</li><li>Receiving an order creates or updates inventory batches and records inventory adjustments.</li><li>Expired stock is retained for traceability but excluded from saleable quantity.</li><li>Users receive one operational role through their profile.</li></ul>
+    <div class="notice">The following validated diagrams present the system boundary, major processes, transaction-level flows, and conceptual data model. Editable draw.io sources are maintained in <strong>docs/diagrams</strong>.</div>
+  </section>
+  
+    <section class="diagram-page landscape ">
+      <h2>Context Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-context.png" alt="Context Diagram"></div>
+      <p class="caption">Figure 1. Context diagram showing the system boundary and its external actors.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Level 1 Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-level-1.png" alt="Level 1 Data Flow Diagram"></div>
+      <p class="caption">Figure 2. Level 1 DFD showing authentication, catalog, inventory, sales, purchasing, reporting, and administration processes.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Level 2 Sales Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-sales.png" alt="Level 2 Sales Data Flow Diagram"></div>
+      <p class="caption">Figure 3. Level 2 sales DFD showing checkout validation, FEFO allocation, stock deduction, adjustment logging, and receipt generation.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Level 2 Purchasing Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-purchasing.png" alt="Level 2 Purchasing Data Flow Diagram"></div>
+      <p class="caption">Figure 4. Level 2 purchasing DFD showing order creation, status control, delivery receiving, batch creation, and stock updates.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Level 2 Reporting and Administration Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-reporting.png" alt="Level 2 Reporting and Administration Data Flow Diagram"></div>
+      <p class="caption">Figure 5. Level 2 DFD for operational reporting, exports, settings, and role administration.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Conceptual Entity Relationship Model</h2>
+      <div class="diagram-frame"><img src="assets/erd-conceptual.png" alt="Conceptual Entity Relationship Model"></div>
+      <p class="caption">Figure 6. Conceptual ER model of staff, medicines, suppliers, inventory, sales, purchases, settings, and adjustments.</p>
+    </section>
+
+  <section class="page">
+    <h1>5. Physical Design</h1>
+    <h2>5.1 Application Architecture</h2><p>The application uses the Next.js App Router for server-rendered routes, protected navigation, and client-side interactive modules. Browser components use TanStack Query for server-state caching and mutations. React Hook Form and Zod provide controlled input handling and validation.</p><p>Supabase provides PostgreSQL, email-and-password authentication, and browser-accessible APIs. Separate server and browser clients preserve the correct session context. Public Supabase keys are allowed in the browser, while RLS is the database security boundary. No service-role key is exposed to the client.</p><p>Vercel hosts the Next.js application. Supabase hosts authentication and relational data. Production configuration requires the Supabase URL and one publishable or legacy anonymous key, plus the final application URL in Supabase Auth settings.</p>
+    <h2>5.2 Database Structure</h2>
+  <table class="compact">
+    <thead><tr><th>Object</th><th>Purpose</th></tr></thead>
+    <tbody><tr><td>profiles</td><td>Staff identity, active status, and Admin, Pharmacist, or Cashier role.</td></tr><tr><td>medicine_categories</td><td>Reusable category records for catalog organization.</td></tr><tr><td>suppliers</td><td>Supplier identity, contact information, notes, and active status.</td></tr><tr><td>medicines</td><td>Medicine master data, prices, barcode, reorder level, supplier reference, and status.</td></tr><tr><td>inventory_batches</td><td>Batch-level stock, expiry, received date, quantity, and historical cost or selling price.</td></tr><tr><td>sales</td><td>Sale header, cashier, payment method, subtotal, discount, total, status, and timestamps.</td></tr><tr><td>sale_items</td><td>Medicine and allocated batch details for each completed sale.</td></tr><tr><td>purchase_orders</td><td>Supplier order header, dates, status, totals, creator, and receiver information.</td></tr><tr><td>purchase_order_items</td><td>Ordered medicine, quantity, pricing, receiving, batch, and expiry details.</td></tr><tr><td>inventory_adjustments</td><td>Auditable stock changes linked to sales, purchases, or future controlled adjustments.</td></tr><tr><td>app_settings</td><td>Pharmacy identity, currency, receipt note, and expiry warning configuration.</td></tr><tr><td>medicine_inventory_summary</td><td>Database view that summarizes inventory for efficient operational reads.</td></tr></tbody>
+  </table>
+    <h2>5.3 Protected Database Workflows</h2>
+  <table class="">
+    <thead><tr><th>Database Function</th><th>Responsibility</th></tr></thead>
+    <tbody><tr><td>complete_sale</td><td>Locks eligible batches, allocates stock by earliest expiry, recalculates trusted totals, creates sale records, deducts stock, and logs adjustments.</td></tr><tr><td>create_purchase_order</td><td>Validates role and item data, calculates order totals, and creates the order and item records.</td></tr><tr><td>set_purchase_order_status</td><td>Controls valid status transitions and prevents changes that would violate the order lifecycle.</td></tr><tr><td>receive_purchase_order</td><td>Locks the order, validates delivery details, rejects repeat delivery, creates batches, updates stock metadata, and records adjustments atomically.</td></tr><tr><td>change_user_role</td><td>Allows active Admin users to change another user's role while blocking self-role changes.</td></tr></tbody>
+  </table>
+    <h2>5.4 Security Design</h2><ul><li>RLS is enabled on all application tables.</li><li>Anonymous users have no operational table access.</li><li>Routes and interface controls are role-aware, but database policies and functions independently verify authorization.</li><li>Direct browser writes to sales, sale items, purchase records, batches, and adjustment logs are blocked where protected workflows apply.</li><li>Hard deletion of important master records is avoided so historical references remain valid.</li><li>Database constraints and Zod schemas reject malformed values before they become operational records.</li><li>Security headers reduce framing, content-type, referrer, and browser-permission risks.</li></ul>
+    <h2>5.5 Deployment Design</h2><ul><li>Five ordered SQL migrations define the schema and protected workflows.</li><li>Staging uses a dedicated Supabase project and a Vercel deployment.</li><li>Production deployment must apply migrations in filename order, configure production environment values, set Auth URLs, establish backup ownership, and complete smoke tests.</li><li>Application releases use version control, linting, type checking, builds, staging verification, backups, deployment, and affected regression tests.</li></ul>
+  </section>
+  
+    <section class="diagram-page landscape ">
+      <h2>Physical ERD: Catalog and Inventory</h2>
+      <div class="diagram-frame"><img src="assets/erd-catalog.png" alt="Physical ERD: Catalog and Inventory"></div>
+      <p class="caption">Figure 7. Physical database design for categories, medicines, suppliers, batches, and inventory summary data.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Physical ERD: Sales</h2>
+      <div class="diagram-frame"><img src="assets/erd-sales.png" alt="Physical ERD: Sales"></div>
+      <p class="caption">Figure 8. Physical database design for sales and batch-level sale items.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Physical ERD: Purchasing</h2>
+      <div class="diagram-frame"><img src="assets/erd-purchasing.png" alt="Physical ERD: Purchasing"></div>
+      <p class="caption">Figure 9. Physical database design for suppliers, purchase orders, order items, and received inventory.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Physical ERD: Administration, Audit, and View</h2>
+      <div class="diagram-frame"><img src="assets/erd-admin.png" alt="Physical ERD: Administration, Audit, and View"></div>
+      <p class="caption">Figure 10. Physical database design for profiles, settings, inventory adjustments, and the inventory summary view.</p>
+    </section>
+    <section class="diagram-page landscape ">
+      <h2>Entity Lifecycle and Data Lineage</h2>
+      <div class="diagram-frame"><img src="assets/erd-lineage.png" alt="Entity Lifecycle and Data Lineage"></div>
+      <p class="caption">Figure 11. Data lineage from master records through purchasing, stock batches, sales, reporting, and audit records.</p>
+    </section>
+
+  <section class="page">
+    <h1>6. Tools and Technologies</h1>
+    <p>The technology selection prioritizes maintainability, type safety, secure managed infrastructure, responsive interfaces, and low initial operating cost.</p>
+    
+  <table class="compact">
+    <thead><tr><th>Area</th><th>Tool or Technology</th><th>Use in the Project</th></tr></thead>
+    <tbody><tr><td>Application framework</td><td>Next.js 16 App Router</td><td>Routes, layouts, server rendering, protected navigation, and production builds.</td></tr><tr><td>Programming language</td><td>TypeScript</td><td>Static typing for application, forms, queries, and database-facing code.</td></tr><tr><td>User interface</td><td>React 19, Tailwind CSS, shadcn/ui, Radix UI</td><td>Responsive pages, accessible controls, dialogs, tables, and reusable interface patterns.</td></tr><tr><td>Database</td><td>Supabase PostgreSQL</td><td>Relational schema, constraints, views, transactions, functions, and Row Level Security.</td></tr><tr><td>Authentication</td><td>Supabase Auth</td><td>Email-and-password sessions for controlled staff accounts.</td></tr><tr><td>Server state</td><td>TanStack Query</td><td>Fetching, caching, mutation handling, and targeted refresh after changes.</td></tr><tr><td>Forms and validation</td><td>React Hook Form and Zod</td><td>Validated forms with clear field-level error messages.</td></tr><tr><td>Charts</td><td>Recharts</td><td>Simple dashboard trends and operational visualization.</td></tr><tr><td>Document export</td><td>jsPDF and CSV generation</td><td>Receipts and filtered report downloads.</td></tr><tr><td>Diagramming</td><td>draw.io</td><td>Editable DFD and ERD documentation.</td></tr><tr><td>Testing and quality</td><td>ESLint, TypeScript compiler, Next.js build, browser and database tests</td><td>Code quality, compilation, responsive checks, workflow tests, and release verification.</td></tr><tr><td>Hosting</td><td>Vercel and Supabase</td><td>Managed application, authentication, and database hosting.</td></tr><tr><td>Version control</td><td>Git</td><td>Change tracking, review, release baselines, and rollback support.</td></tr></tbody>
+  </table>
+  </section>
+
+  <section class="page">
+    <h1>7. Project Time and Cost Estimation</h1>
+    <h2>7.1 Estimation Basis</h2>
+    <p>The estimate uses a student-budget model. Development and design labor are academic contributions and are not billed. Direct expenses cover the resources required to research, develop, test, demonstrate, print, and present the project.</p>
+    
+  <table class="cost">
+    <thead><tr><th>Item</th><th>Quantity</th><th>Unit Cost (USD)</th><th>Total (USD)</th><th>Basis</th></tr></thead>
+    <tbody><tr><td>Student development labor</td><td>12 weeks</td><td>Academic contribution</td><td>0</td><td>Not billed; represents the student's monograph work.</td></tr><tr><td>Internet and data</td><td>3 months</td><td>30</td><td>90</td><td>Development, research, staging, and deployment access.</td></tr><tr><td>Electricity and equipment use</td><td>3 months</td><td>20</td><td>60</td><td>Estimated power and personal computer use.</td></tr><tr><td>Custom domain</td><td>1 year</td><td>20</td><td>20</td><td>Optional professional project address.</td></tr><tr><td>Printing and binding</td><td>1 set</td><td>25</td><td>25</td><td>Proposal, monograph, and presentation copies.</td></tr><tr><td>Testing and demonstration materials</td><td>1 allowance</td><td>15</td><td>15</td><td>Sample labels, barcode tests, and presentation preparation.</td></tr><tr><td>Contingency</td><td>1 allowance</td><td>20</td><td>20</td><td>Unexpected academic or deployment expenses.</td></tr><tr><td>Total estimated direct cost</td><td></td><td></td><td>230</td><td>Student out-of-pocket project estimate.</td></tr></tbody>
+  </table>
+    <h2>7.2 Optional Production Costs</h2>
+    
+  <table class="">
+    <thead><tr><th>Item</th><th>Budget Note</th></tr></thead>
+    <tbody><tr><td>Vercel</td><td>Free tier is suitable for academic demonstration; paid plans depend on production usage.</td></tr><tr><td>Supabase</td><td>Free tier is suitable for staging; production backup and resource requirements may require a paid plan.</td></tr><tr><td>Domain renewal</td><td>Recurring annual cost depends on the selected registrar and domain.</td></tr><tr><td>Maintenance</td><td>Future production support is outside the student's direct project budget.</td></tr></tbody>
+  </table>
+    <div class="notice"><strong>Estimated direct project cost: USD 230.</strong> Optional production hosting, backup features, domain renewal, and ongoing support depend on the service plans selected by the future system owner.</div>
+  </section>
+
+  <section class="page">
+    <h1>8. Project Timeline</h1>
+    <p>The roadmap organizes the project into twelve weekly milestones. Each week produces a defined output that contributes to the final release candidate.</p>
+    
+  <table class="compact">
+    <thead><tr><th>Week</th><th>Milestone</th><th>Main Activities</th><th>Deliverable</th></tr></thead>
+    <tbody><tr><td>1</td><td>Initiation and requirements</td><td>Confirm problem, stakeholders, objectives, scope, exclusions, and success criteria.</td><td>Approved requirements and scope statement.</td></tr><tr><td>2</td><td>Existing-system analysis</td><td>Study current workflows, pain points, roles, data, and operational risks.</td><td>Problem analysis and process requirements.</td></tr><tr><td>3</td><td>Logical and interface design</td><td>Prepare DFDs, conceptual ER model, route plan, navigation, and core screens.</td><td>Validated logical design and interface direction.</td></tr><tr><td>4</td><td>Database foundation</td><td>Create tables, relationships, constraints, indexes, profiles, settings, and initial RLS.</td><td>Versioned initial migration.</td></tr><tr><td>5</td><td>Authentication and roles</td><td>Implement sign-in, protected routes, role-aware navigation, and permission handling.</td><td>Admin, Pharmacist, and Cashier access.</td></tr><tr><td>6</td><td>Medicine and inventory</td><td>Build categories, medicine catalog, batch inventory, search, and validation.</td><td>Catalog and inventory MVP.</td></tr><tr><td>7</td><td>Dashboard and alerts</td><td>Implement summary indicators, low-stock warnings, expiry filters, and trend chart.</td><td>Operational dashboard.</td></tr><tr><td>8</td><td>Sales and POS</td><td>Build cashier workflow, barcode input, cart, FEFO sale transaction, history, and receipts.</td><td>Protected sales workflow.</td></tr><tr><td>9</td><td>Suppliers and purchases</td><td>Implement supplier records, purchase orders, statuses, receiving, and stock increases.</td><td>Protected purchasing workflow.</td></tr><tr><td>10</td><td>Reports and settings</td><td>Create reports, exports, search controls, pharmacy settings, and user-role management.</td><td>Operational reporting and administration.</td></tr><tr><td>11</td><td>Hardening and QA</td><td>Run lint, type checks, builds, role tests, RLS tests, concurrency, rollback, responsive, and export tests.</td><td>Release candidate and QA evidence.</td></tr><tr><td>12</td><td>Deployment and documentation</td><td>Deploy staging, prepare production steps, complete user guide, proposal, and presentation evidence.</td><td>Staging release and final documentation.</td></tr></tbody>
+  </table>
+  </section>
+
+  <section class="page">
+    <h1>9. Risk Assessment and Trust Signals</h1>
+    <h2>9.1 Risk Assessment</h2>
+    
+  <table class="compact">
+    <thead><tr><th>Risk</th><th>Impact</th><th>Likelihood</th><th>Mitigation</th><th>Residual Risk</th></tr></thead>
+    <tbody><tr><td>Unauthorized data access</td><td>High</td><td>Medium</td><td>Role-aware routes, RLS on all application tables, database role checks, disabled public signup, and denial tests.</td><td>Low</td></tr><tr><td>Incorrect stock after concurrent sales</td><td>High</td><td>Medium</td><td>Transactional sale function, batch locking, FEFO allocation, trusted recalculation, and concurrency tests.</td><td>Low</td></tr><tr><td>Partial purchase receiving</td><td>High</td><td>Medium</td><td>Atomic receiving function, order locking, duplicate-batch checks, rollback tests, and duplicate-delivery protection.</td><td>Low</td></tr><tr><td>Expired stock sold</td><td>High</td><td>Low</td><td>Expiry-aware saleable stock, FEFO ordering, expiry validation, and dashboard warnings.</td><td>Low</td></tr><tr><td>User adoption difficulty</td><td>Medium</td><td>Medium</td><td>Beginner-focused interface, limited role menus, clear messages, responsive layouts, and client guide.</td><td>Low</td></tr><tr><td>Cloud service or internet interruption</td><td>Medium</td><td>Medium</td><td>Managed hosting, documented ownership, status monitoring, and operational communication. Offline mode is outside MVP scope.</td><td>Medium</td></tr><tr><td>Backup ownership not assigned</td><td>High</td><td>Medium</td><td>Production launch gate requires named ownership, selected Supabase backup policy, and recovery verification.</td><td>Medium until completed</td></tr><tr><td>Production configuration error</td><td>High</td><td>Medium</td><td>Ordered migrations, documented environment values, Auth URL checklist, staging baseline, and production smoke tests.</td><td>Low after deployment checks</td></tr><tr><td>Schedule pressure</td><td>Medium</td><td>Medium</td><td>Twelve-week milestones, explicit exclusions, modular delivery, and priority on release-critical workflows.</td><td>Low</td></tr><tr><td>Future data growth</td><td>Medium</td><td>Low</td><td>Indexes, pagination, filtered views, and a documented path toward database reporting functions if scale requires them.</td><td>Low</td></tr></tbody>
+  </table>
+    <h2>9.2 Verified Trust Signals</h2><ul><li>All five database migrations were applied successfully to a fresh staging project in filename order.</li><li>Separate Admin, Pharmacist, and Cashier accounts passed route, interface, and database permission tests.</li><li>Direct unauthorized transactional writes were rejected by RLS.</li><li>FEFO allocation, concurrent sale locking, insufficient-stock rollback, purchase receiving rollback, and duplicate delivery protection passed staging tests.</li><li>Receipts, CSV export, PDF export, report totals, settings, and role changes passed acceptance checks.</li><li>Six operational pages passed responsive checks at 375, 768, 1024, and 1440 pixels.</li><li>Linting, TypeScript checks, and production builds passed for the release candidate.</li><li>The repository contains deployment, backup, recovery, rollback, QA, client guide, DFD, and ERD documentation.</li></ul>
+    <h2>9.3 Remaining Production Conditions</h2>
+    <div class="notice">Production approval remains conditional on assigning backup and recovery ownership, applying the five reviewed migrations to the production Supabase project, configuring production Supabase and Vercel values, completing production smoke tests, inspecting logs, and rotating or removing staging QA accounts.</div>
+  </section>
+
+  <section class="page">
+    <h1>10. Conclusion</h1>
+    <p>Darman Pharmacy Management System is a focused response to the operational needs of a single community pharmacy. Its design connects medicine records, batch inventory, purchasing, sales, alerts, users, and reports in one controlled system. The scope remains practical by excluding clinical records, prescriptions, insurance, multi-branch management, accounting, and automation features that would weaken the clarity of the first release.</p><p>The project demonstrates a complete academic and professional software process: problem analysis, scope control, logical modeling, relational database design, role-based security, transactional workflows, responsive interface design, testing, deployment planning, and user documentation. Staging evidence shows that the release candidate performs its critical workflows correctly. Completion of the stated production setup and backup tasks will prepare the system for controlled real-world use.</p>
+  </section>
+
+  <section class="page references">
+    <h1>11. References</h1>
+    <ol><li><strong>Darman project source of truth.</strong> PROJECT_STATE.md, repository state dated June 23, 2026.</li><li><strong>Darman deployment guide.</strong> docs/DEPLOYMENT.md.</li><li><strong>Darman client user manual.</strong> docs/CLIENT_GUIDE.md.</li><li><strong>Darman staging QA results.</strong> docs/STAGING_QA_RESULTS.md, June 19, 2026.</li><li><strong>Supabase documentation.</strong> <a href="https://supabase.com/docs">https://supabase.com/docs</a></li><li><strong>Next.js documentation.</strong> <a href="https://nextjs.org/docs">https://nextjs.org/docs</a></li><li><strong>Vercel documentation.</strong> <a href="https://vercel.com/docs">https://vercel.com/docs</a></li><li><strong>PostgreSQL documentation.</strong> <a href="https://www.postgresql.org/docs/">https://www.postgresql.org/docs/</a></li><li><strong>OWASP.</strong> OWASP Application Security Verification Standard and web security guidance, https://owasp.org/</li></ol>
+  </section>
+
+  
+  <section class="page appendix-title">
+    <h1>Appendix A. Detailed Logical and Physical Diagrams</h1>
+    <p>The appendix reproduces the complete validated diagram set for review and presentation. The figures are based on the editable draw.io sources and correspond to the release-candidate database and workflows.</p>
+    
+  <table class="">
+    <thead><tr><th>Figure</th><th>Diagram</th></tr></thead>
+    <tbody><tr><td>1</td><td>Context Diagram</td></tr><tr><td>2</td><td>Level 1 Data Flow Diagram</td></tr><tr><td>3</td><td>Level 2 Sales Data Flow Diagram</td></tr><tr><td>4</td><td>Level 2 Purchasing Data Flow Diagram</td></tr><tr><td>5</td><td>Level 2 Reporting and Administration Data Flow Diagram</td></tr><tr><td>6</td><td>Conceptual Entity Relationship Model</td></tr><tr><td>7</td><td>Physical ERD: Catalog and Inventory</td></tr><tr><td>8</td><td>Physical ERD: Sales</td></tr><tr><td>9</td><td>Physical ERD: Purchasing</td></tr><tr><td>10</td><td>Physical ERD: Administration, Audit, and View</td></tr><tr><td>11</td><td>Entity Lifecycle and Data Lineage</td></tr></tbody>
+  </table>
+  </section>
+  
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Context Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-context.png" alt="Context Diagram"></div>
+      <p class="caption">Figure 1. Context diagram showing the system boundary and its external actors.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Level 1 Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-level-1.png" alt="Level 1 Data Flow Diagram"></div>
+      <p class="caption">Figure 2. Level 1 DFD showing authentication, catalog, inventory, sales, purchasing, reporting, and administration processes.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Level 2 Sales Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-sales.png" alt="Level 2 Sales Data Flow Diagram"></div>
+      <p class="caption">Figure 3. Level 2 sales DFD showing checkout validation, FEFO allocation, stock deduction, adjustment logging, and receipt generation.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Level 2 Purchasing Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-purchasing.png" alt="Level 2 Purchasing Data Flow Diagram"></div>
+      <p class="caption">Figure 4. Level 2 purchasing DFD showing order creation, status control, delivery receiving, batch creation, and stock updates.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Level 2 Reporting and Administration Data Flow Diagram</h2>
+      <div class="diagram-frame"><img src="assets/dfd-reporting.png" alt="Level 2 Reporting and Administration Data Flow Diagram"></div>
+      <p class="caption">Figure 5. Level 2 DFD for operational reporting, exports, settings, and role administration.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Conceptual Entity Relationship Model</h2>
+      <div class="diagram-frame"><img src="assets/erd-conceptual.png" alt="Conceptual Entity Relationship Model"></div>
+      <p class="caption">Figure 6. Conceptual ER model of staff, medicines, suppliers, inventory, sales, purchases, settings, and adjustments.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Physical ERD: Catalog and Inventory</h2>
+      <div class="diagram-frame"><img src="assets/erd-catalog.png" alt="Physical ERD: Catalog and Inventory"></div>
+      <p class="caption">Figure 7. Physical database design for categories, medicines, suppliers, batches, and inventory summary data.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Physical ERD: Sales</h2>
+      <div class="diagram-frame"><img src="assets/erd-sales.png" alt="Physical ERD: Sales"></div>
+      <p class="caption">Figure 8. Physical database design for sales and batch-level sale items.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Physical ERD: Purchasing</h2>
+      <div class="diagram-frame"><img src="assets/erd-purchasing.png" alt="Physical ERD: Purchasing"></div>
+      <p class="caption">Figure 9. Physical database design for suppliers, purchase orders, order items, and received inventory.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Physical ERD: Administration, Audit, and View</h2>
+      <div class="diagram-frame"><img src="assets/erd-admin.png" alt="Physical ERD: Administration, Audit, and View"></div>
+      <p class="caption">Figure 10. Physical database design for profiles, settings, inventory adjustments, and the inventory summary view.</p>
+    </section>
+    <section class="diagram-page landscape appendix-diagram">
+      <h2>Entity Lifecycle and Data Lineage</h2>
+      <div class="diagram-frame"><img src="assets/erd-lineage.png" alt="Entity Lifecycle and Data Lineage"></div>
+      <p class="caption">Figure 11. Data lineage from master records through purchasing, stock batches, sales, reporting, and audit records.</p>
+    </section>
+
+</body>
+</html>

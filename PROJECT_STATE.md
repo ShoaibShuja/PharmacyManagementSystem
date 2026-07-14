@@ -2,12 +2,24 @@
 
 ## Current Phase
 
-Phase 15: Final Monograph Proposal.
+Phase 23: Sidebar Account Controls.
 
-Last updated: June 28, 2026.
+Last updated: July 14, 2026.
 
 ## Completed Features
 
+- Supabase SQL Editor reset seed that preserves Auth users and profile roles while
+  replacing pharmacy settings, catalog, suppliers, batches, purchase orders,
+  sales, and inventory adjustment history with realistic demo data
+- Dashboard-only visual refinement with an elevated operations workspace,
+  clearer metric hierarchy, richer alert surfaces, refined tables, and a more
+  legible sales chart; no dashboard data, controls, routes, or business logic changed
+- Persistent light and dark color modes with first-visit system preference,
+  immediate pre-hydration theme application, header toggle, and cross-page
+  semantic color tokens
+- Account profile, permitted Settings access, and sign-out controls moved to a
+  dedicated bottom section in the desktop sidebar and mobile navigation drawer;
+  Settings and Sign out are vertically stacked
 - Next.js 16 App Router, strict TypeScript, Tailwind CSS 4, and shadcn/ui foundation
 - Darman product branding with a generated medicine logo and matching browser and installable-app icons
 - Solid application navbar background for clear separation from scrolling content
@@ -156,6 +168,25 @@ Last updated: June 28, 2026.
 - Final university-ready monograph proposal generated in
   `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal.docx`
   using the fixed light-mode DFD exports and the new complete ERD exports
+- Single-page complete Data Flow Diagram added in `docs/new docs/` with
+  external entities, named processes, grouped data stores, labeled data flows,
+  routed external-service flows, and a matching WebP export
+- Single-page complete Entity Relationship Diagram added in `docs/new docs/`
+  using draw.io table/row ERD shapes, horizontal row text, PK/FK row anchors,
+  cardinality/modality labels, weak/dependent table coloring, bridge table
+  coloring, data types, nullability, and field constraints
+- Professional university monograph proposal generated at
+  `docs/final proposal/Darman_Pharmacy_Management_System_University_Monograph_Proposal.docx`
+  with the requested section order, embedded single-page DFD and ERD images,
+  project cost table, project timeline table, risk assessment, trust signals,
+  fuller project-specific text, and 16 pt headings, 13 pt subheadings, and
+  11 pt normal text
+- Chen-style complete Entity Relationship Diagram generated in `docs/new docs/`
+  to match the provided `erd example.png` notation, using entity rectangles,
+  weak/dependent double rectangles, relationship diamonds, attribute ovals,
+  underlined identifiers, cardinality labels, and no table-form schema boxes.
+  The layout was refined into clear operational bands with more spacing and
+  routed relationship lines for better readability.
 
 ## Current Database Tables
 
@@ -189,11 +220,17 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
 ## Current Components
 
 - Darman-branded role-aware sidebar, mobile navigation, authenticated header, and global search command
+- Persistent theme provider and accessible light/dark theme toggle in the
+  authenticated header
+- Shared responsive sidebar account-controls panel with profile identity,
+  role label, Settings shortcut for Admin and Pharmacist users, and sign-out
 - Login form and logout action
 - Auth server helpers and role guards
 - Query provider and global toast provider
 - Medicine catalog, medicine form dialog, category dialog, and medicine detail dialog
 - Dashboard view, sales trend chart, metric cards, alert area, recent sales, low-stock list, and expiry warning list
+- Dashboard presentation uses scoped visual surfaces and responsive spacing;
+  all dashboard content and role-specific behavior are preserved
 - Cashier-first POS medicine grid, barcode scan-to-add, desktop cart, mobile checkout dialog, lazy sales history, next-sale receipt action, print view, and PDF receipt
 - Supplier management, supplier form dialog, and supplier detail/history dialog
 - Purchase-order management, creation form, order detail, status actions, and delivery form
@@ -216,6 +253,14 @@ The `medicine_inventory_summary` view remains available. The catalog currently c
   `docs/diagrams/New ERD/`
 - Final monograph proposal DOCX, preview HTML, and embedded proposal assets in
   `docs/final proposal/`
+- Single-page complete DFD source, SVG preview, and WebP export in
+  `docs/new docs/`
+- Single-page complete ERD source, SVG preview, and WebP export in
+  `docs/new docs/`
+- University monograph proposal DOCX and generated proposal image assets in
+  `docs/final proposal/`
+- Chen-style ERD editable draw.io source, SVG preview, and JPEG export in
+  `docs/new docs/`
 
 ## Current Environment Variables
 
@@ -335,6 +380,28 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 
 ## Latest Test and Build Status
 
+- Phase 23 sidebar account controls on July 14, 2026:
+  - `npm run typecheck` passed;
+  - `npm run lint` passed;
+  - `npm run build` passed before the final vertical-action layout adjustment;
+  - the final build retry was blocked only because the environment could not
+    fetch the existing Geist font from `fonts.googleapis.com`.
+- Phase 22 persistent dark mode on July 14, 2026:
+  - `npm run typecheck` passed;
+  - `npm run lint` passed;
+  - `npm run build` exceeded the local 60-second command limit while compiling.
+    A prior build in this environment was blocked because the existing Geist
+    font could not be fetched from `fonts.googleapis.com`.
+- Phase 21 dashboard UI/UX refinement on July 14, 2026:
+  - `npm run typecheck` passed;
+  - `npm run lint` passed;
+  - `npm run build` was blocked only because this environment could not fetch
+    the external Geist font from `fonts.googleapis.com`.
+- Phase 20 database seed update on July 14, 2026:
+  - `npm run typecheck` passed;
+  - `npm run lint` passed;
+  - `npm run build` was blocked only because this environment could not fetch
+    the external Geist font from `fonts.googleapis.com`.
 - Monograph proposal generation passed on June 23, 2026:
   - generated `docs/proposal/Darman_Pharmacy_Management_System_Proposal.docx`;
   - generated `docs/proposal/Darman_Pharmacy_Management_System_Proposal.pdf`;
@@ -400,11 +467,24 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
   - added a Word-compatible final proposal variant at
     `docs/final proposal/Darman_Pharmacy_Management_System_Final_Proposal_Word_Compatible.docx`
     with portrait-only sections and smaller diagram placement;
+  - added a compact 14-page monograph proposal at
+    `docs/final proposal/Darman_Pharmacy_Management_System_Compact_Proposal.docx`
+    with all requested proposal sections, fixed DFD diagrams, new ERD diagrams,
+    compact tables, reduced page spacing, and no changes to the existing final
+    proposal DOCX files;
+  - added a revised short monograph proposal at
+    `docs/final proposal/Darman_Pharmacy_Management_System_Short_Proposal.docx`
+    after analyzing the 27-page final proposal; it preserves the university
+    cover/approval structure, keeps only the Tools and Technologies, Project
+    Time and Cost Estimation, and Project Timeline tables, includes selected
+    DFD/ERD diagrams at the same display sizes, and validates at 13 Microsoft
+    Word pages.
   - validated DOCX ZIP signature, file size, embedded media, absence of
     DOCX field codes, external relationships, `headerReference`,
     `footerReference`, header files, and footer files, and confirmed Sections
     7 and 8 are present in the document XML and through a read-only Microsoft
     Word COM open test.
+  - validated the compact proposal in Microsoft Word at 14 pages.
   - `npm run lint`, `npm run typecheck`, and `npm run build` passed after the
     final proposal and documentation updates.
 - draw.io Desktop CLI is not installed in the current environment. The fixed
@@ -445,6 +525,39 @@ See `docs/DEPLOYMENT.md` for commands, rollback guidance, and official reference
 - Detailed evidence: `docs/STAGING_QA_RESULTS.md`
 - The npm advisory endpoint was unavailable during the final RC review. The two
   previously recorded moderate transitive findings remain the latest known result.
+- Single-page complete DFD generation passed on July 4, 2026:
+  - generated `docs/new docs/darman-complete-data-flow-diagram.drawio`;
+  - generated `docs/new docs/darman-complete-data-flow-diagram.svg`;
+  - exported `docs/new docs/darman-complete-data-flow-diagram.webp`;
+  - validated Draw.io XML parsing with 36 cells;
+  - validated WebP output as 2600 x 1380 through the local Node/sharp export path;
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed.
+- Single-page complete ERD generation passed on July 4, 2026:
+  - generated `docs/new docs/darman-complete-entity-relationship-diagram.drawio`;
+  - generated `docs/new docs/darman-complete-entity-relationship-diagram.svg`;
+  - exported `docs/new docs/darman-complete-entity-relationship-diagram.webp`;
+  - validated Draw.io XML parsing with 165 cells;
+  - validated WebP output as 5080 x 2660 through the local Node/sharp export path;
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed.
+- University monograph proposal generation passed on July 4, 2026:
+  - generated `docs/final proposal/Darman_Pharmacy_Management_System_University_Monograph_Proposal.docx`;
+  - embedded the single-page DFD and ERD generated in `docs/new docs/`;
+  - validated DOCX ZIP signature, required section order, embedded media, and
+    absence of external document relationships;
+  - regenerated the proposal with fuller project-specific analysis and the
+    requested typography: 16 pt headings, 13 pt subheadings, and 11 pt normal
+    text;
+  - designed the DOCX to stay within the requested maximum of 13 pages;
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed.
+- Chen-style ERD generation passed on July 5, 2026:
+  - generated `docs/new docs/darman-chen-style-entity-relationship-diagram.drawio`;
+  - generated `docs/new docs/darman-chen-style-entity-relationship-diagram.svg`;
+  - exported `docs/new docs/darman-chen-style-entity-relationship-diagram.jpeg`;
+  - refined the diagram into Access, Catalog, Inventory, Purchasing, and Sales
+    bands with cleaner spacing and routed relationship corridors;
+  - validated Draw.io XML parsing with 194 cells;
+  - validated JPEG output as 4400 x 2240 through the local Node/sharp export path;
+  - `npm run lint`, `npm run typecheck`, and `npm run build` passed.
 
 ## Current Known Issues
 
@@ -507,6 +620,12 @@ Release-blocking checks:
 - Use completed sales only for dashboard totals, trends, and recent sales.
 - Keep the chart to a simple seven-day trend and avoid advanced forecasting.
 - Keep Cashier dashboard sales-focused and hide management alert tables.
+- Keep dashboard design changes scoped to dashboard components and preserve
+  every existing metric, alert, table, action, role behavior, and data query.
+- Keep theme selection in browser local storage. Use the operating system color
+  preference only for a visitor who has not selected a theme yet.
+- Keep account controls in one shared component so the desktop sidebar and
+  mobile drawer expose identical role-aware Settings and sign-out behavior.
 - Complete sales only through the transactional `complete_sale` database function.
 - Lock batches during checkout and allocate sale quantities by expiry date, received date, and batch ID.
 - Store one sale item per allocated inventory batch so cost, price, and traceability remain accurate.
@@ -539,9 +658,20 @@ Release-blocking checks:
 - Accept the current Supabase publishable-key name while retaining legacy
   anon-key compatibility during deployment transition.
 - Keep deferred infrastructure guidance out of beginner-facing operational screens.
+- Keep the new single-page DFD grouped by operational data store so it remains
+  readable in proposals, slides, and printed documents. Use the older multi-page
+  DFD assets when a reviewer needs deeper process decomposition.
+- Keep the new single-page ERD as a physical-data-model overview with grouped
+  table placement and row-anchored relationships. Use the six-page ERD set when
+  a reviewer needs larger per-module schema pages.
+- Keep the university monograph proposal compact and section-ordered for the
+  13-page limit. Use the longer final proposal variants only when a supervisor
+  asks for more supporting detail.
+- Use the Chen-style ERD when a university reviewer expects classic ER
+  notation with entities, attributes, and relationship diamonds. Use the
+  table-form ERD when a reviewer needs physical database columns and constraints.
 
 ## Next Recommended Prompt
 
-Review and commit the staging fixes, configure production backup ownership,
-apply the five migrations to production, deploy the reviewed commit, and repeat
-the production smoke-test subset of `docs/MANUAL_QA_CHECKLIST.md`.
+Verify the desktop sidebar and mobile drawer account sections for Admin,
+Pharmacist, and Cashier users at 375, 768, 1024, and 1440 px.

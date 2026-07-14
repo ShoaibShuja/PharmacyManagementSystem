@@ -155,14 +155,14 @@ export function ReceiptDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="mx-auto w-full max-w-sm rounded-lg border bg-white p-5 text-sm text-slate-950 shadow-sm">
+        <div className="mx-auto w-full max-w-sm rounded-lg border bg-card p-5 text-sm text-card-foreground shadow-sm">
           <div className="text-center">
             <p className="text-lg font-bold">{settings.pharmacyName}</p>
             {settings.address ? (
-              <p className="mt-1 text-xs text-slate-600">{settings.address}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{settings.address}</p>
             ) : null}
             {settings.phone ? (
-              <p className="text-xs text-slate-600">{settings.phone}</p>
+              <p className="text-xs text-muted-foreground">{settings.phone}</p>
             ) : null}
           </div>
 
@@ -185,7 +185,7 @@ export function ReceiptDialog({
                   <span>{item.medicine_name}</span>
                   <span>{item.line_total.toFixed(2)}</span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted-foreground">
                   {item.quantity} × {item.unit_price.toFixed(2)} · Batch{" "}
                   {item.batch_number}
                 </p>
@@ -211,7 +211,7 @@ export function ReceiptDialog({
           </div>
 
           {settings.receiptFooter ? (
-            <p className="mt-5 text-center text-xs text-slate-500">
+            <p className="mt-5 text-center text-xs text-muted-foreground">
               {settings.receiptFooter}
             </p>
           ) : null}
@@ -241,7 +241,7 @@ export function ReceiptDialog({
 function ReceiptRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4">
-      <span className="text-slate-500">{label}</span>
+      <span className="text-muted-foreground">{label}</span>
       <span className="text-right">{value}</span>
     </div>
   );

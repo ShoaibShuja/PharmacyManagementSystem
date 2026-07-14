@@ -2,17 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AccountControls } from "@/components/layout/account-controls";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { getNavigationItems } from "@/components/layout/navigation";
-import type { AppRole } from "@/lib/auth/types";
+import type { UserProfile } from "@/lib/auth/types";
 import { cn } from "@/lib/utils";
 
-export function Sidebar({ role }: { role: AppRole }) {
+export function Sidebar({
+  profile,
+  email,
+}: {
+  profile: UserProfile;
+  email: string;
+}) {
   const pathname = usePathname();
-  const navigationItems = getNavigationItems(role);
+  const navigationItems = getNavigationItems(profile.role).filter(
+    (item) => item.href !== "/settings",
+  );
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-64 border-r bg-card lg:block">
+    <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r bg-card lg:flex">
       <div className="flex h-16 items-center gap-3 border-b px-6">
         <BrandMark className="size-9" priority />
         <div>
@@ -20,7 +29,7 @@ export function Sidebar({ role }: { role: AppRole }) {
           <p className="text-xs text-muted-foreground">Pharmacy Management</p>
         </div>
       </div>
-      <nav className="space-y-1 p-4" aria-label="Primary navigation">
+      <nav className="flex-1 space-y-1 overflow-y-auto p-4" aria-label="Primary navigation">
         {navigationItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -44,6 +53,7 @@ export function Sidebar({ role }: { role: AppRole }) {
           );
         })}
       </nav>
+      <AccountControls profile={profile} email={email} />
     </aside>
   );
 }

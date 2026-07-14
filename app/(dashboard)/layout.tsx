@@ -12,7 +12,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen">
-      <Sidebar role={profile.role} />
+      <Sidebar profile={profile} email={email} />
       <div className="lg:pl-64">
         <AppHeader profile={profile} email={email} />
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>

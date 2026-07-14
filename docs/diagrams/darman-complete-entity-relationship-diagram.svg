@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="5080" height="2660" viewBox="0 0 5080 2660">
+<defs><marker id="many" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#334155" stroke-width="1.8"/></marker><marker id="one" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 2 0 L 2 10" stroke="#334155" stroke-width="2"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="2540" y="54" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#0f172a" text-anchor="middle">Darman Pharmacy Management System - Complete Entity Relationship Diagram</text>
+<rect x="80" y="88" width="4820" height="92" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="105" y="124" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#0f172a" text-anchor="start">Legend</text>
+<rect x="210" y="105" width="28" height="20" fill="#dbeafe" stroke="#2563eb"/><text x="248" y="121" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Core entity</text>
+<rect x="380" y="105" width="28" height="20" fill="#fef3c7" stroke="#d97706"/><text x="418" y="121" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Weak/dependent entity</text>
+<rect x="610" y="105" width="28" height="20" fill="#dcfce7" stroke="#16a34a"/><text x="648" y="121" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Bridge/junction table</text>
+<rect x="850" y="105" width="28" height="20" fill="#fee2e2" stroke="#dc2626"/><text x="888" y="121" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Derived view</text>
+<text x="105" y="155" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="start">Rows show: key role, field name, data type, nullability, and constraints. Lines are anchored to PK/FK rows with cardinality/modality labels.</text>
+<path d="M 1120 315 L 2520 315 L 2520 655 L 3920 655" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="2394" y="458" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="2520" y="477" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">cashier creates sales: 1 to 0..*</text>
+<text x="1128" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="3912" y="648" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 315 L 2520 315 L 2520 757 L 3920 757" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="2394" y="509" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="2520" y="528" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">voids sales: 0..1 to 0..*</text>
+<text x="1128" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<text x="3912" y="750" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 315 L 1880 315 L 1880 655 L 2640 655" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1754" y="458" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1880" y="477" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">creates POs: 1 to 0..*</text>
+<text x="1128" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="2632" y="648" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 315 L 1240 315 L 1240 1987 L 1360 1987" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1114" y="1124" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1240" y="1143" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">performs adjustments: 1 to 0..*</text>
+<text x="1128" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="1352" y="1980" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 80 315 L 80 315 L 80 1055 L 80 1055" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="-46" y="658" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="80" y="677" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">updates settings: 0..1 to 0..*</text>
+<text x="72" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..1</text>
+<text x="72" y="1048" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 1335 L 1240 1335 L 1240 485 L 1360 485" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1114" y="883" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1240" y="902" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">categorizes: 0..1 to 0..*</text>
+<text x="1128" y="1328" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<text x="1352" y="478" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 1715 L 1240 1715 L 1240 519 L 1360 519" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1114" y="1090" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1240" y="1109" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">default supplier: 0..1 to 0..*</text>
+<text x="1128" y="1708" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<text x="1352" y="512" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 1715 L 1240 1715 L 1240 1123 L 1360 1123" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1114" y="1392" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1240" y="1411" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">supplies batches: 0..1 to 0..*</text>
+<text x="1128" y="1708" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<text x="1352" y="1116" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1120 1715 L 1880 1715 L 1880 383 L 2640 383" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1754" y="1022" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1880" y="1041" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">receives POs: 1 to 0..*</text>
+<text x="1128" y="1708" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="2632" y="376" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1360 315 L 1360 315 L 1360 1089 L 1360 1089" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1234" y="675" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1360" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">has batches: 1 to 0..*</text>
+<text x="1352" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="1352" y="1082" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 2400 315 L 2520 315 L 2520 1123 L 2640 1123" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="2394" y="692" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="2520" y="711" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">ordered item: 1 to 0..*</text>
+<text x="2408" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="2632" y="1116" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 2400 315 L 3160 315 L 3160 1203 L 3920 1203" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="3034" y="732" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="3160" y="751" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">sold item: 1 to 0..*</text>
+<text x="2408" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">1</text>
+<text x="3912" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1360 315 L 1360 315 L 1360 1749 L 1360 1749" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1234" y="1005" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1360" y="1024" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">adjusted item: 1 to 0..*</text>
+<text x="1352" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="1352" y="1742" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1360 315 L 1360 315 L 1360 2255 L 1360 2255" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1234" y="1258" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1360" y="1277" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">summarized by: 1 to 1</text>
+<text x="1352" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="1352" y="2248" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<path d="M 2640 315 L 2640 315 L 2640 1089 L 2640 1089" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="2514" y="675" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="2640" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">contains items: 1 to 1..*</text>
+<text x="2632" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="2632" y="1082" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1..*</text>
+<path d="M 2640 1055 L 2520 1055 L 2520 1157 L 2400 1157" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="2394" y="1079" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="2520" y="1098" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">received as batch: 0..1 to 0..1</text>
+<text x="2632" y="1048" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..1</text>
+<text x="2408" y="1150" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<path d="M 3920 315 L 3920 315 L 3920 1169 L 3920 1169" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="3794" y="715" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="3920" y="734" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">contains items: 1 to 1..*</text>
+<text x="3912" y="308" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="3912" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1..*</text>
+<path d="M 2400 1055 L 3160 1055 L 3160 1237 L 3920 1237" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="3034" y="1119" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="3160" y="1138" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">allocated to sale: 0..1 to 0..*</text>
+<text x="2408" y="1048" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">0..1</text>
+<text x="3912" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<path d="M 1360 1055 L 1360 1055 L 1360 1783 L 1360 1783" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#many)" marker-start="url(#one)"/>
+<rect x="1234" y="1392" width="252" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1360" y="1411" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">stock audit: 1 to 0..*</text>
+<text x="1352" y="1048" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">1</text>
+<text x="1352" y="1776" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="end">0..*</text>
+<rect x="80" y="240" width="1040" height="296" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="80" y="240" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="98" y="276" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">profiles</text>
+<rect x="81" y="298" width="1038" height="34" fill="#eff6ff"/>
+<line x1="92" y1="332" x2="1108" y2="332" stroke="#e2e8f0"/>
+<text x="98" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="218" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="472" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="628" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">FK auth.users(id), ON DELETE CASCADE</text>
+<rect x="81" y="332" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="366" x2="1108" y2="366" stroke="#e2e8f0"/>
+<text x="98" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">email</text>
+<text x="472" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK not blank</text>
+<rect x="81" y="366" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="400" x2="1108" y2="400" stroke="#e2e8f0"/>
+<text x="98" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">full_name</text>
+<text x="472" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT ''</text>
+<rect x="81" y="400" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="434" x2="1108" y2="434" stroke="#e2e8f0"/>
+<text x="98" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">role</text>
+<text x="472" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">app_role</text>
+<text x="628" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT cashier</text>
+<rect x="81" y="434" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="468" x2="1108" y2="468" stroke="#e2e8f0"/>
+<text x="98" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">is_active</text>
+<text x="472" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">boolean</text>
+<text x="628" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT true</text>
+<rect x="81" y="468" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="502" x2="1108" y2="502" stroke="#e2e8f0"/>
+<text x="98" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="472" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="81" y="502" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="536" x2="1108" y2="536" stroke="#e2e8f0"/>
+<text x="98" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="472" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="80" y="640" width="1040" height="500" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="80" y="640" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="98" y="676" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">app_settings</text>
+<rect x="81" y="698" width="1038" height="34" fill="#eff6ff"/>
+<line x1="92" y1="732" x2="1108" y2="732" stroke="#e2e8f0"/>
+<text x="98" y="720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="218" y="720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">singleton</text>
+<text x="472" y="720" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">boolean</text>
+<text x="628" y="720" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="720" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK singleton</text>
+<rect x="81" y="732" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="766" x2="1108" y2="766" stroke="#e2e8f0"/>
+<text x="98" y="754" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="754" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">pharmacy_name</text>
+<text x="472" y="754" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="754" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="754" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT My Pharmacy, CHECK not blank</text>
+<rect x="81" y="766" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="800" x2="1108" y2="800" stroke="#e2e8f0"/>
+<text x="98" y="788" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="788" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">phone</text>
+<text x="472" y="788" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="788" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="788" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="800" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="834" x2="1108" y2="834" stroke="#e2e8f0"/>
+<text x="98" y="822" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="822" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">email</text>
+<text x="472" y="822" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="822" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="822" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="834" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="868" x2="1108" y2="868" stroke="#e2e8f0"/>
+<text x="98" y="856" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="856" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">address</text>
+<text x="472" y="856" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="856" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="856" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="868" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="902" x2="1108" y2="902" stroke="#e2e8f0"/>
+<text x="98" y="890" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="890" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">currency_code</text>
+<text x="472" y="890" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="890" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="890" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT USD, CHECK 3 uppercase letters</text>
+<rect x="81" y="902" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="936" x2="1108" y2="936" stroke="#e2e8f0"/>
+<text x="98" y="924" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="924" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">tax_rate</text>
+<text x="472" y="924" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(5,2)</text>
+<text x="628" y="924" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="924" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK 0..100</text>
+<rect x="81" y="936" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="970" x2="1108" y2="970" stroke="#e2e8f0"/>
+<text x="98" y="958" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="958" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">expiry_alert_days</text>
+<text x="472" y="958" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="628" y="958" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="958" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="81" y="970" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1004" x2="1108" y2="1004" stroke="#e2e8f0"/>
+<text x="98" y="992" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="992" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">default_reorder_threshold</text>
+<text x="472" y="992" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="628" y="992" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="992" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="81" y="1004" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1038" x2="1108" y2="1038" stroke="#e2e8f0"/>
+<text x="98" y="1026" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1026" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">receipt_footer</text>
+<text x="472" y="1026" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1026" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1026" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1038" width="1038" height="34" fill="#f8fafc"/>
+<line x1="92" y1="1072" x2="1108" y2="1072" stroke="#e2e8f0"/>
+<text x="98" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="218" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_by</text>
+<text x="472" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="628" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">profiles.id, ON DELETE SET NULL</text>
+<rect x="81" y="1072" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1106" x2="1108" y2="1106" stroke="#e2e8f0"/>
+<text x="98" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="472" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="81" y="1106" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1140" x2="1108" y2="1140" stroke="#e2e8f0"/>
+<text x="98" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="472" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="80" y="1260" width="1040" height="262" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="80" y="1260" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="98" y="1296" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">medicine_categories</text>
+<rect x="81" y="1318" width="1038" height="34" fill="#eff6ff"/>
+<line x1="92" y1="1352" x2="1108" y2="1352" stroke="#e2e8f0"/>
+<text x="98" y="1340" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="218" y="1340" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="472" y="1340" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="628" y="1340" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1340" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="81" y="1352" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1386" x2="1108" y2="1386" stroke="#e2e8f0"/>
+<text x="98" y="1374" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1374" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">name</text>
+<text x="472" y="1374" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1374" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1374" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ lower(name), CHECK not blank</text>
+<rect x="81" y="1386" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1420" x2="1108" y2="1420" stroke="#e2e8f0"/>
+<text x="98" y="1408" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1408" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">description</text>
+<text x="472" y="1408" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1408" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1408" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1420" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1454" x2="1108" y2="1454" stroke="#e2e8f0"/>
+<text x="98" y="1442" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1442" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">is_active</text>
+<text x="472" y="1442" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">boolean</text>
+<text x="628" y="1442" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1442" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT true</text>
+<rect x="81" y="1454" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1488" x2="1108" y2="1488" stroke="#e2e8f0"/>
+<text x="98" y="1476" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1476" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="472" y="1476" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="1476" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1476" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="81" y="1488" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1522" x2="1108" y2="1522" stroke="#e2e8f0"/>
+<text x="98" y="1510" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1510" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="472" y="1510" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="1510" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1510" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="80" y="1640" width="1040" height="398" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="80" y="1640" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="98" y="1676" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">suppliers</text>
+<rect x="81" y="1698" width="1038" height="34" fill="#eff6ff"/>
+<line x1="92" y1="1732" x2="1108" y2="1732" stroke="#e2e8f0"/>
+<text x="98" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="218" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="472" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="628" y="1720" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1720" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="81" y="1732" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1766" x2="1108" y2="1766" stroke="#e2e8f0"/>
+<text x="98" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">name</text>
+<text x="472" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1754" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1754" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">IDX, CHECK not blank</text>
+<rect x="81" y="1766" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1800" x2="1108" y2="1800" stroke="#e2e8f0"/>
+<text x="98" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">contact_person</text>
+<text x="472" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1788" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1788" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1800" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1834" x2="1108" y2="1834" stroke="#e2e8f0"/>
+<text x="98" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">phone</text>
+<text x="472" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1822" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1822" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1834" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1868" x2="1108" y2="1868" stroke="#e2e8f0"/>
+<text x="98" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">email</text>
+<text x="472" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1856" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1856" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK email format</text>
+<rect x="81" y="1868" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1902" x2="1108" y2="1902" stroke="#e2e8f0"/>
+<text x="98" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">address</text>
+<text x="472" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1890" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1890" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1902" width="1038" height="34" fill="#fff7ed"/>
+<line x1="92" y1="1936" x2="1108" y2="1936" stroke="#e2e8f0"/>
+<text x="98" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">notes</text>
+<text x="472" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="628" y="1924" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="740" y="1924" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="81" y="1936" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="1970" x2="1108" y2="1970" stroke="#e2e8f0"/>
+<text x="98" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">is_active</text>
+<text x="472" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">boolean</text>
+<text x="628" y="1958" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1958" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT true</text>
+<rect x="81" y="1970" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="2004" x2="1108" y2="2004" stroke="#e2e8f0"/>
+<text x="98" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="472" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="1992" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="1992" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="81" y="2004" width="1038" height="34" fill="#ffffff"/>
+<line x1="92" y1="2038" x2="1108" y2="2038" stroke="#e2e8f0"/>
+<text x="98" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="218" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="472" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="628" y="2026" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="740" y="2026" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1360" y="240" width="1040" height="602" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="1360" y="240" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="1378" y="276" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">medicines</text>
+<rect x="1361" y="298" width="1038" height="34" fill="#eff6ff"/>
+<line x1="1372" y1="332" x2="2388" y2="332" stroke="#e2e8f0"/>
+<text x="1378" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="1498" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="1752" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="1361" y="332" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="366" x2="2388" y2="366" stroke="#e2e8f0"/>
+<text x="1378" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">brand_name</text>
+<text x="1752" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">IDX, CHECK not blank</text>
+<rect x="1361" y="366" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="400" x2="2388" y2="400" stroke="#e2e8f0"/>
+<text x="1378" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">generic_name</text>
+<text x="1752" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">IDX</text>
+<rect x="1361" y="400" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="434" x2="2388" y2="434" stroke="#e2e8f0"/>
+<text x="1378" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">dosage_form</text>
+<text x="1752" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK not blank</text>
+<rect x="1361" y="434" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="468" x2="2388" y2="468" stroke="#e2e8f0"/>
+<text x="1378" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">strength</text>
+<text x="1752" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="1361" y="468" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="502" x2="2388" y2="502" stroke="#e2e8f0"/>
+<text x="1378" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">category_id</text>
+<text x="1752" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">medicine_categories.id, SET NULL</text>
+<rect x="1361" y="502" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="536" x2="2388" y2="536" stroke="#e2e8f0"/>
+<text x="1378" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">default_supplier_id</text>
+<text x="1752" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">suppliers.id, SET NULL</text>
+<rect x="1361" y="536" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="570" x2="2388" y2="570" stroke="#e2e8f0"/>
+<text x="1378" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">sku</text>
+<text x="1752" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ lower(sku) when present</text>
+<rect x="1361" y="570" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="604" x2="2388" y2="604" stroke="#e2e8f0"/>
+<text x="1378" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">barcode</text>
+<text x="1752" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ barcode when present</text>
+<rect x="1361" y="604" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="638" x2="2388" y2="638" stroke="#e2e8f0"/>
+<text x="1378" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">unit</text>
+<text x="1752" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT unit, CHECK not blank</text>
+<rect x="1361" y="638" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="672" x2="2388" y2="672" stroke="#e2e8f0"/>
+<text x="1378" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">default_selling_price</text>
+<text x="1752" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="1908" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="1361" y="672" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="706" x2="2388" y2="706" stroke="#e2e8f0"/>
+<text x="1378" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">default_cost_price</text>
+<text x="1752" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="1908" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="1361" y="706" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="740" x2="2388" y2="740" stroke="#e2e8f0"/>
+<text x="1378" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">reorder_threshold</text>
+<text x="1752" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="1908" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="1361" y="740" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="774" x2="2388" y2="774" stroke="#e2e8f0"/>
+<text x="1378" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">status</text>
+<text x="1752" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">record_status</text>
+<text x="1908" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT active</text>
+<rect x="1361" y="774" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="808" x2="2388" y2="808" stroke="#e2e8f0"/>
+<text x="1378" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="1752" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1361" y="808" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="842" x2="2388" y2="842" stroke="#e2e8f0"/>
+<text x="1378" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="1752" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="830" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="830" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1360" y="980" width="1040" height="500" rx="6" fill="#fff" stroke="#d97706" stroke-width="2"/>
+<rect x="1360" y="980" width="1040" height="58" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="1378" y="1016" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">inventory_batches</text>
+<text x="2382" y="1016" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="end">weak/dependent</text>
+<rect x="1361" y="1038" width="1038" height="34" fill="#eff6ff"/>
+<line x1="1372" y1="1072" x2="2388" y2="1072" stroke="#e2e8f0"/>
+<text x="1378" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="1498" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="1752" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="1361" y="1072" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="1106" x2="2388" y2="1106" stroke="#e2e8f0"/>
+<text x="1378" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">medicine_id</text>
+<text x="1752" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">medicines.id, RESTRICT</text>
+<rect x="1361" y="1106" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="1140" x2="2388" y2="1140" stroke="#e2e8f0"/>
+<text x="1378" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">supplier_id</text>
+<text x="1752" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">suppliers.id, SET NULL</text>
+<rect x="1361" y="1140" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="1174" x2="2388" y2="1174" stroke="#e2e8f0"/>
+<text x="1378" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">purchase_order_item_id</text>
+<text x="1752" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1162" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="1162" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">purchase_order_items.id, SET NULL</text>
+<rect x="1361" y="1174" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1208" x2="2388" y2="1208" stroke="#e2e8f0"/>
+<text x="1378" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">batch_number</text>
+<text x="1752" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="1196" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1196" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ medicine_id + lower(batch_number)</text>
+<rect x="1361" y="1208" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1242" x2="2388" y2="1242" stroke="#e2e8f0"/>
+<text x="1378" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">expiry_date</text>
+<text x="1752" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">date</text>
+<text x="1908" y="1230" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1230" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">IDX</text>
+<rect x="1361" y="1242" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1276" x2="2388" y2="1276" stroke="#e2e8f0"/>
+<text x="1378" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">cost_price</text>
+<text x="1752" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="1908" y="1264" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1264" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="1361" y="1276" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1310" x2="2388" y2="1310" stroke="#e2e8f0"/>
+<text x="1378" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">selling_price</text>
+<text x="1752" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="1908" y="1298" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1298" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="1361" y="1310" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1344" x2="2388" y2="1344" stroke="#e2e8f0"/>
+<text x="1378" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">initial_quantity</text>
+<text x="1752" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="1908" y="1332" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1332" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt; 0</text>
+<rect x="1361" y="1344" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1378" x2="2388" y2="1378" stroke="#e2e8f0"/>
+<text x="1378" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">current_quantity</text>
+<text x="1752" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="1908" y="1366" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1366" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="1361" y="1378" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1412" x2="2388" y2="1412" stroke="#e2e8f0"/>
+<text x="1378" y="1400" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1400" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">received_at</text>
+<text x="1752" y="1400" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="1400" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1400" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1361" y="1412" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1446" x2="2388" y2="1446" stroke="#e2e8f0"/>
+<text x="1378" y="1434" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1434" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="1752" y="1434" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="1434" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1434" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1361" y="1446" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1480" x2="2388" y2="1480" stroke="#e2e8f0"/>
+<text x="1378" y="1468" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1468" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="1752" y="1468" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="1468" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1468" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1360" y="1640" width="1040" height="398" rx="6" fill="#fff" stroke="#d97706" stroke-width="2"/>
+<rect x="1360" y="1640" width="1040" height="58" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="1378" y="1676" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">inventory_adjustments</text>
+<text x="2382" y="1676" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="end">weak/dependent</text>
+<rect x="1361" y="1698" width="1038" height="34" fill="#eff6ff"/>
+<line x1="1372" y1="1732" x2="2388" y2="1732" stroke="#e2e8f0"/>
+<text x="1378" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="1498" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="1752" y="1720" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1720" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1720" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="1361" y="1732" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="1766" x2="2388" y2="1766" stroke="#e2e8f0"/>
+<text x="1378" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">medicine_id</text>
+<text x="1752" y="1754" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1754" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1754" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">medicines.id, RESTRICT</text>
+<rect x="1361" y="1766" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="1800" x2="2388" y2="1800" stroke="#e2e8f0"/>
+<text x="1378" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">inventory_batch_id</text>
+<text x="1752" y="1788" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1788" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1788" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">inventory_batches.id, RESTRICT</text>
+<rect x="1361" y="1800" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1834" x2="2388" y2="1834" stroke="#e2e8f0"/>
+<text x="1378" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">adjustment_type</text>
+<text x="1752" y="1822" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">inventory_adjustment_type</text>
+<text x="1908" y="1822" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1822" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">receive/increase/decrease/correction/sale</text>
+<rect x="1361" y="1834" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1868" x2="2388" y2="1868" stroke="#e2e8f0"/>
+<text x="1378" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">quantity_change</text>
+<text x="1752" y="1856" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="1908" y="1856" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1856" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &lt;&gt; 0</text>
+<rect x="1361" y="1868" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="1902" x2="2388" y2="1902" stroke="#e2e8f0"/>
+<text x="1378" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">reason</text>
+<text x="1752" y="1890" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="1890" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1890" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK not blank</text>
+<rect x="1361" y="1902" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="1936" x2="2388" y2="1936" stroke="#e2e8f0"/>
+<text x="1378" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">reference_type</text>
+<text x="1752" y="1924" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="1908" y="1924" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="1924" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">workflow reference</text>
+<rect x="1361" y="1936" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="1970" x2="2388" y2="1970" stroke="#e2e8f0"/>
+<text x="1378" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">reference_id</text>
+<text x="1752" y="1958" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1958" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="1958" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="1361" y="1970" width="1038" height="34" fill="#f8fafc"/>
+<line x1="1372" y1="2004" x2="2388" y2="2004" stroke="#e2e8f0"/>
+<text x="1378" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="1498" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">performed_by</text>
+<text x="1752" y="1992" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="1992" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="1992" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">profiles.id, RESTRICT</text>
+<rect x="1361" y="2004" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="2038" x2="2388" y2="2038" stroke="#e2e8f0"/>
+<text x="1378" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="1752" y="2026" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="1908" y="2026" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="2026" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="1360" y="2180" width="1040" height="194" rx="6" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<rect x="1360" y="2180" width="1040" height="58" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="1378" y="2216" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">medicine_inventory_summary (view)</text>
+<text x="2382" y="2216" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="end">derived view</text>
+<rect x="1361" y="2238" width="1038" height="34" fill="#eff6ff"/>
+<line x1="1372" y1="2272" x2="2388" y2="2272" stroke="#e2e8f0"/>
+<text x="1378" y="2260" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="1498" y="2260" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">medicine_id</text>
+<text x="1752" y="2260" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="1908" y="2260" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="2260" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">VIEW key from medicines.id</text>
+<rect x="1361" y="2272" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="2306" x2="2388" y2="2306" stroke="#e2e8f0"/>
+<text x="1378" y="2294" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="2294" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">total_stock</text>
+<text x="1752" y="2294" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">bigint</text>
+<text x="1908" y="2294" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="2294" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">SUM all batches</text>
+<rect x="1361" y="2306" width="1038" height="34" fill="#ffffff"/>
+<line x1="1372" y1="2340" x2="2388" y2="2340" stroke="#e2e8f0"/>
+<text x="1378" y="2328" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="2328" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">saleable_stock</text>
+<text x="1752" y="2328" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">bigint</text>
+<text x="1908" y="2328" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="2020" y="2328" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">SUM non-expired batches</text>
+<rect x="1361" y="2340" width="1038" height="34" fill="#fff7ed"/>
+<line x1="1372" y1="2374" x2="2388" y2="2374" stroke="#e2e8f0"/>
+<text x="1378" y="2362" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="1498" y="2362" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">nearest_expiry_date</text>
+<text x="1752" y="2362" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">date</text>
+<text x="1908" y="2362" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="2020" y="2362" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">MIN saleable batch expiry</text>
+<rect x="2640" y="240" width="1040" height="568" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="2640" y="240" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="2658" y="276" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">purchase_orders</text>
+<rect x="2641" y="298" width="1038" height="34" fill="#eff6ff"/>
+<line x1="2652" y1="332" x2="3668" y2="332" stroke="#e2e8f0"/>
+<text x="2658" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="2778" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="3032" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="2641" y="332" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="366" x2="3668" y2="366" stroke="#e2e8f0"/>
+<text x="2658" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">order_number</text>
+<text x="3032" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="3188" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ, CHECK not blank</text>
+<rect x="2641" y="366" width="1038" height="34" fill="#f8fafc"/>
+<line x1="2652" y1="400" x2="3668" y2="400" stroke="#e2e8f0"/>
+<text x="2658" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="2778" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">supplier_id</text>
+<text x="3032" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">suppliers.id, RESTRICT</text>
+<rect x="2641" y="400" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="434" x2="3668" y2="434" stroke="#e2e8f0"/>
+<text x="2658" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">status</text>
+<text x="3032" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">purchase_order_status</text>
+<text x="3188" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT draft</text>
+<rect x="2641" y="434" width="1038" height="34" fill="#fff7ed"/>
+<line x1="2652" y1="468" x2="3668" y2="468" stroke="#e2e8f0"/>
+<text x="2658" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">expected_date</text>
+<text x="3032" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">date</text>
+<text x="3188" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="3300" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK not in past</text>
+<rect x="2641" y="468" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="502" x2="3668" y2="502" stroke="#e2e8f0"/>
+<text x="2658" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">subtotal</text>
+<text x="3032" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="2641" y="502" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="536" x2="3668" y2="536" stroke="#e2e8f0"/>
+<text x="2658" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">discount_amount</text>
+<text x="3032" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &lt;= subtotal</text>
+<rect x="2641" y="536" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="570" x2="3668" y2="570" stroke="#e2e8f0"/>
+<text x="2658" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">tax_amount</text>
+<text x="3032" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="2641" y="570" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="604" x2="3668" y2="604" stroke="#e2e8f0"/>
+<text x="2658" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">total_amount</text>
+<text x="3032" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="2641" y="604" width="1038" height="34" fill="#fff7ed"/>
+<line x1="2652" y1="638" x2="3668" y2="638" stroke="#e2e8f0"/>
+<text x="2658" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">notes</text>
+<text x="3032" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="3188" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="3300" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="2641" y="638" width="1038" height="34" fill="#f8fafc"/>
+<line x1="2652" y1="672" x2="3668" y2="672" stroke="#e2e8f0"/>
+<text x="2658" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="2778" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_by</text>
+<text x="3032" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">profiles.id, RESTRICT</text>
+<rect x="2641" y="672" width="1038" height="34" fill="#fff7ed"/>
+<line x1="2652" y1="706" x2="3668" y2="706" stroke="#e2e8f0"/>
+<text x="2658" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">ordered_at</text>
+<text x="3032" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="3300" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="2641" y="706" width="1038" height="34" fill="#fff7ed"/>
+<line x1="2652" y1="740" x2="3668" y2="740" stroke="#e2e8f0"/>
+<text x="2658" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">received_at</text>
+<text x="3032" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="3300" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="2641" y="740" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="774" x2="3668" y2="774" stroke="#e2e8f0"/>
+<text x="2658" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="3032" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="2641" y="774" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="808" x2="3668" y2="808" stroke="#e2e8f0"/>
+<text x="2658" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="3032" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="2640" y="980" width="1040" height="398" rx="6" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+<rect x="2640" y="980" width="1040" height="58" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="2658" y="1016" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">purchase_order_items</text>
+<text x="3662" y="1016" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="end">bridge/junction</text>
+<rect x="2641" y="1038" width="1038" height="34" fill="#eff6ff"/>
+<line x1="2652" y1="1072" x2="3668" y2="1072" stroke="#e2e8f0"/>
+<text x="2658" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="2778" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="3032" y="1060" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1060" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="2641" y="1072" width="1038" height="34" fill="#f8fafc"/>
+<line x1="2652" y1="1106" x2="3668" y2="1106" stroke="#e2e8f0"/>
+<text x="2658" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="2778" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">purchase_order_id</text>
+<text x="3032" y="1094" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1094" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">purchase_orders.id, CASCADE</text>
+<rect x="2641" y="1106" width="1038" height="34" fill="#f8fafc"/>
+<line x1="2652" y1="1140" x2="3668" y2="1140" stroke="#e2e8f0"/>
+<text x="2658" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="2778" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">medicine_id</text>
+<text x="3032" y="1128" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="3188" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1128" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">medicines.id, RESTRICT</text>
+<rect x="2641" y="1140" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1174" x2="3668" y2="1174" stroke="#e2e8f0"/>
+<text x="2658" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">ordered_quantity</text>
+<text x="3032" y="1162" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="3188" y="1162" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1162" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt; 0</text>
+<rect x="2641" y="1174" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1208" x2="3668" y2="1208" stroke="#e2e8f0"/>
+<text x="2658" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">received_quantity</text>
+<text x="3032" y="1196" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="3188" y="1196" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1196" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK 0..ordered_quantity</text>
+<rect x="2641" y="1208" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1242" x2="3668" y2="1242" stroke="#e2e8f0"/>
+<text x="2658" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">unit_cost</text>
+<text x="3032" y="1230" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="1230" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1230" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="2641" y="1242" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1276" x2="3668" y2="1276" stroke="#e2e8f0"/>
+<text x="2658" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">intended_selling_price</text>
+<text x="3032" y="1264" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="3188" y="1264" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1264" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="2641" y="1276" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1310" x2="3668" y2="1310" stroke="#e2e8f0"/>
+<text x="2658" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="3032" y="1298" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="1298" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1298" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="2641" y="1310" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1344" x2="3668" y2="1344" stroke="#e2e8f0"/>
+<text x="2658" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="3032" y="1332" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="3188" y="1332" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1332" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="2641" y="1344" width="1038" height="34" fill="#ffffff"/>
+<line x1="2652" y1="1378" x2="3668" y2="1378" stroke="#e2e8f0"/>
+<text x="2658" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="2778" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">UNIQUE</text>
+<text x="3032" y="1366" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">constraint</text>
+<text x="3188" y="1366" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="3300" y="1366" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">purchase_order_id + medicine_id</text>
+<rect x="3920" y="240" width="1040" height="636" rx="6" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+<rect x="3920" y="240" width="1040" height="58" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="3938" y="276" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">sales</text>
+<rect x="3921" y="298" width="1038" height="34" fill="#eff6ff"/>
+<line x1="3932" y1="332" x2="4948" y2="332" stroke="#e2e8f0"/>
+<text x="3938" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="4058" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="4312" y="320" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="3921" y="332" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="366" x2="4948" y2="366" stroke="#e2e8f0"/>
+<text x="3938" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">sale_number</text>
+<text x="4312" y="354" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="4468" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="354" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">UQ, CHECK not blank</text>
+<rect x="3921" y="366" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="400" x2="4948" y2="400" stroke="#e2e8f0"/>
+<text x="3938" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">status</text>
+<text x="4312" y="388" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">sale_status</text>
+<text x="4468" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="388" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT draft</text>
+<rect x="3921" y="400" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="434" x2="4948" y2="434" stroke="#e2e8f0"/>
+<text x="3938" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">subtotal</text>
+<text x="4312" y="422" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="422" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="3921" y="434" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="468" x2="4948" y2="468" stroke="#e2e8f0"/>
+<text x="3938" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">discount_amount</text>
+<text x="4312" y="456" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="456" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &lt;= subtotal</text>
+<rect x="3921" y="468" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="502" x2="4948" y2="502" stroke="#e2e8f0"/>
+<text x="3938" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">tax_amount</text>
+<text x="4312" y="490" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="490" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="3921" y="502" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="536" x2="4948" y2="536" stroke="#e2e8f0"/>
+<text x="3938" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">total_amount</text>
+<text x="4312" y="524" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="524" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="3921" y="536" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="570" x2="4948" y2="570" stroke="#e2e8f0"/>
+<text x="3938" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">amount_paid</text>
+<text x="4312" y="558" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="558" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="3921" y="570" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="604" x2="4948" y2="604" stroke="#e2e8f0"/>
+<text x="3938" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">change_amount</text>
+<text x="4312" y="592" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="592" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0, CHECK &gt;= 0</text>
+<rect x="3921" y="604" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="638" x2="4948" y2="638" stroke="#e2e8f0"/>
+<text x="3938" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">payment_method</text>
+<text x="4312" y="626" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">payment_method</text>
+<text x="4468" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="626" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT cash</text>
+<rect x="3921" y="638" width="1038" height="34" fill="#f8fafc"/>
+<line x1="3932" y1="672" x2="4948" y2="672" stroke="#e2e8f0"/>
+<text x="3938" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="4058" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">cashier_id</text>
+<text x="4312" y="660" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="660" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">profiles.id, RESTRICT</text>
+<rect x="3921" y="672" width="1038" height="34" fill="#fff7ed"/>
+<line x1="3932" y1="706" x2="4948" y2="706" stroke="#e2e8f0"/>
+<text x="3938" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">completed_at</text>
+<text x="4312" y="694" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="4468" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="4580" y="694" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">required when completed</text>
+<rect x="3921" y="706" width="1038" height="34" fill="#fff7ed"/>
+<line x1="3932" y1="740" x2="4948" y2="740" stroke="#e2e8f0"/>
+<text x="3938" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">voided_at</text>
+<text x="4312" y="728" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="4468" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="4580" y="728" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">required when voided</text>
+<rect x="3921" y="740" width="1038" height="34" fill="#f8fafc"/>
+<line x1="3932" y1="774" x2="4948" y2="774" stroke="#e2e8f0"/>
+<text x="3938" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="4058" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">voided_by</text>
+<text x="4312" y="762" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="4580" y="762" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">profiles.id, required when voided</text>
+<rect x="3921" y="774" width="1038" height="34" fill="#fff7ed"/>
+<line x1="3932" y1="808" x2="4948" y2="808" stroke="#e2e8f0"/>
+<text x="3938" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">void_reason</text>
+<text x="4312" y="796" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">text</text>
+<text x="4468" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="4580" y="796" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start"></text>
+<rect x="3921" y="808" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="842" x2="4948" y2="842" stroke="#e2e8f0"/>
+<text x="3938" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="4312" y="830" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="4468" y="830" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="830" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="3921" y="842" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="876" x2="4948" y2="876" stroke="#e2e8f0"/>
+<text x="3938" y="864" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="864" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">updated_at</text>
+<text x="4312" y="864" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="4468" y="864" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="864" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+<rect x="3920" y="1060" width="1040" height="398" rx="6" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+<rect x="3920" y="1060" width="1040" height="58" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="3938" y="1096" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a" text-anchor="start">sale_items</text>
+<text x="4942" y="1096" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#475569" text-anchor="end">bridge/junction</text>
+<rect x="3921" y="1118" width="1038" height="34" fill="#eff6ff"/>
+<line x1="3932" y1="1152" x2="4948" y2="1152" stroke="#e2e8f0"/>
+<text x="3938" y="1140" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#1d4ed8" text-anchor="start">PK</text>
+<text x="4058" y="1140" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="start">id</text>
+<text x="4312" y="1140" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="1140" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1140" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT gen_random_uuid()</text>
+<rect x="3921" y="1152" width="1038" height="34" fill="#f8fafc"/>
+<line x1="3932" y1="1186" x2="4948" y2="1186" stroke="#e2e8f0"/>
+<text x="3938" y="1174" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="4058" y="1174" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">sale_id</text>
+<text x="4312" y="1174" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="1174" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1174" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">sales.id, CASCADE</text>
+<rect x="3921" y="1186" width="1038" height="34" fill="#f8fafc"/>
+<line x1="3932" y1="1220" x2="4948" y2="1220" stroke="#e2e8f0"/>
+<text x="3938" y="1208" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="4058" y="1208" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">medicine_id</text>
+<text x="4312" y="1208" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="1208" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1208" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">medicines.id, RESTRICT</text>
+<rect x="3921" y="1220" width="1038" height="34" fill="#f8fafc"/>
+<line x1="3932" y1="1254" x2="4948" y2="1254" stroke="#e2e8f0"/>
+<text x="3938" y="1242" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="start">FK</text>
+<text x="4058" y="1242" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">inventory_batch_id</text>
+<text x="4312" y="1242" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">uuid</text>
+<text x="4468" y="1242" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#9a3412" text-anchor="start">NULL</text>
+<text x="4580" y="1242" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">inventory_batches.id, RESTRICT</text>
+<rect x="3921" y="1254" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1288" x2="4948" y2="1288" stroke="#e2e8f0"/>
+<text x="3938" y="1276" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1276" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">quantity</text>
+<text x="4312" y="1276" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">integer</text>
+<text x="4468" y="1276" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1276" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt; 0</text>
+<rect x="3921" y="1288" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1322" x2="4948" y2="1322" stroke="#e2e8f0"/>
+<text x="3938" y="1310" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1310" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">unit_price</text>
+<text x="4312" y="1310" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="1310" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1310" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="3921" y="1322" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1356" x2="4948" y2="1356" stroke="#e2e8f0"/>
+<text x="3938" y="1344" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1344" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">cost_price_snapshot</text>
+<text x="4312" y="1344" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="1344" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1344" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT 0</text>
+<rect x="3921" y="1356" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1390" x2="4948" y2="1390" stroke="#e2e8f0"/>
+<text x="3938" y="1378" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1378" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">discount_amount</text>
+<text x="4312" y="1378" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="1378" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1378" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &lt;= unit_price * quantity</text>
+<rect x="3921" y="1390" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1424" x2="4948" y2="1424" stroke="#e2e8f0"/>
+<text x="3938" y="1412" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1412" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">line_total</text>
+<text x="4312" y="1412" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">numeric(12,2)</text>
+<text x="4468" y="1412" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1412" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">CHECK &gt;= 0</text>
+<rect x="3921" y="1424" width="1038" height="34" fill="#ffffff"/>
+<line x1="3932" y1="1458" x2="4948" y2="1458" stroke="#e2e8f0"/>
+<text x="3938" y="1446" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#475569" text-anchor="start"></text>
+<text x="4058" y="1446" font-family="Arial, sans-serif" font-size="13" font-weight="650" fill="#0f172a" text-anchor="start">created_at</text>
+<text x="4312" y="1446" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#475569" text-anchor="start">timestamptz</text>
+<text x="4468" y="1446" font-family="Arial, sans-serif" font-size="12" font-weight="800" fill="#166534" text-anchor="start">NOT NULL</text>
+<text x="4580" y="1446" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start">DEFAULT now()</text>
+</svg>

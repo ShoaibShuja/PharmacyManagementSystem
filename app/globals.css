@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: oklch(0.985 0.002 247.839);
   --foreground: oklch(0.21 0.034 264.665);
@@ -18,6 +20,25 @@
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.508 0.118 165.612);
   --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(0.155 0.018 252);
+  --foreground: oklch(0.94 0.012 160);
+  --card: oklch(0.205 0.022 252);
+  --card-foreground: oklch(0.94 0.012 160);
+  --primary: oklch(0.72 0.14 163);
+  --primary-foreground: oklch(0.16 0.024 166);
+  --secondary: oklch(0.255 0.021 252);
+  --secondary-foreground: oklch(0.91 0.012 250);
+  --muted: oklch(0.255 0.021 252);
+  --muted-foreground: oklch(0.72 0.022 250);
+  --accent: oklch(0.285 0.052 163);
+  --accent-foreground: oklch(0.91 0.05 163);
+  --destructive: oklch(0.7 0.19 25);
+  --border: oklch(0.33 0.021 252);
+  --input: oklch(0.33 0.021 252);
+  --ring: oklch(0.72 0.14 163);
 }
 
 @theme inline {
@@ -48,8 +69,13 @@
   border-color: var(--border);
 }
 
+html {
+  background: var(--background);
+}
+
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 button,

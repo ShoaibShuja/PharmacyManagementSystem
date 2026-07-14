@@ -19,16 +19,19 @@ export function SalesTrendChart({
   currencyCode: string;
 }) {
   return (
-    <div className="h-64 w-full" aria-label="Seven day sales trend chart">
+    <div
+      className="h-64 w-full rounded-xl bg-[linear-gradient(180deg,oklch(0.985_0.004_165),transparent)] px-1 pt-1 dark:bg-[linear-gradient(180deg,oklch(0.24_0.028_165),transparent)]"
+      aria-label="Seven day sales trend chart"
+    >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 8, right: 8, left: -18 }}>
           <defs>
             <linearGradient id="sales-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.28} />
-              <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.34} />
+              <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.01} />
             </linearGradient>
           </defs>
-          <CartesianGrid vertical={false} stroke="var(--border)" />
+          <CartesianGrid vertical={false} stroke="var(--border)" strokeDasharray="3 5" />
           <XAxis
             dataKey="label"
             axisLine={false}
@@ -45,10 +48,10 @@ export function SalesTrendChart({
           <Tooltip
             cursor={{ stroke: "var(--border)" }}
             contentStyle={{
-              borderRadius: "0.625rem",
+              borderRadius: "0.75rem",
               border: "1px solid var(--border)",
               background: "var(--card)",
-              boxShadow: "0 10px 30px rgba(15, 23, 42, 0.08)",
+              boxShadow: "0 18px 34px rgba(15, 23, 42, 0.12)",
               fontSize: "0.75rem",
             }}
             formatter={(value) => [
@@ -60,7 +63,7 @@ export function SalesTrendChart({
             type="monotone"
             dataKey="total"
             stroke="var(--primary)"
-            strokeWidth={2}
+            strokeWidth={2.5}
             fill="url(#sales-fill)"
           />
         </AreaChart>

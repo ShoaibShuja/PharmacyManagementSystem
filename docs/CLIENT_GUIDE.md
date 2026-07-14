@@ -22,6 +22,14 @@ Before daily use:
 4. Add opening stock through delivered purchase orders.
 5. Test one small sale and verify the receipt and remaining stock.
 
+### Load the demo data (optional)
+
+To replace all pharmacy records with safe example data, open Supabase Dashboard,
+choose **SQL Editor**, and run the contents of `supabase/seed.sql`. This removes
+existing medicines, stock, suppliers, purchases, sales, and settings. It keeps
+all login accounts and their Admin, Pharmacist, or Cashier roles. Make a backup
+first if the current pharmacy records are real.
+
 ## User Roles
 
 ### Admin
@@ -48,7 +56,8 @@ history and access reviews more reliable.
 1. Open the application.
 2. Enter the staff email and password.
 3. Select **Sign in**.
-4. To sign out, use the sign-out button in the top-right corner.
+4. To sign out, use the sign-out button at the bottom of the left navigation
+   panel. On a phone, open the menu first.
 
 Always sign out on a shared pharmacy computer.
 
@@ -114,6 +123,13 @@ This changes the current dashboard view only. It does not change the permanent e
 - **Today's sales:** Includes completed sales only. Draft or voided sales are not counted.
 
 If the pharmacy has no medicines, batches, or completed sales, the Dashboard shows clear empty messages instead of sample data.
+
+## Light and Dark Mode
+
+Use the sun or moon button in the top-right corner of the signed-in workspace
+to switch between light and dark mode. Your selection is remembered on that
+browser and device. On a first visit, Darman follows your device's light or
+dark appearance setting.
 
 ## Medicine Catalog
 
@@ -620,11 +636,34 @@ The technical maintainer should:
 - use the light-mode DFD WebP exports in `docs/diagrams/Fixed DFD/` when DFD
   diagrams need to be inserted into reports, proposals, slides, or printed
   documents;
+- use `docs/new docs/darman-complete-data-flow-diagram.drawio` for a single,
+  clean overview of the system's external entities, main processes, data
+  stores, and labeled data flows;
+- use `docs/new docs/darman-complete-data-flow-diagram.webp` when one complete
+  DFD image is needed for reports, slides, or printed documents;
 - use `docs/diagrams/New ERD/darman-complete-entity-relationship-diagram.drawio`
   when reviewing the current database entities, fields, keys, relationships,
   cardinality, nullability, constraints, and stock-to-sale data lineage;
+- use `docs/new docs/darman-complete-entity-relationship-diagram.drawio` for a
+  single-page physical ERD with horizontal table fields, primary keys, foreign
+  keys, weak/dependent tables, bridge tables, cardinality, nullability, and
+  field constraints;
+- use `docs/new docs/darman-complete-entity-relationship-diagram.webp` when one
+  complete ERD image is needed for reports, slides, or printed documents;
+- use `docs/new docs/darman-chen-style-entity-relationship-diagram.drawio` when
+  a classic Chen-style ERD is needed with entity rectangles, relationship
+  diamonds, attribute ovals, identifiers, cardinality labels, and a clean
+  operational-band layout;
+- use `docs/new docs/darman-chen-style-entity-relationship-diagram.jpeg` when
+  that Chen-style ERD needs to be inserted into a document or presentation;
 - use the readable WebP exports in `docs/diagrams/New ERD/` when ERD diagrams
   need to be inserted into reports, proposals, slides, or printed documents;
+- use
+  `docs/final proposal/Darman_Pharmacy_Management_System_University_Monograph_Proposal.docx`
+  when a compact university monograph proposal is needed with the single-page
+  DFD and ERD diagrams, cost table, timeline table, risk assessment, and trust
+  signals. This proposal uses 16 pt headings, 13 pt subheadings, and 11 pt
+  normal text;
 - verify database backups according to the Supabase plan;
 - test changes in staging before production;
 - run `npm run lint`, `npm run typecheck`, and `npm run build`;
@@ -784,6 +823,36 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 
 ## Change History
 
+### Phase 23: Sidebar Account Controls
+
+- Moved the account information, Settings shortcut, and sign-out control into
+  the bottom of the left navigation panel.
+- Arranged the Settings and sign-out controls vertically for easier selection.
+- Made the same account panel available at the bottom of the mobile menu.
+- Kept Settings available only to Admin and Pharmacist users.
+
+### Phase 22: Persistent Dark Mode
+
+- Added a light and dark appearance option across the full application.
+- Added a top-right theme switch and automatic saving of the selected mode.
+- New browsers use the device appearance setting until a user selects a mode.
+
+### Phase 21: Dashboard UI/UX Refinement
+
+- Refreshed the Dashboard appearance with clearer visual grouping, stronger
+  summary cards, more distinct alert areas, refined tables, and a clearer sales
+  chart.
+- Kept all dashboard information, actions, permissions, and calculations the
+  same. This update changes appearance only.
+
+### Phase 20: Demo Database Reset and Seed
+
+- Replaced the minimal category-only seed with a Supabase SQL Editor script.
+- The script preserves login users and their existing roles while resetting all
+  pharmacy business data.
+- Added realistic categories, suppliers, medicines, stock batches, expiry and
+  low-stock examples, purchase orders, completed sales, and stock audit rows.
+
 ### Academic Monograph Proposal
 
 - Added a professional university project proposal in editable DOCX and
@@ -803,6 +872,17 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Added a Word-compatible final proposal variant with portrait-only pages,
   smaller diagram placement, and a paragraph-only cost-estimation section so
   Microsoft Word displays Section 7 normally while scrolling.
+- Added a separate compact proposal DOCX at
+  `docs/final proposal/Darman_Pharmacy_Management_System_Compact_Proposal.docx`
+  that keeps the required proposal sections and diagrams within 14 Microsoft
+  Word pages.
+- Added a revised short proposal DOCX at
+  `docs/final proposal/Darman_Pharmacy_Management_System_Short_Proposal.docx`
+  after analyzing the existing final proposal. It keeps the university cover
+  and approval-page structure, keeps only the Tools and Technologies, Project
+  Time and Cost Estimation, and Project Timeline tables, includes selected DFD
+  and ERD images at the same display sizes, and validates at 13 Microsoft Word
+  pages.
 - Recorded a direct student project budget of USD 230. Development labor is
   treated as an academic contribution, while optional production hosting and
   maintenance remain separate future costs.
@@ -822,6 +902,9 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
   CSV/PDF output flows.
 - Added a light-mode WebP export set in `docs/diagrams/Fixed DFD/` for all
   five advanced DFD pages.
+- Added a single-page complete DFD in `docs/new docs/` with external entities,
+  named processes, grouped data stores, labeled inputs and outputs, and a
+  readable WebP export.
 
 ### Technical Entity Relationship Documentation
 
@@ -977,6 +1060,9 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
   foreign keys, data types, nullability, constraints, and relationship rules.
 - Exported each ERD page as a readable WebP image for reports, slides, and
   printed documents.
+- Added a single-page complete ERD in `docs/new docs/` with horizontal table
+  rows, row-anchored relationships, cardinality and modality labels, data
+  types, nullability, and field constraints.
 
 ### Phase 15: Final Monograph Proposal
 
@@ -990,3 +1076,20 @@ Confirm you are signed in as an active Admin. You cannot change your own role.
 - Verified the Word-compatible DOCX opens through Microsoft Word and contains
   Section 7, the total estimated direct cost, and Section 8.
 - Verified there are no Word table objects between Section 7 and Section 8.
+- Verified the compact proposal opens in Microsoft Word, reports 14 pages, and
+  contains the requested Introduction, Existing System, Proposed System,
+  Logical Design, Physical Design, Tools and Technologies, cost estimate,
+  timeline, and risk sections.
+- Added a compact university monograph proposal at
+  `docs/final proposal/Darman_Pharmacy_Management_System_University_Monograph_Proposal.docx`
+  using the new single-page DFD and ERD diagrams. It keeps the requested
+  proposal sections in order and includes table-format cost and timeline
+  sections, risk assessment, and trust signals.
+- Regenerated the university monograph proposal with fuller project-specific
+  explanations and the requested 16 pt heading, 13 pt subheading, and 11 pt
+  normal-text sizing.
+- Added a Chen-style ERD in `docs/new docs/` that follows the provided example
+  notation instead of table-form schema boxes. It includes entity rectangles,
+  weak/dependent double rectangles, relationship diamonds, attribute ovals,
+  underlined identifiers, cardinality labels, and a refined banded layout for
+  clearer presentation.

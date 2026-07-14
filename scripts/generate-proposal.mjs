@@ -32,30 +32,40 @@ const root = process.cwd();
 const refinedMode = process.argv.includes("--refined");
 const finalMode = process.argv.includes("--final");
 const wordCompatibleMode = process.argv.includes("--word-compatible");
+const compactFinalMode = process.argv.includes("--compact-final");
 const outputDir = refinedMode
   ? path.join(root, "docs", "Refined Proposals")
-  : finalMode
+  : finalMode || compactFinalMode
     ? path.join(root, "docs", "final proposal")
   : path.join(root, "docs", "proposal");
 const assetDir = path.join(
   outputDir,
-  wordCompatibleMode ? "assets-word-compatible" : "assets",
+  compactFinalMode
+    ? "assets-compact"
+    : wordCompatibleMode
+      ? "assets-word-compatible"
+      : "assets",
 );
 const docxPath = path.join(
   outputDir,
   refinedMode
     ? "Darman_Pharmacy_Management_System_Refined_Proposal.docx"
+    : compactFinalMode
+      ? "Darman_Pharmacy_Management_System_Compact_Proposal.docx"
     : finalMode
       ? wordCompatibleMode
         ? "Darman_Pharmacy_Management_System_Final_Proposal_Word_Compatible.docx"
         : "Darman_Pharmacy_Management_System_Final_Proposal.docx"
     : "Darman_Pharmacy_Management_System_Proposal.docx",
 );
-const htmlPath = path.join(outputDir, "proposal-preview.html");
+const htmlPath = path.join(
+  outputDir,
+  compactFinalMode ? "compact-proposal-preview.html" : "proposal-preview.html",
+);
 
 const dfdDir =
-  refinedMode || finalMode ? "docs/diagrams/Fixed DFD" : "docs/diagrams/DFD";
-const erdDir = finalMode
+  refinedMode || finalMode || compactFinalMode ? "docs/diagrams/Fixed DFD" : "docs/diagrams/DFD";
+const erdDir = finalMode || compactFinalMode
   ? "docs/diagrams/New ERD"
   : refinedMode
     ? "docs/diagrams/Fixed ERD"
@@ -120,7 +130,7 @@ const diagrams = [
   {
     id: "erd-conceptual",
     title: "Conceptual Entity Relationship Model",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/01 - Conceptual ERD.webp`
       : `${erdDir}/Conceptual ER Model.webp`,
     caption:
@@ -130,7 +140,7 @@ const diagrams = [
   {
     id: "erd-catalog",
     title: "Physical ERD: Catalog and Inventory",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/02 - Catalog and Inventory Physical ERD.webp`
       : `${erdDir}/Physical Catalog and Inventory.webp`,
     caption:
@@ -140,7 +150,7 @@ const diagrams = [
   {
     id: "erd-sales",
     title: "Physical ERD: Sales",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/03 - Sales Physical ERD.webp`
       : `${erdDir}/Physical Sales.webp`,
     caption:
@@ -150,7 +160,7 @@ const diagrams = [
   {
     id: "erd-purchasing",
     title: "Physical ERD: Purchasing",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/04 - Purchasing Physical ERD.webp`
       : `${erdDir}/Physical Purchasing.webp`,
     caption:
@@ -160,7 +170,7 @@ const diagrams = [
   {
     id: "erd-admin",
     title: "Physical ERD: Administration, Audit, and View",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/05 - Administration and Constraints ERD.webp`
       : `${erdDir}/Administration Audit and View.webp`,
     caption:
@@ -170,7 +180,7 @@ const diagrams = [
   {
     id: "erd-lineage",
     title: "Entity Lifecycle and Data Lineage",
-    source: finalMode
+    source: finalMode || compactFinalMode
       ? `${erdDir}/06 - Data Flow and Lifecycle ERD.webp`
       : `${erdDir}/Entity Lifecycle and Data Lineage.webp`,
     caption:
@@ -973,6 +983,18 @@ async function prepareImages() {
   for (const diagram of diagrams) {
     const source = path.join(root, diagram.source);
     const target = path.join(assetDir, `${diagram.id}.png`);
+    const fallback = path.join(outputDir, "assets", `${diagram.id}.png`);
+    try {
+      await fs.access(source);
+    } catch {
+      if (!compactFinalMode) {
+        throw new Error(`Input file is missing: ${source}`);
+      }
+      await fs.copyFile(fallback, target);
+      diagram.png = target;
+      diagram.meta = await sharp(target).metadata();
+      continue;
+    }
     await sharp(source)
       .flatten({ background: "#ffffff" })
       .png({ compressionLevel: 9 })
@@ -1425,6 +1447,295 @@ async function buildDocx() {
   await fs.writeFile(docxPath, await Packer.toBuffer(document));
 }
 
+const compactProperties = {
+  type: SectionType.NEXT_PAGE,
+  page: {
+    size: { width: 11906, height: 16838, orientation: PageOrientation.PORTRAIT },
+    margin: { top: 560, right: 560, bottom: 560, left: 560 },
+  },
+};
+
+const compactParagraph = (text, options = {}) =>
+  new Paragraph({
+    children: [
+      new TextRun({
+        text,
+        font: "Aptos",
+        size: options.size ?? 16,
+        bold: options.bold,
+        italics: options.italics,
+        color: options.color ?? colors.ink,
+      }),
+    ],
+    alignment: options.alignment ?? AlignmentType.JUSTIFIED,
+    spacing: { after: options.after ?? 45, line: options.line ?? 220 },
+  });
+
+const compactHeading = (text, level = 1) =>
+  new Paragraph({
+    children: [
+      new TextRun({
+        text,
+        font: "Aptos Display",
+        size: level === 1 ? 24 : 18,
+        bold: true,
+        color: level === 1 ? colors.navy : colors.blue,
+      }),
+    ],
+    spacing: { before: level === 1 ? 0 : 70, after: level === 1 ? 80 : 45 },
+    border:
+      level === 1
+        ? { bottom: { style: BorderStyle.SINGLE, size: 6, color: colors.cyan } }
+        : undefined,
+    keepNext: true,
+  });
+
+const compactBullets = (items) =>
+  items.map((item) => compactParagraph(`- ${item}`, { alignment: AlignmentType.LEFT, after: 25 }));
+
+function compactTable(headers, rows, widths = undefined) {
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+      new TableRow({
+        tableHeader: true,
+        children: headers.map(
+          (value, index) =>
+            new TableCell({
+              width: widths
+                ? { size: widths[index], type: WidthType.PERCENTAGE }
+                : undefined,
+              shading: { fill: colors.navy, type: ShadingType.CLEAR, color: "auto" },
+              borders: { top: border, bottom: border, left: border, right: border },
+              margins: { top: 45, bottom: 45, left: 55, right: 55 },
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: String(value),
+                      bold: true,
+                      color: colors.white,
+                      font: "Aptos",
+                      size: 14,
+                    }),
+                  ],
+                  spacing: { after: 0, line: 190 },
+                }),
+              ],
+            }),
+        ),
+      }),
+      ...rows.map(
+        (row, rowIndex) =>
+          new TableRow({
+            children: row.map(
+              (value, index) =>
+                new TableCell({
+                  width: widths
+                    ? { size: widths[index], type: WidthType.PERCENTAGE }
+                    : undefined,
+                  shading:
+                    rowIndex % 2
+                      ? { fill: "F7FAFC", type: ShadingType.CLEAR, color: "auto" }
+                      : undefined,
+                  borders: { top: border, bottom: border, left: border, right: border },
+                  margins: { top: 35, bottom: 35, left: 45, right: 45 },
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: String(value),
+                          font: "Aptos",
+                          size: 13,
+                          color: colors.ink,
+                        }),
+                      ],
+                      spacing: { after: 0, line: 175 },
+                    }),
+                  ],
+                }),
+            ),
+          }),
+      ),
+    ],
+  });
+}
+
+const compactSection = (children) => ({ properties: compactProperties, children });
+
+async function compactDiagramSection(title, items) {
+  const children = [compactHeading(title)];
+  for (const item of items) {
+    children.push(
+      compactHeading(item.title, 2),
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 20 },
+        children: [await imageRun(item.png, 520, 215)],
+      }),
+      compactParagraph(item.caption, {
+        alignment: AlignmentType.CENTER,
+        italics: true,
+        color: colors.muted,
+        size: 12,
+        after: 45,
+        line: 170,
+      }),
+    );
+  }
+  return compactSection(children);
+}
+
+async function buildCompactDocx() {
+  const logo = await imageRun(
+    path.join(root, "public", "brand", "darman-logo.png"),
+    74,
+    74,
+  );
+
+  const sections = [
+    compactSection([
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 40 },
+        children: [logo],
+      }),
+      compactParagraph("ACADEMIC SOFTWARE PROJECT PROPOSAL", {
+        alignment: AlignmentType.CENTER,
+        bold: true,
+        color: colors.cyan,
+        size: 14,
+        after: 20,
+      }),
+      compactParagraph("Darman Pharmacy Management System", {
+        alignment: AlignmentType.CENTER,
+        bold: true,
+        color: colors.navy,
+        size: 30,
+        after: 20,
+      }),
+      compactParagraph("Compact Monograph Proposal", {
+        alignment: AlignmentType.CENTER,
+        color: colors.blue,
+        size: 18,
+        after: 60,
+      }),
+      compactTable(["Field", "Value"], proposal.metadata, [28, 72]),
+      compactHeading("Executive Summary"),
+      compactParagraph(
+        "Darman Pharmacy Management System is a secure, single-branch web application for pharmacy stock, sales, suppliers, purchasing, expiry control, reports, settings, and role-based access. It replaces scattered manual records with a simple operational system suitable for Admin, Pharmacist, and Cashier users.",
+      ),
+      compactParagraph(
+        "The release candidate uses Next.js, TypeScript, Supabase PostgreSQL/Auth/RLS, Tailwind CSS, shadcn/ui, TanStack Query, React Hook Form, Zod, Recharts, and jsPDF. The project budget is USD 230 direct student cost across a twelve-week academic roadmap.",
+      ),
+      compactHeading("Contents"),
+      ...staticTocEntries.map((item) =>
+        compactParagraph(item, { alignment: AlignmentType.LEFT, bold: true, color: colors.navy, after: 18 }),
+      ),
+    ]),
+    compactSection([
+      compactHeading("1. Introduction"),
+      compactParagraph(
+        "Community pharmacies manage many medicines with different batches, prices, suppliers, and expiry dates. Accurate stock, fast sales, expiry awareness, and controlled staff access are necessary for daily service and business reliability.",
+      ),
+      compactParagraph(proposal.introduction.aim),
+      compactHeading("Objectives", 2),
+      ...compactBullets(proposal.introduction.objectives.slice(0, 8)),
+      compactHeading("Stakeholders", 2),
+      compactTable(["Stakeholder", "Interest and Responsibility"], proposal.introduction.stakeholders, [30, 70]),
+      compactHeading("2. Existing System"),
+      compactParagraph(
+        "The existing approach is assumed to depend on paper records, informal stock counting, spreadsheets, or disconnected tools. This makes it difficult to keep sales, stock, expiry, supplier, and purchase records synchronized.",
+      ),
+      compactTable(["Area", "Limitation"], proposal.existingSystem.problems.slice(0, 7), [28, 72]),
+    ]),
+    compactSection([
+      compactHeading("3. Proposed System"),
+      compactParagraph(
+        "The proposed system is a browser-based, single-branch pharmacy management system with focused workflows for medicines, batch inventory, POS sales, suppliers, purchase orders, reports, settings, and user roles.",
+      ),
+      compactTable(["Module", "Capability"], proposal.proposedSystem.scope, [27, 73]),
+      compactHeading("Roles and Scope Controls", 2),
+      compactTable(["Role", "Access"], proposal.proposedSystem.roles, [22, 78]),
+      compactHeading("Explicit Exclusions", 2),
+      compactParagraph(
+        "The MVP excludes patient records, prescriptions, insurance, clinical checks, multi-branch operations, accounting suites, loyalty programs, AI forecasting, SMS/email automation, and native mobile apps.",
+      ),
+    ]),
+    compactSection([
+      compactHeading("4. Logical Design"),
+      compactParagraph(
+        "The logical design separates users, application processes, protected database functions, and data stores. Sales use FEFO allocation, purchasing uses controlled receiving, and reports read from authorized records only.",
+      ),
+      compactHeading("Core Data Rules", 2),
+      ...compactBullets(proposal.logicalDesign.dataRules.slice(0, 7)),
+    ]),
+    await compactDiagramSection("Logical Design Diagrams", diagrams.filter((item) => item.section === "logical").slice(0, 2)),
+    await compactDiagramSection("Refined DFD Diagrams", diagrams.filter((item) => item.section === "logical").slice(2, 5)),
+    await compactDiagramSection("Conceptual ERD", diagrams.filter((item) => item.id === "erd-conceptual")),
+    compactSection([
+      compactHeading("5. Physical Design"),
+      compactParagraph(
+        "The application uses Next.js routes, reusable UI components, Supabase clients split by server and browser use, PostgreSQL tables, RLS policies, views, and transactional RPCs for sensitive workflows.",
+      ),
+      compactTable(["Database Object", "Purpose"], proposal.physicalDesign.database, [32, 68]),
+      compactHeading("Protected Workflows", 2),
+      compactTable(["Function", "Responsibility"], proposal.physicalDesign.workflows, [32, 68]),
+      compactHeading("Security and Deployment", 2),
+      ...compactBullets([...proposal.physicalDesign.security.slice(0, 4), ...proposal.physicalDesign.deployment.slice(0, 3)]),
+    ]),
+    await compactDiagramSection("New ERD: Catalog, Inventory, and Sales", diagrams.filter((item) => ["erd-catalog", "erd-sales"].includes(item.id))),
+    await compactDiagramSection("New ERD: Purchasing and Administration", diagrams.filter((item) => ["erd-purchasing", "erd-admin"].includes(item.id))),
+    await compactDiagramSection("New ERD: Lifecycle", diagrams.filter((item) => item.id === "erd-lineage")),
+    compactSection([
+      compactHeading("6. Tools and Technologies"),
+      compactTable(["Area", "Tool or Technology", "Use"], proposal.tools, [23, 30, 47]),
+      compactHeading("7. Project Time and Cost Estimation"),
+      compactParagraph(
+        "Development labor is treated as the student's academic contribution. Direct expenses cover connectivity, electricity, domain, printing, testing, and contingency.",
+      ),
+      compactTable(["Item", "Qty", "Total USD", "Basis"], proposal.costs.map(([item, qty, , total, basis]) => [item, qty, total, basis]), [26, 12, 13, 49]),
+      compactHeading("Optional Production Costs", 2),
+      compactTable(["Item", "Budget Note"], proposal.optionalCosts, [28, 72]),
+    ]),
+    compactSection([
+      compactHeading("8. Project Timeline"),
+      compactTable(["Week", "Milestone", "Main Activities", "Deliverable"], proposal.timeline, [8, 23, 45, 24]),
+      compactHeading("9. Risk Assessment and Trust Signals"),
+      compactTable(["Risk", "Impact", "Mitigation"], proposal.risks.slice(0, 8).map(([risk, impact, , mitigation]) => [risk, impact, mitigation]), [24, 14, 62]),
+      compactHeading("Trust Signals", 2),
+      ...compactBullets(proposal.trustSignals.slice(0, 6)),
+    ]),
+    compactSection([
+      compactHeading("10. Conclusion"),
+      compactParagraph(
+        "Darman Pharmacy Management System delivers a practical, secure, and maintainable pharmacy operations MVP for a real academic software project. It addresses the core business problems of stock control, sales accuracy, purchasing, expiry warnings, reporting, and staff permissions while keeping excluded clinical and enterprise features outside scope.",
+      ),
+      compactHeading("11. References"),
+      ...proposal.references.map(([name, value]) =>
+        compactParagraph(`${name}. ${value}`, { alignment: AlignmentType.LEFT, after: 25, size: 14 }),
+      ),
+    ]),
+  ];
+
+  const document = new Document({
+    creator: "Darman Pharmacy Management System Project",
+    title: "Darman Pharmacy Management System - Compact Monograph Proposal",
+    description: "Compact academic proposal for a single-branch pharmacy management system.",
+    styles: {
+      default: {
+        document: {
+          run: { font: "Aptos", size: 16, color: colors.ink },
+          paragraph: { spacing: { line: 220, after: 45 } },
+        },
+      },
+    },
+    sections,
+  });
+
+  await fs.writeFile(docxPath, await Packer.toBuffer(document));
+}
+
 async function buildHtmlFile(html) {
   await fs.writeFile(htmlPath, html, "utf8");
 }
@@ -1456,5 +1767,8 @@ async function validateOutputs() {
 await fs.mkdir(outputDir, { recursive: true });
 await prepareImages();
 const html = buildHtml();
-await Promise.all([buildDocx(), buildHtmlFile(html)]);
+await Promise.all([
+  compactFinalMode ? buildCompactDocx() : buildDocx(),
+  buildHtmlFile(html),
+]);
 await validateOutputs();

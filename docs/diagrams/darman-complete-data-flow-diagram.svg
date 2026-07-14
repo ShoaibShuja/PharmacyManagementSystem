@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2600" height="1380" viewBox="0 0 2600 1380">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker><marker id="arrowStart" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 10 0 L 0 5 L 10 10 z" fill="#475569"/></marker></defs>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="1300" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#0f172a">Darman Pharmacy Management System - Complete Data Flow Diagram</text>
+<text x="1300" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#334155">External Entities</text>
+<text x="1300" y="338" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#334155">Named Processes</text>
+<text x="1300" y="668" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#334155">Data Stores</text>
+<text x="2020" y="1028" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#334155">Outputs</text>
+<path d="M 340 212 L 340 360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="185" y="261" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="340" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">credentials / authorized session</text>
+<path d="M 340 515 L 340 690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="185" y="577.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="340" y="596.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">profile lookup / role status</text>
+<path d="M 180 437.5 L 80 437.5 L 80 1097.5 L 190 1097.5" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="105" y="900" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="260" y="919" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">auth request / token response</text>
+<path d="M 820 212 L 820 360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="665" y="261" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="820" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">catalog requests / saved records</text>
+<path d="M 820 515 L 820 690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="665" y="577.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="820" y="596.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">catalog updates / current data</text>
+<path d="M 1300 212 L 1300 360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="1145" y="261" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1300" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">PO request / receiving status</text>
+<path d="M 1300 515 L 1300 690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="1145" y="577.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1300" y="596.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">PO, batches, and stock movements</text>
+<path d="M 1460 437.5 L 1540 437.5 L 1540 1097.5 L 1450 1097.5" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="1375" y="900" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1530" y="919" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">purchase order / delivery details</text>
+<path d="M 1780 212 L 1780 360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="1625" y="261" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1780" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">barcode, cart, payment / receipt</text>
+<path d="M 1780 515 L 1780 690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="1625" y="577.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1780" y="596.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">completed sale / stock deduction</text>
+<path d="M 1780 515 L 1780 1050" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="1625" y="757.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="1780" y="776.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">receipt output</text>
+<path d="M 2260 212 L 2260 360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="2105" y="261" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="2260" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">filters and alert request / results</text>
+<path d="M 2260 515 L 2260 690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrowStart)"/>
+<rect x="2105" y="577.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="2260" y="596.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">settings, alerts, report datasets</text>
+<path d="M 2260 515 L 2260 1050" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="2105" y="757.5" width="310" height="28" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+<text x="2260" y="776.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">dashboard alerts and exports</text>
+<rect x="420" y="120" width="1760" height="92" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="1300" y="161.32000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Pharmacy Staff</text>
+<text x="1300" y="183.28000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Admin, Pharmacist, Cashier</text>
+<rect x="1150" y="1050" width="300" height="95" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="1300" y="1103.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Supplier</text>
+<rect x="190" y="1050" width="300" height="95" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+<text x="340" y="1103.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Supabase Auth</text>
+<ellipse cx="340" cy="437.5" rx="160" ry="77.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+<text x="340" y="422.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">1.0</text>
+<text x="340" y="443.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Authenticate and</text>
+<text x="340" y="464.19" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Authorize Staff</text>
+<ellipse cx="820" cy="437.5" rx="160" ry="77.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+<text x="820" y="422.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">2.0</text>
+<text x="820" y="443.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Maintain Catalog</text>
+<text x="820" y="464.19" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">and Suppliers</text>
+<ellipse cx="1300" cy="437.5" rx="160" ry="77.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+<text x="1300" y="422.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">3.0</text>
+<text x="1300" y="443.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Create Purchase Orders</text>
+<text x="1300" y="464.19" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">and Receive Stock</text>
+<ellipse cx="1780" cy="437.5" rx="160" ry="77.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+<text x="1780" y="422.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">4.0</text>
+<text x="1780" y="443.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Process POS Sale</text>
+<text x="1780" y="464.19" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">and Receipt</text>
+<ellipse cx="2260" cy="437.5" rx="160" ry="77.5" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+<text x="2260" y="422.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">5.0</text>
+<text x="2260" y="443.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Monitor Alerts</text>
+<text x="2260" y="464.19" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">and Generate Reports</text>
+<path d="M 535 690 H 145 V 805 H 535" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+<line x1="195" y1="690" x2="195" y2="805" stroke="#059669" stroke-width="2"/>
+<text x="340" y="743.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">D1 Staff Access Data</text>
+<text x="340" y="762.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">profiles, roles, account status</text>
+<path d="M 1015 690 H 625 V 805 H 1015" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+<line x1="675" y1="690" x2="675" y2="805" stroke="#059669" stroke-width="2"/>
+<text x="820" y="743.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">D2 Catalog and Supplier Data</text>
+<text x="820" y="762.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">medicines, categories, suppliers</text>
+<path d="M 1495 690 H 1105 V 805 H 1495" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+<line x1="1155" y1="690" x2="1155" y2="805" stroke="#059669" stroke-width="2"/>
+<text x="1300" y="743.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">D3 Purchasing and Inventory Data</text>
+<text x="1300" y="762.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">purchase orders, items, batches, adjustments</text>
+<path d="M 1975 690 H 1585 V 805 H 1975" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+<line x1="1635" y1="690" x2="1635" y2="805" stroke="#059669" stroke-width="2"/>
+<text x="1780" y="743.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">D4 Sales and Stock Data</text>
+<text x="1780" y="762.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">sales, sale_items, receipt history, batch deductions</text>
+<path d="M 2455 690 H 2065 V 805 H 2455" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+<line x1="2115" y1="690" x2="2115" y2="805" stroke="#059669" stroke-width="2"/>
+<text x="2260" y="743.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">D5 Settings and Reporting Data</text>
+<text x="2260" y="762.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">app_settings, inventory summary, report datasets</text>
+<polygon points="1663,1050 1925,1050 1897,1145 1635,1145" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+<text x="1780" y="1093.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Printed or PDF</text>
+<text x="1780" y="1113.8200000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Receipt</text>
+<polygon points="2143,1050 2405,1050 2377,1155 2115,1155" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+<text x="2260" y="1098.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Dashboard, CSV</text>
+<text x="2260" y="1118.8200000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#0f172a">and PDF Reports</text>
+</svg>

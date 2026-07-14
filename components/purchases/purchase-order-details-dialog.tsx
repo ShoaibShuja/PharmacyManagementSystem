@@ -369,7 +369,7 @@ export function StatusBadge({
       className={cn(
         status === "ordered" && "border-blue-200 bg-blue-50 text-blue-800",
         status === "received" && "border-emerald-200 bg-emerald-50 text-emerald-800",
-        status === "draft" && "border-slate-200 bg-slate-50 text-slate-700",
+        status === "draft" && "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-500/30 dark:bg-slate-400/10 dark:text-slate-300",
       )}
     >
       {label}
