@@ -1,148 +1,128 @@
-# Hotel Management System Guide
+# Darman Pharmacy Management System Guide
 
-> Important: this repository currently contains a pharmacy-management application.
-> This document is a simple hotel-operations guide requested for a future hotel
-> version. A developer must build or confirm the matching hotel pages before it
-> is used as instructions for a live hotel.
+## Project Overview
 
-## 1. Overview and Project Folders
+Darman helps one pharmacy manage medicines, stock, suppliers, purchase orders,
+sales, expiry warnings, low-stock warnings, and reports. It is designed for
+simple daily pharmacy work. It does not manage prescriptions, patient records,
+insurance, full accounting, or multiple branches.
 
-The system helps a hotel manage rooms, guests, bookings, payments, invoices,
-and reports in one place.
+## Important Folders
 
-| Folder | What it contains |
+| Folder | What it does |
 | --- | --- |
-| `app/` | The screens visitors use, such as Dashboard, Rooms, Guests, and Bookings. |
-| `components/` | Reusable page parts such as forms, tables, buttons, and menus. |
-| `lib/` | Shared rules and connections used by the system. |
+| `app/` | The pages people use, such as Dashboard, Medicines, Sales, and Reports. |
+| `components/` | Reusable parts of pages, including forms, tables, buttons, and menus. |
+| `lib/` | Shared system rules and secure database connections. |
 | `supabase/` | Database setup, security rules, and sample data. |
 | `public/` | Images, logos, and other public files. |
-| `docs/` | Guides, checklists, and deployment notes. |
-| `scripts/` | Small developer tools for preparing files or documents. |
+| `docs/` | User guides, deployment notes, and testing checklists. |
+| `scripts/` | Developer tools that prepare documents or other project files. |
 
-## 2. Who Uses the System
+## Who Uses the System
 
-- **Owner/Admin:** manages staff, rooms, prices, settings, and reports.
-- **Receptionist:** manages guests, bookings, check-in, checkout, and payments.
-- **Housekeeping (if enabled):** views room status and marks rooms ready.
+| Role | Main access |
+| --- | --- |
+| Admin | Full access, including settings and staff roles. |
+| Pharmacist | Medicines, stock, sales, suppliers, purchases, reports, and view-only settings. |
+| Cashier | Sales and medicine availability only. |
 
-## 3. Logging In
+## Logging In
 
-Open the hotel website, enter your email and password, then select **Sign in**.
-Use **Sign out** when leaving a shared computer. Ask the owner to create or
-reset accounts; do not share passwords.
+Open the pharmacy website, enter the email and password given by the Admin,
+and select **Sign in**. Use **Sign out** before leaving a shared computer.
+Cashiers open **Sales** first; Admins and Pharmacists open the **Dashboard**.
 
-## 4. Dashboard
+## Dashboard
 
-The Dashboard gives a quick daily view: arrivals, departures, occupied and
-available rooms, unpaid balances, and recent bookings. Select a number or
-alert to open its related list.
+The Dashboard shows today's sales, active medicines, low stock, and expiry
+warnings. Review it at the start of each day. Select an alert or list item to
+open the related record.
 
-## 5. Managing Rooms
+## System Sections
 
-Open **Rooms** to add or update a room number, type, price, capacity, and
-status. Mark a room unavailable when it needs repair. Do not delete rooms with
-booking history; mark them inactive instead.
+### Medicines
 
-## 6. Managing Guests
+Open **Medicines** to add, edit, search, filter, or deactivate medicines.
+Enter the name, category, price, reorder level, and barcode or SKU if used.
+New medicines have zero stock until a delivery is received. Deactivate old
+medicines instead of deleting them.
 
-Open **Guests** and select **Add guest**. Save the guest's name, phone, email,
-and identification details required by your hotel. Search before adding a new
-guest to avoid duplicates.
+### Stock, Low Stock, and Expiry
 
-## 7. Creating and Editing Bookings
+Stock is added when a purchase order is delivered. Every received item needs a
+batch number and expiry date. The system sells the earliest-expiring valid
+batch first. Check low-stock and expiry warnings daily, and do not sell expired
+stock.
 
-Open **Bookings** and select **New booking**. Choose the guest, room, arrival
-and departure dates, number of guests, and agreed price. Confirm availability
-before saving. Update or cancel a booking as soon as the guest's plan changes.
+### Sales
 
-## 8. Availability Calendar
+Open **Sales**, search for a medicine by name, barcode, SKU, or batch, then add
+it to the cart. Check quantity, discount, and payment method before completing
+the sale. The system reduces stock automatically. Print or download the receipt
+PDF if needed, then select **Start next sale**.
 
-Open **Calendar** to see rooms by date. Available rooms are free to book;
-occupied, reserved, and unavailable rooms should not be assigned to another
-guest. Change the date range to plan ahead.
+### Suppliers
 
-## 9. Check-in and Checkout
+Open **Suppliers** to add or update a supplier's contact details and notes.
+Keep suppliers active when they can still receive purchase orders. Cashiers do
+not have access to this section.
 
-At arrival, open the booking, check the guest details, collect any required
-payment, and select **Check in**. At departure, review extra charges and the
-remaining balance, collect payment, select **Check out**, and send the room to
-housekeeping or cleaning.
+### Purchase Orders
 
-## 10. Invoices and Payment Status
+Open **Purchases** to create a draft order with medicines, quantities, costs,
+and intended selling prices. Mark it **Ordered** after sending it to the
+supplier. When goods arrive, confirm delivery once and enter a batch number and
+expiry date for each item. Delivery adds stock automatically.
 
-Each booking should show its total, paid amount, and balance. Use clear payment
-statuses such as **Unpaid**, **Partly paid**, and **Paid**. Record the payment
-method and reference number where available. Never mark an invoice paid until
-the payment is confirmed.
+### Reports
 
-## 11. PDF Invoices
+Open **Reports** for sales, inventory, expiry, and purchase information. Choose
+a date range or filter, then export the visible result as CSV for Excel or PDF
+for printing.
 
-Open the booking or invoice and select **Download PDF** or **Print**. Check the
-guest name, dates, room, charges, payments, and hotel details before giving it
-to the guest.
+### Search and Lists
 
-## 12. Reports and CSV Export
+Use the search boxes to find medicines, batches, receipts, suppliers, and
+purchase orders. Clear filters if something appears missing. Use page controls,
+sorting, or a larger row count for longer lists.
 
-Open **Reports** to review bookings, occupancy, revenue, payments, and unpaid
-balances for a selected date range. Use **Export CSV** to download the current
-filtered list for Excel or accounting review.
+## Editable Settings
 
-## 13. Search
+Only Admins can change the pharmacy name, address, phone number, currency,
+receipt message, expiry-warning period, and other staff members' roles.
+Pharmacists can view pharmacy settings. An Admin cannot change their own role.
 
-Use search to find a guest, booking number, room number, phone number, or
-invoice. Keep searches short and clear. If nothing appears, clear filters and
-check the selected date range.
+## Do Not Change Without Developer Help
 
-## 14. File Uploads
+Do not change database tables, security permissions, Supabase settings,
+migration files, environment variables, stock rules, payment calculations, or
+role permissions. These changes can expose data or make stock records wrong.
 
-If file uploads are enabled, attach only useful booking files such as an ID
-copy, booking confirmation, or payment proof. Check the file before uploading.
-Do not upload passwords, bank logins, or unrelated personal files.
+## Basic Maintenance
 
-## 15. Email Notifications
+- Review low-stock and expiry warnings every day.
+- Receive each supplier delivery through its purchase order.
+- Give every staff member a separate account and remove access when they leave.
+- Back up the Supabase project and test updates before using them live.
+- Follow `docs/MANUAL_QA_CHECKLIST.md` after important updates.
 
-If email notifications are enabled, the system can send booking confirmations,
-payment receipts, and reminders. Confirm the guest email address before
-sending. If email is not enabled, provide the PDF invoice or contact the guest
-manually.
-
-## 16. Settings You Can Edit
-
-Owners can usually edit the hotel name, address, phone number, currency,
-invoice note, check-in/out times, and staff roles. Receptionists should edit
-only information they are permitted to change.
-
-## 17. Do Not Change Without Developer Help
-
-Do not change database settings, security permissions, payment rules, email
-connection details, invoice numbering, or deployed environment settings. These
-changes can expose data or stop bookings and invoices from working.
-
-## 18. Basic Maintenance
-
-- Review arrivals, departures, unpaid balances, and room status each day.
-- Keep room prices and availability current.
-- Create staff accounts individually and remove access when staff leave.
-- Back up important business records as agreed with the owner or developer.
-- Install updates only after a backup and a quick test.
-
-## 19. Troubleshooting
+## Troubleshooting
 
 | Problem | What to do |
 | --- | --- |
-| Cannot sign in | Check the email and password; ask the owner to reset access. |
-| Room cannot be booked | Check the calendar, room status, and selected dates. |
-| Guest or booking is missing | Clear filters and search by name, phone, room, or booking number. |
-| Invoice is wrong | Correct the booking or payment before sharing a new PDF. |
-| Page says permission denied | Sign in with the correct role; do not disable security settings. |
-| PDF or CSV does not download | Allow downloads in the browser and try again. |
+| Cannot sign in | Check the email and password; ask an Admin to confirm the account is active. |
+| Cannot edit something | Check your role. Cashiers have limited access. |
+| Stock is zero | Receive the relevant purchase order with a batch and expiry date. |
+| Sale cannot finish | Refresh the Sales page. Another sale may have used the remaining stock. |
+| Cannot receive an order | The order must be **Ordered**, not cancelled or already delivered. |
+| Report is empty | Check the dates, filters, and your role permission. |
+| PDF or CSV will not download | Allow downloads or pop-ups in the browser, then try again. |
+| Permission denied | Ask an Admin to check your active role. Do not turn off security settings. |
 
-## 20. Future Upgrade Ideas
+## Future Upgrade Ideas
 
-- Online booking website and channel-manager connection.
-- Automated email or WhatsApp confirmations.
-- Housekeeping task board and room-cleaning status.
-- Multiple-language invoices and guest messages.
-- Payment gateway connection and deposit collection.
-- Occupancy and revenue forecasting.
+Possible future improvements include better large-data reporting, approved
+document uploads, automated backups, and more operational dashboard views.
+Keep future work focused on pharmacy operations unless the product scope is
+formally changed.
