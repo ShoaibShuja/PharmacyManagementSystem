@@ -34,7 +34,10 @@ export function getUserErrorMessage(
 
   if (
     normalized.includes("failed to fetch") ||
-    normalized.includes("network")
+    normalized.includes("network") ||
+    normalized.includes("load failed") ||
+    normalized.includes("fetch failed") ||
+    normalized.includes("timeout")
   ) {
     return "The server could not be reached. Check the connection and try again.";
   }

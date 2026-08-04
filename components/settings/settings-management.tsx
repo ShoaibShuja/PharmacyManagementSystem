@@ -75,11 +75,10 @@ export function SettingsManagement({
     return (
       <ErrorState
         title="Settings could not be loaded"
-        message={
-          settingsQuery.error instanceof Error
-            ? settingsQuery.error.message
-            : "The settings page is unavailable."
-        }
+        message={getUserErrorMessage(
+          settingsQuery.error,
+          "The settings page is unavailable.",
+        )}
         onRetry={() => settingsQuery.refetch()}
       />
     );

@@ -34,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getUserErrorMessage } from "@/lib/errors";
 import { getReportsPageData } from "@/lib/reports/api";
 import {
   buildExpiryRows,
@@ -198,11 +199,10 @@ export function ReportsPage() {
     return (
       <ErrorState
         title="Reports could not be loaded"
-        message={
-          reportsQuery.error instanceof Error
-            ? reportsQuery.error.message
-            : "Reporting data is unavailable."
-        }
+        message={getUserErrorMessage(
+          reportsQuery.error,
+          "Reporting data is unavailable.",
+        )}
         onRetry={() => reportsQuery.refetch()}
       />
     );

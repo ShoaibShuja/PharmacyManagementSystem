@@ -128,6 +128,9 @@ Never place a service-role key in the website environment.
 | A report is empty | Check its dates, filters, and your role permissions. |
 | PDF or CSV does not download | Allow downloads or pop-ups in the browser and try again. |
 | Permission denied | Do not disable security settings. Ask an Admin to check the active role. |
+| Page not found after an update | Return to Darman from the message shown. The app now refreshes stale update files automatically. |
+| Failed to load or network error | Check the connection and select **Try again**. The app retries temporary failures and refreshes data after reconnection. |
+| Error happens on only one device | Update that device's browser, close old Darman tabs, and reopen the live URL. Avoid obsolete in-app browsers or webviews. |
 
 ## Ask a Developer Before Changing
 
@@ -153,3 +156,6 @@ AI demand forecasting unless the product scope is formally changed.
 - **Phases 14-23:** diagrams and proposal documents, Darman branding,
   cashier-first sales, demo data, dashboard refinement, dark mode, and sidebar
   account controls.
+- **Phase 24:** improved cross-device reliability with stale-update recovery,
+  safer private-browser behavior, temporary network retries, older-browser color
+  fallbacks, and clearer error and page-not-found recovery screens.

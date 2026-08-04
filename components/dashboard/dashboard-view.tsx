@@ -46,6 +46,7 @@ import type {
   LowStockAlert,
   SalesTrendPoint,
 } from "@/lib/dashboard/types";
+import { getUserErrorMessage } from "@/lib/errors";
 import { cn } from "@/lib/utils";
 
 const SalesTrendChart = dynamic(
@@ -204,11 +205,10 @@ export function DashboardView({ role }: { role: AppRole }) {
     return (
       <ErrorState
         title="Dashboard could not be loaded"
-        message={
-          dashboardQuery.error instanceof Error
-            ? dashboardQuery.error.message
-            : "The dashboard data is unavailable."
-        }
+        message={getUserErrorMessage(
+          dashboardQuery.error,
+          "The dashboard data is unavailable.",
+        )}
         onRetry={() => dashboardQuery.refetch()}
       />
     );

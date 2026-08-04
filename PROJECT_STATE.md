@@ -1,18 +1,18 @@
 # Project State
 
-Last updated: July 14, 2026.
+Last updated: August 4, 2026.
 
 ## Current Phase
 
-Phase 23 complete: release-candidate maintenance, including dashboard visual refinement, persistent dark mode, sidebar account controls, demo-data seed updates, and final technical/academic documentation.
+Phase 24 complete: cross-device reliability hardening for cached deployments, restricted browser storage, transient network failures, older CSS color support, and application-level error recovery.
 
 The core single-branch Pharmacy Management System MVP is feature-complete and ready for controlled deployment after the release checklist is completed.
 
 ## Current Branch
 
-- `main`, aligned with `origin/main`
-- Latest commit: `0901fc7` - final documents, diagrams, dashboard styling, and dark mode
-- Current uncommitted change: this project-state update only
+- `main`
+- Latest commit before this phase: `646ac82` - fixed `DOCUMENTATION.md`
+- Current uncommitted changes: Phase 24 reliability fixes and documentation
 
 ## Completed Work
 
@@ -23,16 +23,20 @@ The core single-branch Pharmacy Management System MVP is feature-complete and re
 - Dashboard, reports, CSV/PDF export, global search, filtering, and pagination.
 - Pharmacy settings and protected Admin user-role management.
 - Responsive app shell, Darman branding, persistent light/dark mode, and cashier-first navigation.
+- Automatic one-time recovery when a device has stale Next.js assets after deployment.
+- Safe theme behavior when browser storage is blocked or unavailable.
+- Selective retry and reconnect recovery for transient client data-loading failures.
+- Global error and not-found recovery pages, plus CSS color fallbacks for older browsers.
 - Deployment, manual QA, staging evidence, client guide, data-flow diagrams, ERDs, and university proposal documents.
 
 ## Recently Changed Files
 
-Latest commit mainly changed:
-
-- Dashboard and theme UI: `app/globals.css`, `app/layout.tsx`, `components/dashboard/*`, `components/providers/theme-provider.tsx`, and layout navigation/header components.
-- New reusable layout components: `components/layout/account-controls.tsx` and `components/layout/theme-toggle.tsx`.
-- Demo reset data: `supabase/seed.sql`.
-- Documentation: `docs/CLIENT_GUIDE.md`, data-flow/ERD assets under `docs/`, proposal documents, and generation scripts.
+- `app/layout.tsx` detects stale or missing Next.js chunks and performs one controlled refresh.
+- `components/providers/theme-provider.tsx` tolerates unavailable browser storage.
+- `components/providers/query-provider.tsx` retries transient network failures and refetches after reconnection.
+- `app/global-error.tsx` and `app/not-found.tsx` provide recovery screens.
+- `app/globals.css` includes legacy color fallbacks before OKLCH values.
+- `PROJECT_STATE.md` and `docs/CLIENT_GUIDE.md` document the changes.
 
 ## Database and Schema
 
@@ -91,8 +95,17 @@ Current and maintained:
 - Production deployment remains conditional on completing the release checklist with separate Admin, Pharmacist, and Cashier accounts.
 - Reports are client-aggregated from RLS-protected operational data; high-volume deployments may need server/database reporting and pagination.
 - No automated test suite is currently configured; validation relies on lint, type-checking, production builds, and the manual QA checklist.
-- The most recently recorded `lint`, `typecheck`, and production build passed on June 28, 2026. Run them again before deployment because the July 14 UI update occurred afterward.
+- The application targets browsers supported by Next.js 16. Extremely old browsers and obsolete embedded webviews cannot be guaranteed; use a current Chrome, Edge, Firefox, or Safari release.
+
+## Latest Test and Build Status
+
+Passed on August 4, 2026:
+
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
+- `git diff --check`
 
 ## Next Recommended Step
 
-Run `npm run lint`, `npm run typecheck`, and `npm run build` against the latest commit. Then follow `docs/MANUAL_QA_CHECKLIST.md` using three role-specific accounts, confirm all five migrations on the target Supabase project, set the two public environment variables, and deploy through the documented Vercel process.
+Deploy Phase 24 to Vercel, then test the deployed URL on the previously affected devices. Open it once normally, once in private browsing, switch themes, disconnect/reconnect the network, and verify role-specific navigation with Admin, Pharmacist, and Cashier accounts.

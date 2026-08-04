@@ -51,7 +51,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = useCallback(() => {
     const nextTheme = getTheme() === "dark" ? "light" : "dark";
-    window.localStorage.setItem(STORAGE_KEY, nextTheme);
+
+    // Storage can be unavailable in private browsing, embedded webviews, or
+    // browsers with strict privacy settings. Theme changes should still work.
+    try {
+      window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    } catch {
+      // Keep the theme for this page even when it cannot be persisted.
+    }
+
     applyTheme(nextTheme);
     window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }, []);

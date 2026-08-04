@@ -3,41 +3,73 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --background: #f9fafb;
   --background: oklch(0.985 0.002 247.839);
+  --foreground: #202633;
   --foreground: oklch(0.21 0.034 264.665);
+  --card: #ffffff;
   --card: oklch(1 0 0);
+  --card-foreground: #202633;
   --card-foreground: oklch(0.21 0.034 264.665);
+  --primary: #087f5b;
   --primary: oklch(0.508 0.118 165.612);
+  --primary-foreground: #fafafa;
   --primary-foreground: oklch(0.985 0 0);
+  --secondary: #f1f3f5;
   --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: #343a46;
   --secondary-foreground: oklch(0.278 0.033 256.848);
+  --muted: #f1f3f5;
   --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: #687384;
   --muted-foreground: oklch(0.554 0.046 257.417);
+  --accent: #e7f5ec;
   --accent: oklch(0.962 0.044 156.743);
+  --accent-foreground: #25613e;
   --accent-foreground: oklch(0.393 0.095 152.535);
+  --destructive: #dc2626;
   --destructive: oklch(0.577 0.245 27.325);
+  --border: #e2e6eb;
   --border: oklch(0.929 0.013 255.508);
+  --input: #e2e6eb;
   --input: oklch(0.929 0.013 255.508);
+  --ring: #087f5b;
   --ring: oklch(0.508 0.118 165.612);
   --radius: 0.625rem;
 }
 
 .dark {
+  --background: #151b22;
   --background: oklch(0.155 0.018 252);
+  --foreground: #e8f0eb;
   --foreground: oklch(0.94 0.012 160);
+  --card: #202730;
   --card: oklch(0.205 0.022 252);
+  --card-foreground: #e8f0eb;
   --card-foreground: oklch(0.94 0.012 160);
+  --primary: #51cf98;
   --primary: oklch(0.72 0.14 163);
+  --primary-foreground: #102b20;
   --primary-foreground: oklch(0.16 0.024 166);
+  --secondary: #2d343d;
   --secondary: oklch(0.255 0.021 252);
+  --secondary-foreground: #dce1e6;
   --secondary-foreground: oklch(0.91 0.012 250);
+  --muted: #2d343d;
   --muted: oklch(0.255 0.021 252);
+  --muted-foreground: #a5adb8;
   --muted-foreground: oklch(0.72 0.022 250);
+  --accent: #24483a;
   --accent: oklch(0.285 0.052 163);
+  --accent-foreground: #b9e7d0;
   --accent-foreground: oklch(0.91 0.05 163);
+  --destructive: #f05252;
   --destructive: oklch(0.7 0.19 25);
+  --border: #414852;
   --border: oklch(0.33 0.021 252);
+  --input: #414852;
   --input: oklch(0.33 0.021 252);
+  --ring: #51cf98;
   --ring: oklch(0.72 0.14 163);
 }
 

@@ -337,11 +337,7 @@ export function PosPage({ role }: { role: AppRole }) {
     return (
       <ErrorState
         title="Sales could not be loaded"
-        message={
-          posQuery.error instanceof Error
-            ? posQuery.error.message
-            : "The POS is unavailable."
-        }
+        message={getUserErrorMessage(posQuery.error, "The POS is unavailable.")}
         onRetry={() => posQuery.refetch()}
       />
     );
