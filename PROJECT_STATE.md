@@ -4,7 +4,7 @@ Last updated: August 4, 2026.
 
 ## Current Phase
 
-Phase 24 complete: cross-device reliability hardening for cached deployments, restricted browser storage, transient network failures, older CSS color support, and application-level error recovery.
+Phase 24 complete: cross-device reliability hardening for cached deployments, restricted browser storage, transient network failures, older JavaScript and CSS support, and application-level error recovery.
 
 The core single-branch Pharmacy Management System MVP is feature-complete and ready for controlled deployment after the release checklist is completed.
 
@@ -27,6 +27,7 @@ The core single-branch Pharmacy Management System MVP is feature-complete and re
 - Safe theme behavior when browser storage is blocked or unavailable.
 - Selective retry and reconnect recovery for transient client data-loading failures.
 - Global error and not-found recovery pages, plus CSS color fallbacks for older browsers.
+- Replaced unsupported `Array.prototype.toSorted()` and `.at()` calls with broadly compatible equivalents across navigation, inventory, suppliers, purchases, sales, dashboard, and reports.
 - Deployment, manual QA, staging evidence, client guide, data-flow diagrams, ERDs, and university proposal documents.
 
 ## Recently Changed Files
@@ -36,6 +37,7 @@ The core single-branch Pharmacy Management System MVP is feature-complete and re
 - `components/providers/query-provider.tsx` retries transient network failures and refetches after reconnection.
 - `app/global-error.tsx` and `app/not-found.tsx` provide recovery screens.
 - `app/globals.css` includes legacy color fallbacks before OKLCH values.
+- List sorting and dashboard array access no longer depend on newer JavaScript array methods that fail in older mobile browsers and webviews.
 - `PROJECT_STATE.md` and `docs/CLIENT_GUIDE.md` document the changes.
 
 ## Database and Schema

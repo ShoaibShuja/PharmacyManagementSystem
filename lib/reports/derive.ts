@@ -125,7 +125,7 @@ export function buildTopSellingMedicines(
 
   return [...totals.values()]
     .map((item) => ({ ...item, salesValue: roundMoney(item.salesValue) }))
-    .toSorted(
+    .sort(
       (a, b) => b.quantity - a.quantity || b.salesValue - a.salesValue,
     )
     .slice(0, 10);

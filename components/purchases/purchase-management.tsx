@@ -160,7 +160,7 @@ export function PurchaseManagement() {
         );
       return matchesStatus && matchesSearch;
     });
-    return matches.toSorted((a, b) => {
+    return matches.sort((a, b) => {
       if (sort === "oldest") return a.created_at.localeCompare(b.created_at);
       if (sort === "value-high") return b.total_amount - a.total_amount;
       if (sort === "value-low") return a.total_amount - b.total_amount;

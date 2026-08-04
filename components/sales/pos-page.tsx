@@ -885,7 +885,7 @@ function SalesHistory({
           paymentFilter === "all" || sale.payment_method === paymentFilter;
         return matchesSearch && matchesPayment;
       })
-      .toSorted((a, b) => {
+      .sort((a, b) => {
         const aDate = a.completed_at ?? a.created_at;
         const bDate = b.completed_at ?? b.created_at;
         if (sort === "oldest") return aDate.localeCompare(bDate);

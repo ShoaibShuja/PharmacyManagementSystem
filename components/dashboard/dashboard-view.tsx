@@ -189,7 +189,7 @@ export function DashboardView({ role }: { role: AppRole }) {
       dashboardQuery.data.batches,
     );
     const trend = buildTrend(dashboardQuery.data.trendSales);
-    const today = trend.at(-1);
+    const today = trend[trend.length - 1];
 
     return {
       ...inventory,

@@ -191,7 +191,7 @@ export function MedicineCatalog({ role }: MedicineCatalogProps) {
 
       return matchesSearch && matchesStock && matchesCategory && matchesStatus;
     });
-    return matches.toSorted((a, b) => {
+    return matches.sort((a, b) => {
       if (sort === "stock-low") return a.saleableStock - b.saleableStock;
       if (sort === "stock-high") return b.saleableStock - a.saleableStock;
       if (sort === "expiry") {

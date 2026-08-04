@@ -118,7 +118,7 @@ export function SupplierManagement() {
         supplier.email?.toLowerCase().includes(term);
       return matchesStatus && matchesSearch;
     });
-    return matches.toSorted((a, b) => {
+    return matches.sort((a, b) => {
       if (sort === "orders") return b.purchaseCount - a.purchaseCount;
       if (sort === "value") return b.totalPurchased - a.totalPurchased;
       return a.name.localeCompare(b.name);

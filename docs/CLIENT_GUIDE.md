@@ -157,5 +157,6 @@ AI demand forecasting unless the product scope is formally changed.
   cashier-first sales, demo data, dashboard refinement, dark mode, and sidebar
   account controls.
 - **Phase 24:** improved cross-device reliability with stale-update recovery,
-  safer private-browser behavior, temporary network retries, older-browser color
-  fallbacks, and clearer error and page-not-found recovery screens.
+  safer private-browser behavior, temporary network retries, compatible list
+  sorting, older-browser color fallbacks, and clearer error and page-not-found
+  recovery screens.

@@ -77,7 +77,7 @@ export function getNavigationItems(role: AppRole) {
         ? { ...item, label: "New Sale", primary: true }
         : item,
     )
-    .toSorted(
+    .sort(
       (a, b) =>
         cashierOrder.indexOf(a.href) - cashierOrder.indexOf(b.href),
     );

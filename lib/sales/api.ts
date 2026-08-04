@@ -19,7 +19,7 @@ function getSaleableBatches(batches: PosBatch[]) {
     .filter(
       (batch) => batch.current_quantity > 0 && batch.expiry_date >= date,
     )
-    .toSorted((a, b) => {
+    .sort((a, b) => {
       const expiryComparison = a.expiry_date.localeCompare(b.expiry_date);
       if (expiryComparison !== 0) return expiryComparison;
       return a.received_at.localeCompare(b.received_at);
